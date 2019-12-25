@@ -1,0 +1,8 @@
+body {
+  margin-left: 1em;
+}
+
+dt {
+  font-weight: bold;
+  display: inline-block;
+}
