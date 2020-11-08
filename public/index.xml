@@ -21,14 +21,5 @@
   Preface The Goal of Code Review  Main Goals Sub goals   Checklist  High priority Medium priority Low priority   How to avoid turning reviews into a burden  Control the size of reviews Who should be the reviewer? How to organize the discussion Criticism and personal offense   Advice for Reviewers Advice for Code Authors References    Preface The advantages of code reviews have long been emphasized.</description>
     </item>
     
-    <item>
-      <title>Test</title>
-      <link>https://osak.jp/blog/en/first-post/</link>
-      <pubDate>Mon, 26 Oct 2020 22:36:06 +0900</pubDate>
-      
-      <guid>https://osak.jp/blog/en/first-post/</guid>
-      <description>First post First post test</description>
-    </item>
-    
   </channel>
 </rss>

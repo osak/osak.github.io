@@ -13,7 +13,7 @@ pygmentscodefencesguesssyntax = true
 disqusShortname = "osa_k"
 
 [params]
-  author = "Osamu Koga"
+  author = "Osamu Koga (osa_k)"
   info = "Full Stack Software Engineer"
   description = "Osamu Koga's personal website"
   keywords = "blog,developer,personal"
