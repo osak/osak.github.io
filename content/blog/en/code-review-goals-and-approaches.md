@@ -5,24 +5,28 @@ date: 2020-11-08T16:03:26+09:00
 draft: false
 ---
 
+This is a translation of [my original blog post](https://osak.hatenablog.jp/entry/code-review-objectives-and-howto) written in Japanese. Baseline translation was powered by [DeepL Translate](https://www.deepl.com/en/translator).
+
+----
+
 {{< toc >}}
 
-## Prologue
+## Preface
 
 The advantages of code reviews have long been emphasized. However, in many cases, code reviews are done without understanding the purpose and main focus [6]. Reviews without clearly defined purposes will eventually become a boring, valueless, and time-consuming ritual for just getting an approval stamp.
 
-I even had not really thought about the purpose of code review. I used to simply think that code reviews are necessary to point out mistakes and possible improvements because humans are to make mistakes and carelessly overlook nice solutions. Such a naive understanding would work, and actually had worked, as long as there are not many committers in the project. However, as the number of committers increases, the negative side of not having a clearly written purpose of code reviews gradually becomes a pain. For example: is a tiny improvement worth pointing out in review? How to resolve a conflict when multiple reviewers don’t agree with each other's opinions? What if a code author stubbornly refuses to follow advice from reviewers?
+I even had not really thought about the purpose of code review. I used to simply think that code reviews are needed to point out mistakes and possible improvements because humans are to make mistakes and carelessly overlook nice solutions. Such a naive understanding would work, and actually had worked, as long as there are not many committers in the project. However, as the number of committers increases, the negative side of not having a clearly written purpose of code reviews gradually becomes a pain. For example: is a tiny improvement worth pointing out in review? How to resolve a conflict when multiple reviewers don’t agree with each other's opinions? What if a code author stubbornly refuses to follow advice from reviewers?
 
 In this article, I will revisit the purpose of code review. Then I will summarize some of the key ideas for achieving that purpose. Some of these insights are based on my own experience, whereas others are borrowed from documents available on the Internet. See appendix for a list of websites and other resources that were particularly helpful in writing this article.
 
 If you would like to read other references in addition to this article, I recommend you to read [Code Review Best Practices](https://medium.com/palantir/code-review-best-practices-19e02780015f) [3] for the first thing. It is a very good summary of the code review process in general and it also covers some details that I omitted in my article. If you have more time, then [eng-practices | How to do a code review](https://google.github.io/eng-practices/review/reviewer/) [1] and [eng-practices | The CL author's guide to getting through code review](https://google.github.io/eng-practices/review/developer/) [2] are also great articles to read.
 
 
-## The Goal of Code Reviews
+## The Goal of Code Review
 ### Main Goals
 
-* To ensure that at least one person, who is not the commit author, can maintain the merged code.
-* To reach a consensus on the implementation. The consensus includes every aspect of code -  parity between a feature specification and implementation, consistency with existing code, ease of maintenance, coding style, and so on.
+* Ensure that at least one person, who is not the commit author, can maintain the merged code.
+* Reach a consensus on the implementation. The consensus includes every aspect of code -  parity between a feature specification and implementation, consistency with existing code, ease of maintenance, coding style, and so on.
 
 The main purpose of the code review is to help other team members understand the code you wrote [1][3][7]. Even the code author often forgets the details of the code after a while and has no choice other than reading the code again. If others have trouble with reading and understanding your code now, it won't be understood even in the future. The code fallen into this status is not only quite difficult to extend but also is a huge debt on the system stability - no one could tell if the code is affected by changes in other places, which means that the code would break while nobody is aware of it.
 
@@ -33,23 +37,22 @@ Note that I’m not suggesting that you should not point out bugs. However, I wo
 * It has been said that bugs make up only 15% of all review comments [5] and that many bugs are missed in reviews [4][5].
 * Increasing the coverage of automated tests would be more effective in the medium and long term for capturing bugs.
 
-
-### Minor Objectives
+### Sub goals
 
 The concrete way to achieve the major objective depends on various factors including project, team size, and company culture. I suggest one minor objective here, which is likely a part of the major objective in most situations.
 
-The code should not (significantly) reduce the overall reliability of the system.
-Google's eng-practices document [1] asserts that "Don't accept CLs that degrade the code health of the system". However, a slight loss of reliability is often acceptable as a trade-off for development velocity. The threshold strongly depends on the culture of the team and the project.
-Test coverage and code complexity are indicators of reliability.
+* The code should not (significantly) reduce the overall reliability of the system.
+  * Google's eng-practices document [1] asserts that "Don't accept CLs that degrade the code health of the system". However, a slight loss of reliability is often acceptable as a trade-off for development velocity. The threshold strongly depends on the culture of the team and the project.
+  * Test coverage and code complexity are indicators of reliability.
 
 
 ## Checklist
 
 When reviewing the code, a checklist is useful to make sure that nothing is overlooked [8]. It should be used with careful attention to the following points:
 
-* Avoid considering checkpoints of lower priority until you have identified all the high priority issues [1].
-* The lower priority review comments should look like so. For instance, prepend a comment with [nit] [1][3].
-* Even if low-priority review comments are not addressed, consider giving a go-sign taking into account the importance of the feature and time constraints.
+* Do not consider about lower priority items until you have identified all the high priority issues [1].
+* The low-priority review comments should look like so. For instance, prepend a comment with [nit] [1][3].
+* Even if some of the low-priority review comments are not addressed by the code author, consider to give a go-sign taking into account the importance of the feature and time constraints.
   * Low-priority items can usually be fixed later. Conversely, problems that are difficult to fix later should be classified as a high priority.
 
 ### High priority
