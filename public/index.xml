@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>osak.jp</title>
+    <link>https://osak.jp/</link>
+    <description>Recent content on osak.jp</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 26 Oct 2020 22:36:06 +0900</lastBuildDate>
+    
+	<atom:link href="https://osak.jp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Test</title>
+      <link>https://osak.jp/blog/en/first-post/</link>
+      <pubDate>Mon, 26 Oct 2020 22:36:06 +0900</pubDate>
+      
+      <guid>https://osak.jp/blog/en/first-post/</guid>
+      <description>First post First post test</description>
+    </item>
+    
+  </channel>
+</rss>
