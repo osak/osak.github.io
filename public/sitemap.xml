@@ -3,22 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://osak.jp/blog/en/</loc>
+    <loc>https://osak.jp/posts/en/</loc>
     <lastmod>2020-11-08T16:03:26+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://osak.jp/blog/</loc>
-    <lastmod>2020-11-08T16:03:26+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://osak.jp/blog/en/code-review-goals-and-approaches/</loc>
+    <loc>https://osak.jp/posts/en/code-review-goals-and-approaches/</loc>
     <lastmod>2020-11-08T16:03:26+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://osak.jp/</loc>
+    <lastmod>2020-11-08T16:03:26+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://osak.jp/posts/</loc>
     <lastmod>2020-11-08T16:03:26+09:00</lastmod>
   </url>
   
