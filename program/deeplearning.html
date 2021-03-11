@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | Deep Learning</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="deep-learning">Deep Learning</h2>
+
+<p>いろいろあって調べたのでメモしておく．</p>
+
+<h3 id="deep-learning-1">Deep Learningとは？</h3>
+
+<p>ニューラルネットを教師なしクラスタリングに使う技術．
+普通の機械学習では人間がデータの特徴抽出を行う必要があり，特徴の作り方に様々なノウハウがあるのだが，Deep
+Learningでは特徴抽出までニューラルネットが勝手に行なってしまう．
+たとえば，画像を大量に食わせると直線や円，特定の色の分布に反応するフィルタを必要なだけ勝手に覚えてくれる．</p>
+
+<h3 id="section">原理</h3>
+
+<p>auto-encoderというニューラルネットを多層につなげて構成されている．
+auto-encoderは2つのニューラルネットからなっており，入力 <code>x</code>
+を1つ目に通して <code>f(x)</code> として，これを2つ目に通して得た <code>g(f(x))</code> が <code>x</code>
+と一致するようにニューラルネットの結合重みを調整する．
+auto-encoderを多層につなげるのは，人間の視覚野がV1，V2，……の階層構造になっているのとだいたい同じと考えれば良い（単純な特徴抽出の結果をさらにニューラルネットに放り込み，複雑な情報処理を可能にする）．</p>
+
+<h3 id="section-1">規模</h3>
+
+<p>数万ニューロンをぐるぐる回すので，今の所はGPGPU必須ぽい．
+もっと少ないニューロン数で扱えないのかは謎．</p>
+
+<h3 id="section-2">参考資料</h3>
+
+<dl>
+  <dt><a href="http://research.preferred.jp/2012/11/deep-learning/">ニューラルネットの逆襲</a></dt>
+  <dd>PFIのブログ．Deep Learningについての情報がまとまっているので便利．</dd>
+  <dt><a href="http://www.image-net.org/challenges/LSVRC/2012/supervision.pdf">ImageNet Classification with Deep Convolutional Neural Networks</a></dt>
+  <dd>本家の人が作ったスライド．画像認識について基礎的な知識があれば理解できる程度には易しい．</dd>
+  <dt><a href="http://www.slideshare.net/takmin/building-highlevelfeatures">Building High-level Features Using Large Scale Unsupervised Learning</a></dt>
+  <dd>Deep Learningを日本語で解説したありがたい資料．わかりやすい．</dd>
+  <dt><a href="http://d.hatena.ne.jp/repose/20130508/1368020782">データマイニングコンペティションサイト Kaggle にも Deep Learning ブームがきてるかと思ったのでまとめる - 糞ネット弁慶</a></dt>
+  <dd>Deep Learningの人がKaggleで残したコメントを和訳している．面白い．</dd>
+</dl>
+
+ 
+    
+        <div id="kogarasi-program-deeplearning" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-10-17 02:38:57</p>
+</div>
+
+</body>
+</html>

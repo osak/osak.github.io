@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | MySQLの初期アカウント</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="mysql">MySQLの初期アカウント</h2>
+
+<p>MySQLをインストールして</p>
+
+<pre><code># mysql
+mysql&gt; GRANT ALL ON *.* TO myaccount IDENTIFIED BY 'hoge';
+</code></pre>
+
+<p>とかやってアカウントを作ったあと，myaccountで入ろうとすると</p>
+
+<pre><code>$ mysql -u myaccount -phoge
+ERROR 1045 (28000): Access denied for user 'myaccount'@'localhost' (using password: YES)
+</code></pre>
+
+<p>と言われて入れない．</p>
+
+<p>これはMySQLの初期値で’’@’localhost’等がユーザとして登録されており，こっちが優先されてしまうため．
+回避するためにはこれらのアカウントを消せばよい．</p>
+
+<pre><code>mysql&gt; DROP USER ''@'localhost'
+</code></pre>
+ 
+    
+        <div id="kogarasi-program-mysql_initial_account" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-10-17 02:38:57</p>
+</div>
+
+</body>
+</html>

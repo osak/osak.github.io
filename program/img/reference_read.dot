@@ -1,0 +1,15 @@
+digraph reference_read {
+    rankdir=LR;
+    code [shape=none];
+    subgraph cluster1 {
+        shape=box;
+        style=dashed;
+        color=black;
+        margin=30;
+        azusa [shape=box];
+    }
+
+    code -> azusa [label="①read"]
+    code -> azusa [label="ref", penwidth=5 weight=5];
+    azusa -> code [label="②return" labelangle=-40]
+}

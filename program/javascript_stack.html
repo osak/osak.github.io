@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | JavaScriptスタックで開発するときのメモ</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="javascript">JavaScriptスタックで開発するときのメモ</h2>
+
+<h3 id="angularjs">AngularJS</h3>
+<p>当たり前ではあるけど、<a href="https://docs.angularjs.org/tutorial">公式のチュートリアル</a>を一通り読んで試しておくとよい。</p>
+
+<p>開発に当たってのディレクトリ構成とか命名規則とかは https://github.com/angular/angular-seed を参考にしている。
+あとはGithubでAngularとかそれっぽいキーワードでリポジトリ検索かけるのもよさげ。</p>
+
+<p>ライブラリ。
+テスティングフレームワークは色々あってよくわからんので、とりあえずangular-seedが使っている Karma + Jasmine + Protractor でやってみている。</p>
+
+<p>インストール。
+よく知らないけど、ビュー側のロジックに関わるライブラリは<code>bower</code>というツールで管理するのが今風らしい。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ npm install -g bower
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>$ bower install angular angular-mocks --save
+</pre></div>
+</div>
+</div>
+
+<p><code>--save</code>を付けるとbower.jsonというファイルに依存関係として記録される。
+<code>bundler</code>でいうGemfileのようなものっぽい。</p>
+
+<h4 id="karma">Karma</h4>
+<p>ユニットテストとEnd-to-Endテストをまとめて管理してくれるフレームワークっぽい。
+ファイルの更新を監視してContinuous Integrationみたいな感じにもできる。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ node install karma
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>$ ./node_components/karma/bin/karma init
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span># 適当に色々答えると設定ファイルができる。後で簡単に編集できる。
+</pre></div>
+</div>
+</div>
+
+<p>karma.conf.jsのfilesには、テスト時にロードしておきたいファイルを書いておく。
+テスト対象のコード、テストコードの他に、angularとangular-mocksも書かないといけない。
+これを書かないとチュートリアルの通りに書いても動かなくてハマる。</p>
+
+<h4 id="jasmine">Jasmine</h4>
+<p>Karmaを入れたら勝手に入った。
+前述の通り、AngularJSで使う場合はangular-mocksを入れないと正常に動かないので注意。</p>
+
+<h4 id="protractor">Protractor</h4>
+<p>まだ書いてない。</p>
+
+<h3 id="section">テスト用サーバ</h3>
+<p>Pythonの<code>http.server</code>が便利。
+カレントディレクトリ以下のファイルをそのまんま読んで返すだけのサーバだけど、コマンド1発で上がる。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ python3 -m http.server
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  or
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>$ python2 -m SimpleHTTPServer
+</pre></div>
+</div>
+</div>
+ 
+    
+        <div id="kogarasi-program-javascript_stack" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2014-05-14 17:55:07</p>
+</div>
+
+</body>
+</html>

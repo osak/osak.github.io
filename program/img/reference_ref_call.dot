@@ -1,0 +1,18 @@
+digraph {
+    compound = true;
+    //rankdir=LR;
+    subgraph cluster1 {
+        label="main()"
+        ref [shape=none, label=""]
+        azusa [shape=box]
+        {rank=same ref -> azusa [penwidth=0 arrowhead=none]}
+    }
+
+    subgraph cluster2 {
+        label="f()"
+        ref_arg [shape=none, label=""];
+    }
+
+    azusa -> ref_arg [penwidth=5 label="arg" dir=back];
+    ref:w -> ref_arg:w [label="", style=invis];
+}

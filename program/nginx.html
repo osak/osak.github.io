@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | nginx</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="nginx">nginx</h2>
+
+<h3 id="nginxcgi">nginxでCGIを動かす</h3>
+
+<p>nginxはサーバ本体でCGIの実行をサポートしていない．
+ただ本当にCGIが使えないと不便なので，代わりにFastCGIにリクエストを飛ばす形でのサポートがある．</p>
+
+<h4 id="fastcgi">FastCGI</h4>
+
+<p>通常，CGIはリクエストされるごとにスクリプトを実行して結果を返すようになっているが，
+毎回インタプリタを起動するため大量のリクエストが来ると実行速度が遅くなるという問題がある．
+<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> <a href="http://www.fastcgi.com/drupal/">FastCGI</a>
+はCGIプロセスをサービス化しておき，ソケット経由でリクエストを受理して結果を返すようにするシステムである．
+こうすることでWebサーバは毎回CGIのプロセスを立ちあげなくて済み，スループットが向上する．
+また，プロセスを分離することでセキュリティの向上，Webサーバのアーキテクチャからの独立などの効果もある．</p>
+
+<p>FastCGIサービスを作るには</p>
+
+<blockquote>
+  <ul>
+    <li><a href="https://wiki.archlinux.org/index.php/Nginx#PHP_implementation">php-fpmを使う</a></li>
+    <li><a href="https://wiki.archlinux.org/index.php/Nginx#CGI_implementation">fcgiwrapを使う</a></li>
+    <li><a href="http://www.fastcgi.com/drupal/node/5">各言語のバインディングを使う</a></li>
+  </ul>
+</blockquote>
+
+<p>などの方法がある．
+最初の2つは通常のCGIスクリプトの前段にFastCGIサーバを置くもので，最後のものは最初からスタンドアロンなFastCGIサーバとして動くスクリプトを作るものである．
+ここでは，fcgiwrapを使う方法について説明する． <sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> <sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup></p>
+
+<h4 id="cgi">CGIに飛ばす設定</h4>
+
+<p>設定は <a href="https://wiki.archlinux.org/index.php/Nginx#CGI_implementation">https://wiki.archlinux.org/index.php/Nginx#CGI_implementation</a>
+の通りに行えばよい． まずfcgiwrapサービスを起動しておく．</p>
+
+<pre><code># systemctl start fcgiwrap.service
+</code></pre>
+
+<p>次にnginxで，CGIを動かしたいパスに対してfastcgiへリレーする設定を書く．
+以下の設定では，ApacheのUserDirっぽい挙動を再現している（単なる趣味）．
+FastCGIに使えるディレクティブは
+<a href="http://wiki.nginx.org/HttpFastcgiModule">http://wiki.nginx.org/HttpFastcgiModule</a> にあるが， 基本的には <code>root</code>
+なり <code>alias</code> で読み込むファイルのパスを得られるようにしてから
+<code>fastcgi.conf</code> を <code>include</code> すれば良い． <code>root</code> を使った設定なら
+<code>fastcgi.conf</code> でよしなに処理してくれるが， <code>alias</code>
+を使うとうまく行かないので <code>SCRIPT_FILENAME</code>
+を自分で設定してやる必要がある．</p>
+
+<pre><code>location ~ ^/~(.+?)/(.*\.fcgi)$ {
+    alias /home/$1/public_html/$2;
+    fastcgi_pass unix:/var/run/fcgiwrap.sock;
+    fastcgi_param SCRIPT_FILENAME $request_filename;
+    include fastcgi.conf;
+}
+</code></pre>
+
+<p>これで自作のCGIスクリプトの拡張子をfcgiにしてアクセスすることで，nginxからCGIを呼び出すことができるようになる．</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>別にCGIはスクリプト言語でなくてもいいのだが，なんにせよプロセス生成のコストは毎回かかるので嬉しくない． <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>最初はHaskellのバインディングを使っていたのだが，うまく動かなかったので諦めた． <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>fcgiwrapはリクエストごとにCGIの実行プロセスをforkしているので，速度面での改善はあまり期待できないと思われる． <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+ 
+    
+        <div id="kogarasi-program-nginx" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-10-17 02:38:57</p>
+</div>
+
+</body>
+</html>

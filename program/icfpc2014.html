@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | ICFPC2014 Write-up</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="icfpc2014-write-up">ICFPC2014 Write-up</h2>
+
+<p>From 2014/07/25 to 2014/07/28 (in Japan Standard Time) I participated in ICFPC2014 with @Mi_Sawa and @camypaper.
+Our team name is “Kokoro Pyon-pyon”, stands for lyrics of Japanese animation’s opening theme.</p>
+
+<p>Our repository: <a href="https://github.com/osak/ICFPC2014">https://github.com/osak/ICFPC2014</a></p>
+
+<p><img src="img/icfpc2014_1.png" alt="" />
+<img src="img/icfpc2014_2.png" alt="" /></p>
+
+<h3 id="st-day">1st day</h3>
+<p>As soon as it got 21:00, I started to read the problem.
+The main problem was clear: writing the AI for Pacman.
+Of cource, since this is ICFPC, the whole problem would never be such simple.</p>
+
+<p>Further investigation reveals that the AI should be written for strange architecture, named “GCC” and “GHC”
+(Hmm, I think I’ve heard those names somewhere else ;).
+I did not know “GCC” was so-called “SECD machine” at that time, though, rough surveillance into the specification was enough
+for me to see through that this is kind of a Lisp machine.
+It appearently seemed that writing assembly by hand is so hard and implementing Lisp on that machine is fairly reasonable, 
+therefore, we decided to follow that way.</p>
+
+<p>It was bit harder to understand detail of rules and specification of “GCC”, especially the behaviour of “RAP” and “TAP”
+instructions.
+When I recognize those details and implement just the parser of Scheme-like language (I named it “rabbit” and the compiler is “chino”,
+which stands for the charactor of the animation),
+it was already 4:00 and good time to sleep.</p>
+
+<p>Parallel to me, @camypaper was creating a maze generator program in C#.</p>
+
+<h3 id="nd-day">2nd day</h3>
+<p>I woke up at 11:00 and go straight to @camypaper’s house and hand in a book “Programming Gauche” to @Mi_Sawa.
+Discussing with @Mi_Sawa, I proceeded to implement compiler of Rabbit-lang, but got stucked in how to implement “let” operation.
+It seemed “RAP” instruction is capable to construct “let”, though, my implementation didn’t work so well.
+Googling around the web and use “Lisp machine RAP” as a query, finally I got to find out “GCC” was actually “SECD machine” and
+how to implement “let” and “letrec” in this architecture. Phew.</p>
+
+<p>The lightning round was nearly over when my implementation was done.
+@Mi_Sawa was writing “GCC” assembly by hand and succeeded to produce pseudo-random number generator, so we decided to submit
+completely random walking AI for the lightning round.</p>
+
+<p>After having a supper and taking some rest, we started to write AI in our Rabbit-lang and
+approached to additional tasks, that is, writing ghost AI.
+The ghost AI was run on “GHC” architecture, which seems like general 8-bit microprocessor.
+It seemed fairly ordinal architecture (remeber there was “GCC” at opposite side!), we can throw this task to @camypaper completely
+with providing simple preprocessor just to handle constants and labels (I named it “mofu” and compiler is “tippy”),
+to keep I and @Mi_Sawa focusing on “GCC”.</p>
+
+<p>While I was fixing severe bug (related to self-recursive function) and improving Rabbit-lang compiler,
+@Mi_Sawa <a href="https://github.com/osak/ICFPC2014/commit/85ea6d23907a8c46932dbfe16c5f4b9ac16a8288">implemented binary tree</a>
+on Rabbit-lang, and @camypaper <a href="https://github.com/osak/ICFPC2014/commit/0a13b5c1596172a0fad9c65db87651dc82a6b39b">wrote a ghost AI</a>.</p>
+
+<p>@Mi_Sawa said he was aiming to implement array as binary tree.
+He also said this method enables to perform breadth-first search.
+I agreed it is theoretically possible, but I doubted if it could be implemented correctly on this ad-hoc language.</p>
+
+<h3 id="rd-day">3rd day</h3>
+<p>When I woke up at 11:30, @camypaper had been writing some code in Mofu-lang and reported a bug.
+My 3rd day was beginning with bug fix.</p>
+
+<p>I was improving Rabbit-lang compiler such that it prints line number and context on error for several hours.
+Implementing compiler and improving tools for users are much interesting than writing AI for me.
+@Mi_Sawa was writing player AI and @camypaper was writing enemy AI.</p>
+
+<p>After having a little late lunch (about 15:00), since major bug was almost fixed, I started to write my own AI.
+While I was writing the AI, @camypaper releases a <a href="https://github.com/osak/ICFPC2014/commit/12499a34e9f637ba4a14fd9c96c957c1e577cb95">ghost AI which traces player’s movement</a>. Amazing.
+Several minutes later, then @Mi_Sawa achieved to <a href="https://github.com/osak/ICFPC2014/commit/47da2269ff586021f94f5d89555ed2c2c391ab6f">implement breadth-first search on Rabbit-lang</a>. Amaing again!</p>
+
+<p>Spending some hours to debugging, <a href="https://github.com/osak/ICFPC2014/commit/6c692604c46f3a38828f05c20cf2153c8acfde53">my simple AI was finally complete</a>.
+It was so simple that just seek four neighbors and goes to pill-containing cell. That’s all.
+Obviously @Mi_Sawa’s AI was much smarter, though we couldn’t confirm because JavaScript simulator was painfully slow
+(We hadn’t made simulator by own; we had thought JavaScript one is enough until at that time).</p>
+
+<p>Almost same time, <a href="https://github.com/osak/ICFPC2014/commit/9639116f7864c23ea499745916fbe1c8cdedbdbd">@camypaper’s ghost AI</a> was ready.
+We felt little tired (because almost all time woken up was spent for ICFPC!), so we decided to submit our code at this time and finish today’s work.</p>
+
+<h3 id="th-day">4th day</h3>
+<p>In this day, I had lab meeting from morning to noon.
+Fortunately I didn’t have to talk most of the meeting, so I tried to code simulator in Ruby.</p>
+
+<p>Working during the meeting and after that, the “GCC” simulator, named “rize”, was ready.
+Sequentially I wrote game simulator using “rize”, but when @Mi_Sawa’s code was tried on, it revealed Ruby is not so fast enough because
+at most 3M instructions were processed in just one turn.
+Why did I decided to implement this in Ruby? So stupid…</p>
+
+<p>Remaining time was about only 6 hours (and I had had another meeting), so there was not enough time for reimplementing in C++.
+I started to improve my AI, but it was not worked well.</p>
+
+<p>At one hour before contest finished, @Mi_Sawa made <a href="https://github.com/osak/ICFPC2014/commit/123c765f77ba7b62bec3dba66fb0bed111d842fd">his AI</a> clever enough to clear classic stage,
+and <a href="https://github.com/osak/ICFPC2014/commit/f6a257aad2b3f0e1b228d1b61534fc72d779f029">@camypaper’s ghost AI</a> was also strong enough.
+So we decided to submit them as final submission.</p>
+
+<h3 id="summary">Summary</h3>
+<p>Reading specification of machine and writing compiler was quite interesting, despite of first impression that writing Pacman AI on unfamilier architecture was painfully boring.
+Making support tools for team and improving according feedback was surely exciting.
+Though our rank will not be so high, the conest was worth enough to spending whole 72 hours.
+Thanks very much for ICFPC2014 organizers!</p>
+ 
+    
+        <div id="kogarasi-program-icfpc2014" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2014-07-30 00:05:02</p>
+</div>
+
+</body>
+</html>

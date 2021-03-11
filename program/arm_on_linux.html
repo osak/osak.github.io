@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | LinuxでSTM32開発</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="linuxstm32">LinuxでSTM32開発</h2>
+
+<h3 id="section">概要</h3>
+
+<p>STM32というARMマイコンが最近流行りみたいなので，秋月で
+<a href="http://akizukidenshi.com/catalog/g/gM-04276/">STM32VLDiscovery</a>
+を買ってきて動かしてみました．
+この文書はとりあえずプログラムを開発して書き込み，動作確認をするまでの手順です．</p>
+
+<h3 id="section-1">コンパイラ</h3>
+
+<p>コンパイラはSourcery
+CodeBenchという開発環境の一部として提供されているarm-none-eabi-gccというのが主流のようです．
+Sourcery
+CodeBench自体は有料ソフトウェアですが，コンパイラだけは無償で提供されているのでそれを使います．</p>
+
+<p>[](http://www.mentor.com/embedded-software/sourcery-tools/sourcery-codebench/editions/lite-edition/)
+の下，ARM processorsと書いてあるとこのDownload the EABI
+Releaseというリンクを踏めばOKです．</p>
+
+<p>ユーザ登録を求められますが適当に登録すればダウンロードできます．
+落としたら適当な場所に展開して直下のbinディレクトリにパスを通しておきましょう．</p>
+
+<h3 id="st-link">ST-Link</h3>
+
+<p>STM32VLDiscoveryは評価ボードにST-Linkというライタ兼デバッガが付いているので，別途書き込み器は必要ありません．
+ただし，ソフトウェアはなんとかしないと書き込めないので，GitHubで開発されてる
+<a href="https://github.com/texane/stlink">stlink</a> を使います．</p>
+
+<p>こいつはgit cloneとかで落としてきてmakeすると出来上がりです．
+付属の49-stlinkv1.rulesは/etc/udev/rules.dに放り込んでおきましょう．
+これがないと一般ユーザからUSBにアクセスできないため，いちいちsudoとか叩く必要があってめんどいです．</p>
+
+<p>この状態でexample/blinkだけは動かせます．
+doc/tutorial/tutorial.pdfにgdbを使った動かし方が書いてあるので，試してみるのもいいでしょう．</p>
+
+<h3 id="stdperiph">STDPeriph</h3>
+
+<p>STM32の開発にはマイコンの機能を叩くためのライブラリが必要です．
+stlinkのexample/libs_stmに入っているのでそれを使うのが良いでしょう．
+ただしstlink付属のライブラリでは足りないファイルがあるため，後述する方法で補完する必要があります．</p>
+
+<p>ライブラリのビルドはlib_stm/buildでmakeするだけですが，このままだとコンパイルが通りません．
+エラーメッセージで検索すると
+<a href="http://old.nabble.com/-Bug-gas-13215--New%3A-ARM-Cortex-M3-strexh-strexb-instructions-with-same-registers-generates-error-td32516436.html">フォーラムが引っかかる</a>
+ので，core_cm3.cに以下のパッチを当てればいいことが分かります．</p>
+
+<p>~~~~ {.sourceCode .}
+— inc/core_support/core_cm3.c 2012-03-03 01:27:40.000000000 +0900
++++ inc/core_support/core_cm3_fixed.c   2012-03-03 01:53:40.000000000 +0900
+@@ -731,8 +731,8 @@
+  */
+ uint32_t __STREXB(uint8_t value, uint8_t *addr)
+ {
+-   uint32_t result=0;
+-<br />
++   //uint32_t result=0;
++   register uint32_t result asm(“r2”);
+    __ASM volatile (“strexb %0, %2, [%1]” : “=r” (result) : “r” (addr), “r” (value) );
+    return(result);
+ }
+@@ -748,8 +748,8 @@
+  */
+ uint32_t __STREXH(uint16_t value, uint16_t *addr)
+ {
+-   uint32_t result=0;
+-<br />
++   //uint32_t result=0;
++   register uint32_t result asm(“r2”);
+    __ASM volatile (“strexh %0, %2, [%1]” : “=r” (result) : “r” (addr), “r” (value) );
+    return(result);
+ }
+~~~~</p>
+
+<p>これを適用してもう一度makeすると，今度はちゃんと通ってlibstm32_stdperiph_f10x.aができているはずです．</p>
+
+<h3 id="startup">startupファイル</h3>
+
+<p>以上でライブラリは入手できたのですが，stlinkにはスタートアップルーチンがSTM32L1xx用の物しか入っていません．
+STM32VLDiscoveryに載っているのはSTM32F100RBなのでこれは使えません．
+したがって，別途スタートアップルーチンを手に入れる必要があります．</p>
+
+<p>まず，
+<a href="http://www.st-japan.co.jp/jp/mcu/subclass/1169.jsp">STMicroelectronicsのSTMF100xのページ</a>
+を開きます．
+えらい大量のマイコンがずらっと並んでいますが，中程にSTM32F100RBのリンクがあるのでとりあえずこれを踏みます．
+ここからDesign supportタブを開くと下の方にSTM32F10x standard peripheral
+libraryというのがあるのでこれを落とし，展開します．</p>
+
+<p>妙にディレクトリ階層が深いですが，必要なファイルは
+Libraries/CMCIS/CM3/DeviceSupport/ST/STM32F10x/startup/TrueSTUDIO/startup_stm32f10x_md_vl.s
+だけです． 実はこれがライブラリの正攻法の入手法です．
+参考までに，libs_stmに含まれているファイルは以下のものと同じです（Makefile等を除く）．</p>
+
+<ul>
+  <li>Libraries/STM32F10x_StdPeriph_Driver/inc/*</li>
+  <li>Libraries/STM32F10x_StdPeriph_Driver/src/*</li>
+  <li>Libraries/CMCIS/CM3/CoreSupport/*</li>
+  <li>Libraries/CMCIS/CM3/DeviceSupport/ST/STM32F10x/*.c</li>
+  <li>Libraries/CMCIS/CM3/DeviceSupport/ST/STM32F10x/*.h</li>
+</ul>
+
+<h3 id="section-2">参考文献</h3>
+
+<p><a href="http://miqn.net/">マイコン徹底入門:STM32ではじめるARM/Cortex-M3組み込み開発</a>
+<a href="http://www.kikaiken.org/cgi/WikiSlicer/WikiSlicer.cgi?STM32">京大機械研のサイト</a></p>
+ 
+    
+        <div id="kogarasi-program-arm_on_linux" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-10-17 02:38:57</p>
+</div>
+
+</body>
+</html>

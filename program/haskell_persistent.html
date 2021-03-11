@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | Persistentについてメモ</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="persistent">Persistentについてメモ</h2>
+<p>このサイトのコメントシステムは実はHaskellで書かれていて、DB触る用のライブラリとしてPersistentを使っているのだが、
+結構クセがあって改修を加えるたびに細かい使い方を忘れているのでメモしておく。</p>
+
+<h3 id="persistent-1">Persistent内部で使われるデータ型</h3>
+<p>たとえば<code>Page</code>という型があったとして、</p>
+
+<ul>
+  <li><code>Page</code>は普段通りにdataで定義した感じの、指定したフィールドを持った型。</li>
+  <li><code>Entity Page</code>はPersistentのアクションが返してくる型。インスタンスはユニークな識別子によって識別される。</li>
+  <li><code>Key Page</code>は<code>Entity Page</code>がもっているユニークな識別子。いわゆるID。
+<code>PageId</code>という名前でも参照できる。</li>
+  <li><code>Entity Page</code>から<code>Page</code>を得たい場合、<code>entityVal</code>に渡せばよい。
+ただし、当然ながらここから<code>Entity Page</code>に戻すことはできない。</li>
+</ul>
+
+<p>注意点としては、IDは<code>Page</code>の一部ではなく<code>Entity Page</code>の一部として扱われるため、DBから引っ張ってきたものやupdateの結果など、
+<strong>IDが取得できる過程を経たものからしかIDは取れない</strong>。
+文章にすると当たり前っぽいが、Rubyなど動的型付けの言語に慣れてるとちょっとハマるかもしれない。</p>
+
+<p><code>Entity</code>周りは<a href="http://hackage.haskell.org/package/persistent-0.9.0.4/docs/Database-Persist-Store.html"><code>Database.Persist.Store</code></a>
+に定義がある。
+RailsでいうActiveModelみたいなものという認識。</p>
+
+<h3 id="export">Exportで指定できる名前とできない名前がある</h3>
+<p>Template Haskellで動的に生成される名前があるため、エクスポートする名前をホワイトリストで指定すると一部指定できないものがある。
+たとえば</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>[share mkPersist sqlSettings, mkMigrate &quot;migrateAll&quot;] [persistUpperCase|
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>Page
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>    slug String
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>    UniquePage slug
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>|]
+</pre></div>
+</div>
+</div>
+
+<p>のような定義があったとき、<code>Page</code>や<code>slug</code>は<code>module</code>節で見えているが、<code>UniquePage</code>は見えない。
+これに対処するためには、名前を指定しないで全部エクスポートするようにする。
+どうしてもエクスポートしたくないものがある場合、<code>hiding</code>指定でなんとかする。</p>
+
+<h4 id="section">原因</h4>
+<p>不明。Template Haskellの動作に関してはまったく分からない……。</p>
+
+<h3 id="section-1">モデル定義</h3>
+<p>普通のフレームワークだとモデル定義とモデルの操作を1つのファイルに切り出す（というかモデルのメソッドとして操作を定義するため、必然的にそうなる）が、
+Persistentではモデルを複数ファイルにするとMigrationがうまく動かなくなる。
+たとえば</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>Page
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>    slug String
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>    UniquePage slug
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>Comment
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>    body String
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>    pageId PageId Eq
+</pre></div>
+</div>
+</div>
+
+<p>のような定義があったとき、<code>Page</code>と<code>Comment</code>を別々のファイルにすることはできるが、MigrationのときにCommentがPageの定義を見つけられなくてエラーになる。</p>
+
+<p>型の定義だけをひとつのファイルにまとめ、操作をファイルごとにばらすとうまく行く。
+（Yesodだとconfig/modelsというファイルに一括で書くのが普通っぽい？）</p>
+ 
+    
+        <div id="kogarasi-program-haskell_persistent" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2014-03-08 03:06:49</p>
+</div>
+
+</body>
+</html>

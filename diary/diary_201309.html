@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | 日記 - 2013-09</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../program/index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    
+<div id="diary-header">
+<h2>日記 - 2013-09</h2>
+
+  <div class="prev-month"><a href="diary_201308.html">&lt;前の月へ</a></div>
+
+
+  <div class="next-month"><a href="diary_201310.html">次の月へ&gt;</a></div>
+
+<ul class="diary-menu horizontal-list">
+  <li class="horizontal-list-item"><a href="diary_list.html">日記一覧</a></li>
+  <li class="horizontal-list-item"><a href="./rss">RSS1.0</a></li>
+</ul>
+</div>
+<div class="diary-articles">
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130911" class="diary-date"><a href="diary_201309.html#20130911">2013-09-11</a></h2>
+    <h3 id="section">関数型言語とは</h3>
+<p>関数型言語とは何か、ということをTwitterでちょっと考えました。</p>
+
+<p>関数型言語がどういうものか教えてほしいと言われて、一番最初に思いついた例えは</p>
+
+<blockquote>
+  <p><a href="https://twitter.com/osa_k/status/377796531984039936">線型変換ABC……Zvを計算したいとき、(ABC……Z)vと考えるのが関数型、A(B(C(……(Zv)……)))と考えるのが手続き型</a></p>
+</blockquote>
+
+<p>というものでした（この時点では感覚で言っていて、あまり厳密に考えていない）。<br />
+その後で、具体的に何ができれば関数型と言ってよいのかというのを把握できていないことに気付きました。
+強力な静的型推論でバグが見つかるというのは、関数型のメリットとして@tanakhさんを始め様々な人が言っていますが、
+そもそも型と呼べる構造をもたないLispや、静的に型の付かないErlangも一般的には関数型と呼ばれていることを考えると不十分です。<br />
+また、<a href="http://ja.wikipedia.org/wiki/関数型言語">Wikipediaの「関数型言語」</a>では、関数型の必要条件として第一級関数を挙げていますが、
+最近の言語であればPerl、Ruby、JavaScriptなど、大抵は関数を第一級として扱えるため、十分条件としては不適当に思えます。<br />
+もうひとつ、関数型言語に対してもっているイメージを書き出してみると</p>
+
+<blockquote>
+  <p><a href="https://twitter.com/osa_k/status/377808529744494594">処理が上から下に流れるという制約を考えず、関数適用の繰り返しだけで表すと関数型、みたいに思っている気がする</a></p>
+</blockquote>
+
+<p>というものもありました。
+これは、手続き型では処理の流れを上から下へ、時間的に順番に実行されるという前提で書き下していくのに対し、
+関数型ではそういう依存性は関数適用の順番だけで表現しているな、と思ったものです。</p>
+
+<p>そんなことをTwitterで言っていたら、@omasanoriさんに捕捉されて、助言をいただきました。</p>
+
+<blockquote>
+  <p><a href="https://twitter.com/omasanori/statuses/377804731273740288">WP-jaが書いている通り、最低条件は関数を第一級の値として扱えること（これがないと、高階関数や関数合成に支障が出る）ではないかと思います。</a></p>
+</blockquote>
+
+<p>で、上述した不適当さについては、</p>
+
+<blockquote>
+  <p><a href="https://twitter.com/omasanori/statuses/377808018500755456">実際にそう言っている人もいます。しかし、仮にJavaScriptを関数型言語と分類したとしても、JavaScriptで関数型プログラミングを行うかどうかは別の話ですね。</a></p>
+</blockquote>
+
+<p>とのことでした。
+どうやら、第一級関数の存在に着目して関数型を定義する流派もあるようです。<br />
+また、別の見方として</p>
+
+<blockquote>
+  <p><a href="https://twitter.com/omasanori/statuses/377809615171649536">また、先ほどは取り上げませんでしたが「計算モデルとしてラムダ計算等を採用しているかどうか」という分類基準があり、それを考慮するとLISPが関数型言語でPerl・Ruby・JavaScriptが関数型言語でないという結論を導けますが、これは理論的なアプローチですね。</a></p>
+</blockquote>
+
+<p>という基準の指摘もありました（今Wikipediaを見返したら、λ計算についても言及してありますね……）。
+明確に概念として整理できていなかったのですが、最初に挙げた例えはβ簡約に他ならず、まさにこの基準に基づいたものですね。</p>
+
+<p>ということで、これからは「λ計算による計算モデルを採用している言語」と言うことにしようと思います。
+@omasanoriさん、ありがとうございました。</p>
+
+<h3 id="project-euler">Project Euler</h3>
+<p>215を解きました。これも典型的DP。</p>
+
+    <div id="kogarasi-diary_201309-html-20130911" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130907" class="diary-date"><a href="diary_201309.html#20130907">2013-09-07</a></h2>
+    <h3 id="section">焼肉</h3>
+<p>9/6の話ですが、<a href="http://tada29.com/">ただ肉</a>というイベントで、<a href="http://crooz.co.jp/">CROOZ</a>という企業のスポンサーで焼肉を食べてきました。
+見つけたのはTwitterで、プログラマの学生なら誰でもタダで焼肉が食べられる！という触れ込みに釣られました。</p>
+
+<p><img src="img/tadaniku_meat.jpg" alt="" /><br />
+肉！</p>
+
+<p><img src="img/tadaniku_beer.jpg" alt="" /><br />
+ビール！</p>
+
+<p><img src="img/tadaniku_reimen.jpg" alt="" /><br />
+冷麺！</p>
+
+<p>とてもおいしかったです。ありがたや～<br />
+イベントの詳しい成り立ちなどは知らなかったんですが、どうもベンチャーのスタートアップ周辺と繋がりが深いらしく、学生で起業している人も参加者の中に数人いました。
+そういった起業の話や、研究の話など、色々と面白い話ができて楽しかったです。</p>
+
+<p>あと、ICPCでもらったIBMの名札入れを着けてたら、「IBMの人ですか？」と数人に聞かれました。
+ICPC WFに行った話もそれなりにウケていたっぽいし、話下手な自分としてはこういうの便利だなぁと思いました。</p>
+
+<h4 id="euler">Euler</h4>
+<p>188と191を解いて、Decimation Iを取得しました。
+DPは楽でよい。</p>
+
+<h4 id="srm-590">SRM 590</h4>
+<p>o– +1 243.56pts / 132nd<br />
+Easyを解いて、Medの探索解を落として、黄色に復帰しました。
+Medも解きたかったけど、解法をTwitterで見てもコードにうまく落とせなかったので無理だった感……。</p>
+
+    <div id="kogarasi-diary_201309-html-20130907" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130903" class="diary-date"><a href="diary_201309.html#20130903">2013-09-03</a></h2>
+    <h3 id="php">PHP</h3>
+<p>バイトでPHPを書きました。
+同じような機能をもつクラスをたくさん作る案件だったので、mixin使えれば楽なのになーと思いつつガシガシ書いていました。
+どうやら<a href="http://php.net/manual/ja/language.oop5.traits.php">5.4.0以降ならtraitsという名前でmixinっぽいのが使える</a>みたいですね。<br />
+あと、error_reporting(-1)すると、syntax error等で落ちた時のログが詳細になって嬉しい感じでした。</p>
+
+<p>Project Eulerは134を解いて、Daring Dozenをもらいました。
+このへんの領域は2桁番号の問題と違って、4000solvedくらいでも結構簡単なのがありますね。</p>
+
+<p>そういえば、昨日見つけたRubyの問題はやっぱりバグだったようです。
+<a href="http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-list/49576">ささださんに拾われて</a>、<a href="http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-list/49577">あっという間に修正されていました</a>。</p>
+
+
+    <div id="kogarasi-diary_201309-html-20130903" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130902" class="diary-date"><a href="diary_201309.html#20130902">2013-09-02</a></h2>
+    <h3 id="section">進捗</h3>
+<p>Project Eulerで102, 104, 112, 113, 124を解いて100solvedを達成しました。
+とりあえずみんなが解いている問題を解いていく方針。<br />
+112と113はDigit DPの典型問題で楽しかったです。</p>
+
+<p>あと、メモ化再帰にmemoizeというgemを使っていたんですが、なんかRubyのバグっぽい挙動を踏んでRuntimeErrorを吐いていたので
+ruby-listに<a href="http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-list/49575">質問を投げました</a>。</p>
+
+
+    <div id="kogarasi-diary_201309-html-20130902" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130901" class="diary-date"><a href="diary_201309.html#20130901">2013-09-01</a></h2>
+    <h3 id="dp">DPコンテスト</h3>
+<p>飲み会をしていたので参加できなかった、<a href="http://tdpc.contest.atcoder.jp/">Typical DP Contest</a>を解いていました。
+Typicalと言いつつ、個人的にはかなり難しく感じました……。<br />
+解けなかった（解説を見て解いた）ものでは<a href="http://tdpc.contest.atcoder.jp/tasks/tdpc_semiexp">F - 準急</a>と<a href="http://tdpc.contest.atcoder.jp/tasks/tdpc_cat">L - 猫</a>
+が重要そうなので、しっかり復習したいところです。<br />
+コードは<a href="https://github.com/osak/Contest/tree/master/AtCoder/TypicalDP">Github</a>に置いているので、参考にしたい人は見てください。
+簡単な解説も付けています。</p>
+
+<p>Eulerは97と99を解きました。1日中DP解いてて疲れたので、超簡単な2問。</p>
+
+    <div id="kogarasi-diary_201309-html-20130901" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+</div>
+<div id="diary-footer">
+
+  <div class="prev-month"><a href="diary_201308.html">&lt;前の月へ</a></div>
+
+
+  <div class="next-month"><a href="diary_201310.html">次の月へ&gt;</a></div>
+
+</div>
+ 
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-12-10 01:08:00 +0900</p>
+</div>
+
+</body>
+</html>

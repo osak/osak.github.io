@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | 日記 - 2013-10</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../program/index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    
+<div id="diary-header">
+<h2>日記 - 2013-10</h2>
+
+  <div class="prev-month"><a href="diary_201309.html">&lt;前の月へ</a></div>
+
+
+  <div class="next-month"><a href="diary_201311.html">次の月へ&gt;</a></div>
+
+<ul class="diary-menu horizontal-list">
+  <li class="horizontal-list-item"><a href="diary_list.html">日記一覧</a></li>
+  <li class="horizontal-list-item"><a href="./rss">RSS1.0</a></li>
+</ul>
+</div>
+<div class="diary-articles">
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20131027" class="diary-date"><a href="diary_201310.html#20131027">2013-10-27</a></h2>
+    <h3 id="section">まどか☆マギカ</h3>
+<p>劇場版まどか☆マギカ観てきました。<a href="../other/madoka_magica.html">感想</a>。
+とても良い話だった。</p>
+
+<p>色紙は杏さやでした。杏子かわいい！<br />
+<img src="img/madoka_magica.jpg" alt="" /></p>
+
+    <div id="kogarasi-diary_201310-html-20131027" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20131025" class="diary-date"><a href="diary_201310.html#20131025">2013-10-25</a></h2>
+    <h3 id="section">研究</h3>
+<p><a href="diary_201310.html#20131017">前回の記事</a>にツッコミが入ったので更新しました。</p>
+
+<p>なんかやりたいことは溜まってるんですが、研究してPOJ解いてアニメ観ると1日が終わっているのでなかなか進捗のない1週間でした。
+まあ、研究している分だけ良いとも言いますが。
+でも今やってる作業は、自分の研究に関わってくるかというと半々くらいのとこなので、手放しで喜べない感じもします。楽しいけど。</p>
+
+    <div id="kogarasi-diary_201310-html-20131025" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20131017" class="diary-date"><a href="diary_201310.html#20131017">2013-10-17</a></h2>
+    <h3 id="section">高速素因数分解</h3>
+<p>知ってしまえば当たり前の話ですが、意外と蟻本にも載っていない話なので。</p>
+
+<p>しばらく前に、Project Eulerの問題で素因数分解をする必要に迫られました。
+素因数分解をするには、当然ながら素数を求めなくてはいけません。
+これは<a href="http://ja.wikipedia.org/wiki/エラトステネスの篩">エラトステネスの篩</a>などの簡単なアルゴリズムで、比較的高速に列挙することができます。</p>
+
+<p>問題はこの後、ある整数Nが与えられたとき、これを素因数分解するにはどうするか。
+ぱっと思いつくのは、さっき求めた素数リストで順にNを割っていく方法です。
+N以下の素数の個数は、<a href="http://ja.wikipedia.org/wiki/素数定理">素数定理</a>より <code>N/ln(N)</code> 個くらいで、素因数の個数は高々<code>ln(N)</code>個であることを合わせて考えると
+<code>O(N/ln(N) + ln(N))</code> で素因数分解ができます。
+<del>しかしよく考えると、素数を列挙しておかなくても2から順番に試し割りしていけば <code>O(N + ln(N))</code> で素因数分解ができるので、期待するほど速くもありません……。（訂正:2013/10/07 04:42）</del>
+また、実際には小さい素数の積で表せてしまう数も多いので、ループ回数自体は <code>N/ln(N)</code> 回よりもずっと少ないことが期待できます。</p>
+
+<p>それでも、大量の数を素因数分解しようとすると結構な時間がかかってしまいます。
+そこで、エラトステネスの篩の途中で、それぞれの数について最小の素因数を覚えておくようにします。
+こうすると、任意のNについて最小の素因数が <code>O(1)</code> で求められるので、Nをこの素因数で割って、また最小の素因数を探して……と繰り返していくと、
+さっきのアルゴリズムで「ハズレ」の素数を引かないのと同じことになるので <code>O(ln(N))</code> くらいで素因数分解ができるようになります。爆速！</p>
+
+<p>というわけで、実際に計測してみました。
+2から<code>MAX</code>までの整数を素因数分解して、全ての素因数を合計するコードです。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#579">#include</span> <span style="color:#B44;font-weight:bold">&lt;iostream&gt;</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span><span style="color:#579">#include</span> <span style="color:#B44;font-weight:bold">&lt;ctime&gt;</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span><span style="color:#579">#include</span> <span style="color:#B44;font-weight:bold">&lt;vector&gt;</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span><span style="color:#579">#include</span> <span style="color:#B44;font-weight:bold">&lt;algorithm&gt;</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span><span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> std;
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span><span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> MAX = <span style="color:#00D">10000000</span>;
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span><span style="color:#0a8;font-weight:bold">bool</span> is_prime[MAX+<span style="color:#00D">1</span>];
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span><span style="color:#0a8;font-weight:bold">int</span> min_factor[MAX+<span style="color:#00D">1</span>];
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>vector&lt;<span style="color:#0a8;font-weight:bold">int</span>&gt; primes;
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span><span style="color:#0a8;font-weight:bold">int</span> main() {
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>    <span style="color:#777">// Sieve of Eratosthenes</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>    fill_n(is_prime, MAX+<span style="color:#00D">1</span>, <span style="color:#069">true</span>);
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    is_prime[<span style="color:#00D">0</span>] = is_prime[<span style="color:#00D">1</span>] = <span style="color:#069">false</span>;
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>    min_factor[<span style="color:#00D">0</span>] = <span style="color:#00D">0</span>;
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>    min_factor[<span style="color:#00D">1</span>] = <span style="color:#00D">1</span>;
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>    <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">int</span> i = <span style="color:#00D">2</span>; i &lt;= MAX; ++i) {
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>        <span style="color:#080;font-weight:bold">if</span>(is_prime[i]) {
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>            min_factor[i] = i;
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>            primes.push_back(i);
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>            <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">long</span> <span style="color:#0a8;font-weight:bold">long</span> j = <span style="color:#080;font-weight:bold">static_cast</span>&lt;<span style="color:#0a8;font-weight:bold">long</span> <span style="color:#0a8;font-weight:bold">long</span>&gt;(i)*i; j &lt;= MAX; j += i) {
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>                is_prime[j] = <span style="color:#069">false</span>;
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>                <span style="color:#080;font-weight:bold">if</span>(min_factor[j] == <span style="color:#00D">0</span>) min_factor[j] = i;
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>            }
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>        }
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>    }
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>    <span style="color:#777">////////// Factoring by division loop //////////</span>
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>    {
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>        <span style="color:#0a8;font-weight:bold">long</span> <span style="color:#0a8;font-weight:bold">long</span> sum = <span style="color:#00D">0</span>;
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>        clock_t start = clock();
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>        <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">int</span> i = <span style="color:#00D">2</span>; i &lt;= MAX; ++i) {
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>            <span style="color:#0a8;font-weight:bold">int</span> tmp = i;
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>            <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">int</span> p : primes) {
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>                <span style="color:#080;font-weight:bold">while</span>(tmp % p == <span style="color:#00D">0</span>) {
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>                    sum += p;
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>                    tmp /= p;
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>                }
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>                <span style="color:#080;font-weight:bold">if</span>(tmp == <span style="color:#00D">1</span>) <span style="color:#080;font-weight:bold">break</span>;
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>                <span style="color:#080;font-weight:bold">if</span>(is_prime[tmp]) {
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>                    sum += tmp;
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>                    <span style="color:#080;font-weight:bold">break</span>;
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>                }
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>            }
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span>        }
+<span class="line-numbers"><a href="#n49" name="n49">49</a></span>        clock_t end = clock();
+<span class="line-numbers"><strong><a href="#n50" name="n50">50</a></strong></span>        cout &lt;&lt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Factoring by division loop:</span><span style="color:#710">&quot;</span></span> &lt;&lt; endl;
+<span class="line-numbers"><a href="#n51" name="n51">51</a></span>        cout &lt;&lt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#b0b">\t</span><span style="color:#D20">Value: </span><span style="color:#710">&quot;</span></span> &lt;&lt; sum &lt;&lt; endl;
+<span class="line-numbers"><a href="#n52" name="n52">52</a></span>        cout &lt;&lt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#b0b">\t</span><span style="color:#D20">Time: </span><span style="color:#710">&quot;</span></span> &lt;&lt; <span style="color:#080;font-weight:bold">static_cast</span>&lt;<span style="color:#0a8;font-weight:bold">double</span>&gt;(end-start) / CLOCKS_PER_SEC &lt;&lt; endl;
+<span class="line-numbers"><a href="#n53" name="n53">53</a></span>    }
+<span class="line-numbers"><a href="#n54" name="n54">54</a></span>    <span style="color:#777">////////// Factoring by min_factor //////////</span>
+<span class="line-numbers"><a href="#n55" name="n55">55</a></span>    {
+<span class="line-numbers"><a href="#n56" name="n56">56</a></span>        <span style="color:#0a8;font-weight:bold">long</span> <span style="color:#0a8;font-weight:bold">long</span> sum = <span style="color:#00D">0</span>;
+<span class="line-numbers"><a href="#n57" name="n57">57</a></span>        clock_t start = clock();
+<span class="line-numbers"><a href="#n58" name="n58">58</a></span>        <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">int</span> i = <span style="color:#00D">2</span>; i &lt;= MAX; ++i) {
+<span class="line-numbers"><a href="#n59" name="n59">59</a></span>            <span style="color:#0a8;font-weight:bold">int</span> tmp = i;
+<span class="line-numbers"><strong><a href="#n60" name="n60">60</a></strong></span>            <span style="color:#080;font-weight:bold">while</span>(tmp &gt; <span style="color:#00D">1</span>) {
+<span class="line-numbers"><a href="#n61" name="n61">61</a></span>                <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> fact = min_factor[tmp];
+<span class="line-numbers"><a href="#n62" name="n62">62</a></span>                sum += fact;
+<span class="line-numbers"><a href="#n63" name="n63">63</a></span>                tmp /= fact;
+<span class="line-numbers"><a href="#n64" name="n64">64</a></span>            }
+<span class="line-numbers"><a href="#n65" name="n65">65</a></span>        }
+<span class="line-numbers"><a href="#n66" name="n66">66</a></span>        clock_t end = clock();
+<span class="line-numbers"><a href="#n67" name="n67">67</a></span>        cout &lt;&lt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Factoring by min_factor:</span><span style="color:#710">&quot;</span></span> &lt;&lt; endl;
+<span class="line-numbers"><a href="#n68" name="n68">68</a></span>        cout &lt;&lt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#b0b">\t</span><span style="color:#D20">Value: </span><span style="color:#710">&quot;</span></span> &lt;&lt; sum &lt;&lt; endl;
+<span class="line-numbers"><a href="#n69" name="n69">69</a></span>        cout &lt;&lt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#b0b">\t</span><span style="color:#D20">Time: </span><span style="color:#710">&quot;</span></span> &lt;&lt; <span style="color:#080;font-weight:bold">static_cast</span>&lt;<span style="color:#0a8;font-weight:bold">double</span>&gt;(end-start) / CLOCKS_PER_SEC &lt;&lt; endl;
+<span class="line-numbers"><strong><a href="#n70" name="n70">70</a></strong></span>    }
+<span class="line-numbers"><a href="#n71" name="n71">71</a></span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#00D">0</span>;
+<span class="line-numbers"><a href="#n72" name="n72">72</a></span>}
+</pre></div>
+</div>
+</div>
+
+<p>結果：</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>N = 10000000 (1千万)
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>Factoring by division loop:
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>    Value: 5495532284181
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    Time: 1.21331
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>Factoring by min_factor:
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    Value: 5495532284181
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    Time: 0.384788
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>N = 100000000 (1億)
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>Factoring by division loop:
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>    Value: 476028748414934
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>    Time: 19.7341
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>Factoring by min_factor:
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>    Value: 476028748414934
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>    Time: 4.85803
+</pre></div>
+</div>
+</div>
+
+<p>素因数テーブルを使うと、<del>ケタ違いに（訂正:2013/10/17 04:42）</del>かなり速くなっていることが分かります。
+ということで、知らなかった人はぜひこの手法を覚えましょう。</p>
+
+<h4 id="section-1">2013-10-25追記</h4>
+<p>素数だけで試し割りをするときにはMAXまでの素数表を持つ必要がないので、上記のプログラムでは不公平だとコメントで指摘されました。
+ループ回数はsqrt(N)回くらいしか違わないのであまり効いてこなさそうですが、一応お互いにベストな条件で計測してみます。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#579">#include</span> <span style="color:#B44;font-weight:bold">&lt;iostream&gt;</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span><span style="color:#579">#include</span> <span style="color:#B44;font-weight:bold">&lt;ctime&gt;</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span><span style="color:#579">#include</span> <span style="color:#B44;font-weight:bold">&lt;vector&gt;</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span><span style="color:#579">#include</span> <span style="color:#B44;font-weight:bold">&lt;algorithm&gt;</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span><span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> std;
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span><span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> MAX = <span style="color:#00D">10000000</span>;
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span><span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> LIM = sqrt(MAX);
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span><span style="color:#0a8;font-weight:bold">bool</span> is_prime[MAX+<span style="color:#00D">1</span>];
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span><span style="color:#0a8;font-weight:bold">int</span> min_factor[MAX+<span style="color:#00D">1</span>];
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>vector&lt;<span style="color:#0a8;font-weight:bold">int</span>&gt; primes;
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span><span style="color:#088;font-weight:bold">void</span> division_loop() {
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>    fill_n(is_prime, MAX+<span style="color:#00D">1</span>, <span style="color:#069">true</span>);
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    is_prime[<span style="color:#00D">0</span>] = is_prime[<span style="color:#00D">1</span>] = <span style="color:#069">false</span>;
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>    <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">int</span> i = <span style="color:#00D">2</span>; i &lt;= LIM; ++i) {
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>        <span style="color:#080;font-weight:bold">if</span>(is_prime[i]) {
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>            primes.push_back(i);
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>            <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">long</span> <span style="color:#0a8;font-weight:bold">long</span> j = <span style="color:#080;font-weight:bold">static_cast</span>&lt;<span style="color:#0a8;font-weight:bold">long</span> <span style="color:#0a8;font-weight:bold">long</span>&gt;(i)*i; j &lt;= MAX; j += i) {
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>                is_prime[j] = <span style="color:#069">false</span>;
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>            }
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>        }
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>    }
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>    <span style="color:#777">////////// Factoring by division loop //////////</span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>    {
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>        <span style="color:#0a8;font-weight:bold">long</span> <span style="color:#0a8;font-weight:bold">long</span> sum = <span style="color:#00D">0</span>;
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>        <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">int</span> i = <span style="color:#00D">2</span>; i &lt;= MAX; ++i) {
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>            <span style="color:#0a8;font-weight:bold">int</span> tmp = i;
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>            <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">int</span> p : primes) {
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>                <span style="color:#080;font-weight:bold">while</span>(tmp % p == <span style="color:#00D">0</span>) {
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>                    sum += p;
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>                    tmp /= p;
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>                }
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>                <span style="color:#080;font-weight:bold">if</span>(tmp == <span style="color:#00D">1</span>) <span style="color:#080;font-weight:bold">break</span>;
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>                <span style="color:#080;font-weight:bold">if</span>(is_prime[tmp]) {
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>                    sum += tmp;
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>                    <span style="color:#080;font-weight:bold">break</span>;
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>                }
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>            }
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>        }
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>        cout &lt;&lt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">division_loop: </span><span style="color:#710">&quot;</span></span> &lt;&lt; sum &lt;&lt; endl;
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>    }
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>}
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span><span style="color:#088;font-weight:bold">void</span> min_factor_loop() {
+<span class="line-numbers"><a href="#n49" name="n49">49</a></span>    fill_n(is_prime, MAX+<span style="color:#00D">1</span>, <span style="color:#069">true</span>);
+<span class="line-numbers"><strong><a href="#n50" name="n50">50</a></strong></span>    is_prime[<span style="color:#00D">0</span>] = is_prime[<span style="color:#00D">1</span>] = <span style="color:#069">false</span>;
+<span class="line-numbers"><a href="#n51" name="n51">51</a></span>    min_factor[<span style="color:#00D">0</span>] = <span style="color:#00D">0</span>;
+<span class="line-numbers"><a href="#n52" name="n52">52</a></span>    min_factor[<span style="color:#00D">1</span>] = <span style="color:#00D">1</span>;
+<span class="line-numbers"><a href="#n53" name="n53">53</a></span>    <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">int</span> i = <span style="color:#00D">2</span>; i &lt;= MAX; ++i) {
+<span class="line-numbers"><a href="#n54" name="n54">54</a></span>        <span style="color:#080;font-weight:bold">if</span>(is_prime[i]) {
+<span class="line-numbers"><a href="#n55" name="n55">55</a></span>            min_factor[i] = i;
+<span class="line-numbers"><a href="#n56" name="n56">56</a></span>            <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">long</span> <span style="color:#0a8;font-weight:bold">long</span> j = <span style="color:#080;font-weight:bold">static_cast</span>&lt;<span style="color:#0a8;font-weight:bold">long</span> <span style="color:#0a8;font-weight:bold">long</span>&gt;(i)*i; j &lt;= MAX; j += i) {
+<span class="line-numbers"><a href="#n57" name="n57">57</a></span>                is_prime[j] = <span style="color:#069">false</span>;
+<span class="line-numbers"><a href="#n58" name="n58">58</a></span>                <span style="color:#080;font-weight:bold">if</span>(min_factor[j] == <span style="color:#00D">0</span>) min_factor[j] = i;
+<span class="line-numbers"><a href="#n59" name="n59">59</a></span>            }
+<span class="line-numbers"><strong><a href="#n60" name="n60">60</a></strong></span>        }
+<span class="line-numbers"><a href="#n61" name="n61">61</a></span>    }
+<span class="line-numbers"><a href="#n62" name="n62">62</a></span>
+<span class="line-numbers"><a href="#n63" name="n63">63</a></span>    <span style="color:#777">////////// Factoring by min_factor //////////</span>
+<span class="line-numbers"><a href="#n64" name="n64">64</a></span>    {
+<span class="line-numbers"><a href="#n65" name="n65">65</a></span>        <span style="color:#0a8;font-weight:bold">long</span> <span style="color:#0a8;font-weight:bold">long</span> sum = <span style="color:#00D">0</span>;
+<span class="line-numbers"><a href="#n66" name="n66">66</a></span>        <span style="color:#080;font-weight:bold">for</span>(<span style="color:#0a8;font-weight:bold">int</span> i = <span style="color:#00D">2</span>; i &lt;= MAX; ++i) {
+<span class="line-numbers"><a href="#n67" name="n67">67</a></span>            <span style="color:#0a8;font-weight:bold">int</span> tmp = i;
+<span class="line-numbers"><a href="#n68" name="n68">68</a></span>            <span style="color:#080;font-weight:bold">while</span>(tmp &gt; <span style="color:#00D">1</span>) {
+<span class="line-numbers"><a href="#n69" name="n69">69</a></span>                <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> fact = min_factor[tmp];
+<span class="line-numbers"><strong><a href="#n70" name="n70">70</a></strong></span>                sum += fact;
+<span class="line-numbers"><a href="#n71" name="n71">71</a></span>                tmp /= fact;
+<span class="line-numbers"><a href="#n72" name="n72">72</a></span>            }
+<span class="line-numbers"><a href="#n73" name="n73">73</a></span>        }
+<span class="line-numbers"><a href="#n74" name="n74">74</a></span>        cout &lt;&lt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">min_factor_loop: </span><span style="color:#710">&quot;</span></span> &lt;&lt; sum &lt;&lt; endl;
+<span class="line-numbers"><a href="#n75" name="n75">75</a></span>    }
+<span class="line-numbers"><a href="#n76" name="n76">76</a></span>}
+<span class="line-numbers"><a href="#n77" name="n77">77</a></span>
+<span class="line-numbers"><a href="#n78" name="n78">78</a></span><span style="color:#088;font-weight:bold">void</span> (*fp[])() = {division_loop, min_factor_loop};
+<span class="line-numbers"><a href="#n79" name="n79">79</a></span>
+<span class="line-numbers"><strong><a href="#n80" name="n80">80</a></strong></span><span style="color:#0a8;font-weight:bold">int</span> main(<span style="color:#0a8;font-weight:bold">int</span> argc, <span style="color:#0a8;font-weight:bold">char</span> **argv) {
+<span class="line-numbers"><a href="#n81" name="n81">81</a></span>    <span style="color:#080;font-weight:bold">if</span>(argc &lt; <span style="color:#00D">2</span>) {
+<span class="line-numbers"><a href="#n82" name="n82">82</a></span>        cerr &lt;&lt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Usage: </span><span style="color:#710">&quot;</span></span> &lt;&lt; argv[<span style="color:#00D">0</span>] &lt;&lt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20"> number</span><span style="color:#710">&quot;</span></span> &lt;&lt; endl;
+<span class="line-numbers"><a href="#n83" name="n83">83</a></span>        <span style="color:#080;font-weight:bold">return</span> <span style="color:#00D">0</span>;
+<span class="line-numbers"><a href="#n84" name="n84">84</a></span>    }
+<span class="line-numbers"><a href="#n85" name="n85">85</a></span>    <span style="color:#0a8;font-weight:bold">int</span> i = atoi(argv[<span style="color:#00D">1</span>]);
+<span class="line-numbers"><a href="#n86" name="n86">86</a></span>    clock_t start = clock();
+<span class="line-numbers"><a href="#n87" name="n87">87</a></span>    fp[i]();
+<span class="line-numbers"><a href="#n88" name="n88">88</a></span>    clock_t end = clock();
+<span class="line-numbers"><a href="#n89" name="n89">89</a></span>    cout &lt;&lt; <span style="color:#080;font-weight:bold">static_cast</span>&lt;<span style="color:#0a8;font-weight:bold">double</span>&gt;(end - start) / CLOCKS_PER_SEC &lt;&lt; <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20"> sec.</span><span style="color:#710">&quot;</span></span> &lt;&lt; endl;
+<span class="line-numbers"><strong><a href="#n90" name="n90">90</a></strong></span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#00D">0</span>;
+<span class="line-numbers"><a href="#n91" name="n91">91</a></span>}
+</pre></div>
+</div>
+</div>
+
+<p>結果：</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>N = 1000万
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>$ ./factor 0
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>division_loop: 5495532284181
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>1.26641 sec.
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>$ ./factor 1
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>min_factor_loop: 5495532284181
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>0.527824 sec.
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>N = 1億
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>$ ./factor 0
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>division_loop: 476028748414934
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>19.4185 sec.
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>$ ./factor 1
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>min_factor_loop: 476028748414934
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>6.51549 sec.
+</pre></div>
+</div>
+</div>
+
+<p>結果としてはやはりたいして変わらないようです。</p>
+
+<p>ところでmin_factorが前回と比べて遅くなっていますが、どうも前回はキャッシュが効いていたみたいですね……。
+RubyのbenchmarkみたいなのがC++にも欲しいところです。</p>
+
+
+    <div id="kogarasi-diary_201310-html-20131017" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+</div>
+<div id="diary-footer">
+
+  <div class="prev-month"><a href="diary_201309.html">&lt;前の月へ</a></div>
+
+
+  <div class="next-month"><a href="diary_201311.html">次の月へ&gt;</a></div>
+
+</div>
+ 
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-12-10 01:08:00 +0900</p>
+</div>
+
+</body>
+</html>

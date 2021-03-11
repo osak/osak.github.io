@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | 初心者向けプログラミング言語</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="section">初心者向けプログラミング言語</h2>
+
+<p>全くの初心者にプログラミング言語を教える際、どの言語を選ぶのが良いかについて考えた。</p>
+
+<h3 id="c">C言語</h3>
+
+<p>C言語は基本的にアセンブリ言語を高級にしたものなので、メモリモデルのような低レイヤの話と絡めながらプログラミングを教える事になる。
+プログラムは最終的にCPUで実行されるということを考えると、コンピュータの構造を理解しながらプログラムを覚えることになるため、
+動作原理から体系的に学ぶことができる。
+また、高級な構造はループと関数、構造体くらいしか存在しないため、覚えることが少ないというメリットもある。
+ただし、C言語はグラフィックを扱おうとすると途端に難易度が跳ね上がる。
+DXライブラリやSDLを使えば一応グラフィックも使えるが、そもそも初心者にライブラリを導入させるのは難しい（特にWindows）。</p>
+
+<p>開発環境はWindowsならVisual
+Studio、LinuxならGCCとgedit、vim、emacsといったエディタの組み合わせになるだろう。</p>
+
+<h3 id="ruby">Ruby</h3>
+
+<p>東大の教養課程ではRubyを教えているらしい。
+C言語よりも高級な機能が多く表現力が高いため、使いこなせれば効率的にプログラムを書くことができ、面白さを伝えるには良いと思われる。
+ただし、Rubyは構文の自由度が高すぎて、エラーにはならないが意図しない挙動になっているということが発生しやすい。
+また、構文エラーが起きた時もエラーメッセージが不親切であったり、実行時エラーも慣れないと読みづらいという問題がある。
+グラフィックに関しても、C言語と同様に弱い。</p>
+
+<p>開発環境は、Windows、Linuxともに適当なエディタとコマンドラインからの実行になる。
+EclipseプラグインとしてRuby Development
+Toolsがあるという話も聞いたことがあるが、試していない。</p>
+
+<h3 id="python">Python</h3>
+
+<p>Rubyと同じく、表現力が高く効率的にプログラムを記述できる。
+Pythonコードは誰が書いてもある程度読みやすく、ライブラリのドキュメントも充実しているという利点がある。
+一点気になるのは、ブロック構造をインデントで決めるという点で、慣れたプログラマならインデントを揃えるというのは当たり前の行為なのだが、
+初心者はインデントを意識的に揃えるという行為が難しく、C言語などで書いていると同一ブロック内でもインデントがバラバラになることが多々ある。
+このため、完全な初心者にPythonを教えるというのは、少しハードルが高いのではないかと思っている。</p>
+
+<h3 id="processing">Processing</h3>
+
+<p>視覚的効果を簡単に扱うというコンセプトの言語、らしい。
+コンセプトの通り、簡単にグラフィック処理が可能。</p>
+
+<p>使ったことがないので分からないが、視覚的に見て楽しめるというのは導入としては大きなアドバンテージに感じる。</p>
+
+<h3 id="section-1">まとめ</h3>
+
+<p>基礎的なプログラムの動作原理などから教え、かつある程度の習熟を求めたいならC言語から教えるのが良いのではないかと思う。
+また、マイコンの場合は実質C以外の選択肢はない。
+逆に、とりあえず何でもいいからコードを書いて物を作りたいというニーズであれば、目的に応じてRuby、Processingを選ぶのが良い
+（PHPからプログラミングに入ったという人も結構見るが、自分は初心者にPHPをちゃんと教えられる自信がない……）。</p>
+ 
+    
+        <div id="kogarasi-program-newbie" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-10-17 02:38:57</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta http-equiv="Expires" content="43200" />
+
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | 日記 - 2014-01</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../program/index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    
+<div id="diary-header">
+<h2>日記 - 2014-01</h2>
+
+  <div class="prev-month"><a href="diary_201312.html">&lt;前の月へ</a></div>
+
+
+<ul class="diary-menu horizontal-list">
+  <li class="horizontal-list-item"><a href="diary_list.html">日記一覧</a></li>
+  <li class="horizontal-list-item"><a href="./rss">RSS1.0</a></li>
+</ul>
+</div>
+<div class="diary-articles">
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20140126" class="diary-date"><a href="diary_201401.html#20140126">2014-01-26</a></h2>
+    <h3 id="icpc-wf">ICPC WF進出</h3>
+<p>今更といえば今更ですが、情報が出揃ったので。</p>
+
+<p>ICPCにチームbinding.pryとして、@tokoharu_sakura, @mikecat_mixcと参加してましたが、この度<a href="http://icpc.baylor.edu/worldfinals/teams">WFに行けることになりました</a>。
+ちょっと宣伝したら<a href="http://www.titech.ac.jp/news/2014/024924.html">東工大トップのニュースにも写真付きで載って</a>うれしいです（去年もニュースには載ったけど写真は出してなかった）。</p>
+
+<p>去年に引き続き2回目のWFで、しかも今年で大学入学から5年目なので、出場回数的にも年数的にも、選手としては最後のICPCです。
+今回のICPCに出ると決めた時点では正直ここまでやろうとは思っていなかったので、ずいぶんと遠くまで来たなあという気はしますが、
+せっかくのチャンスなので去年の雪辱含め、悔いの残らないように楽しみたいと思います。</p>
+
+    <div id="kogarasi-diary_201401-html-20140126" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20140114" class="diary-date"><a href="diary_201401.html#20140114">2014-01-14</a></h2>
+    <h3 id="section">400円ワイン</h3>
+<p>前から気になっていた、コンビニの安いワインを買ってみました。</p>
+
+<p><img src="img/alegremente.jpg" alt="" /></p>
+
+<p>セブンイレブンで398円。
+一緒に500円くらいのワインも並んでいましたが、それよりも安い最安ワインです。</p>
+
+<p>あまり期待しないで飲んだんですが、思った以上に普通の味で良いです。
+ワインの味はまずいかまずくないかしか分からないですが、このワインは少なくともまずくはない。
+変なワインだとえぐみが延々と残り続けたりしてひどいですが、これは普通に飲めます。</p>
+
+<p>というわけで、久々に<a href="../food/alcohol.html">酒情報</a>更新しました。</p>
+
+    <div id="kogarasi-diary_201401-html-20140114" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20140101" class="diary-date"><a href="diary_201401.html#20140101">2014-01-01</a></h2>
+    <h3 id="tmuxless">tmux上のlessで検索結果がハイライトされない問題と戦う</h3>
+
+<h4 id="section">問題</h4>
+<p>tmux上でlessやman（PAGERとしてlessを使っている）を起動し、/コマンドで検索すると、マッチした単語がイタリックになるだけでハイライトされない。</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="img/highlight_bad.png" alt="よくない表示" /></td>
+      <td><img src="img/highlight_good.png" alt="期待する表示" /></td>
+    </tr>
+    <tr>
+      <td>よくない表示</td>
+      <td>期待する表示</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="section-1">よくない解決法</h4>
+<p>.tmux.confに<code>set -g default-terminal "rxvt-unicode-256color"</code>とか書く。</p>
+
+<p><code>man tmux</code>すると、<code>default-terminal</code>の説明のところに</p>
+
+<blockquote>
+  <p>For tmux to work correctly, this must be set to ‘screen’ or a derivative of it</p>
+</blockquote>
+
+<p>とか書いてある。
+具体的に何がまずくなるのかは知らないけど、やるなと言われたことはやらないのが無難。</p>
+
+<h4 id="section-2">よい解決法</h4>
+<p>terminfoをいじる。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ infocmp screen | sed \
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>    -e 's/^screen/screen-rev/' \
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>    -e 's/smso=[^,]*,/smso=\\E[7m,/' \
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>    -e 's/rmso=[^,]*,/rmso=\\E[27m,/' &gt; /tmp/screen_rev.terminfo
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>$ tic /tmp/screen_rev.terminfo
+</pre></div>
+</div>
+</div>
+
+<p>とかやってscreen_revのterminfoを生成してから、<code>set -g default-terminal "screen-rev"</code>を.tmux.confに書く。</p>
+
+<h4 id="section-3">参考</h4>
+<ul>
+  <li><a href="http://stackoverflow.com/questions/10535432/tmux-man-page-search-highlighting">osx - tmux man-page search highlighting - Stack Overflow</a></li>
+  <li><a href="http://tmux.svn.sourceforge.net/viewvc/tmux/trunk/FAQ">http://tmux.svn.sourceforge.net/viewvc/tmux/trunk/FAQ</a></li>
+  <li><a href="http://en.wikipedia.org/wiki/ANSI_escape_code">ANSI escape code - Wikipedia, the free encyclopedia</a></li>
+</ul>
+
+    <div id="kogarasi-diary_201401-html-20140101" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+</div>
+<div id="diary-footer">
+
+  <div class="prev-month"><a href="diary_201312.html">&lt;前の月へ</a></div>
+
+
+</div>
+ 
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2014-01-26 07:50:48 +0900</p>
+</div>
+
+</body>
+</html>

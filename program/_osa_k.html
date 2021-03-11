@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | \_osa\_k</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="osak">_osa_k</h2>
+
+<p>人工知能プロジェクトの一環として，自分のツイートを元にしたbotである
+<a href="https://twitter.com/_osa_k">@_osa_k</a> を作った．</p>
+
+<p>やってることは単純で，Twitterから自分の過去ツイートを全部ダウンロードしてきて，ランダムにそれをツイートしているだけ．
+ただし，平常時のツイートとしてはRTやリプライを弾くのと，リプライに対する返答では本当にリプライとして使われたツイートのみを使うという処理が入っている．
+また，人間っぽさの実現と倫理面から，ツイート対象となる過去ツイートは現在時刻から±30分の範囲になされたものとしている．</p>
+
+<p>このbotを作った動機は，知能とは単に膨大なデータベースであり，データベースからの引用を行うだけのものでも知能と呼べるのではないかという推論に基づく実験である．
+実際に人間が交わす会話を考えてみても，通常の文章は既存の知識から派生したものであり，更に言えばその知識を載せる文章構造も以前にどこかで獲得したものであると考えられる．
+今回は実装の手間を考え，人間の発言をそのままコピーすることで，このプロセスの簡易的な模倣を行うこととした．</p>
+
+<p>動かして周囲の人の反応を見たところ，実際の人間の発言をそのまま利用していることからか，普通の人間の発言と同程度には人間らしさを感じるようである．
+具体的には，botの発言を人間の発言と誤認したり，botの発言に対して文脈に沿ったリプライを送るなどである（ただし，これは相手がbotのためリプライを送る心理的な障壁が低くなっている可能性もある）．</p>
+
+<p>以前に作ったあずにゃんbotは挨拶や相槌，特定ワードに対する反応など極めて受動的な機能しか持っていなかったが，
+このbotは（自力で生成しているのではないとは言え）自分から文脈を作り出す力を持っている．
+今後は自分自身の発言を元にして文脈に即した発言を選ぶ，過去ツイートから文型を学習して適宜単語をすげ替えるなどの機能を実装することにより，
+知能の本質へのアプローチが可能であると考える．
+すなわち，もしもこれらの改良によって知能らしさが増すのであればそれが知能の本質（の一部）であることが分かるし，
+あまり効果を発揮しないのであれば，知能とは単なる置換モデルで表されるものではなく，別の部分に本質があるという推論ができる．</p>
+
+<p>全く別の話題として，このbotはmikutterのデーモンモードで動いているのだが，その話は別の記事で書く．</p>
+ 
+    
+        <div id="kogarasi-program-_osa_k" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-10-17 02:38:57</p>
+</div>
+
+</body>
+</html>

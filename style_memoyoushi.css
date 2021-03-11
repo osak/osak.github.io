@@ -1,0 +1,297 @@
+body {
+    font-size: 14px;
+}
+
+/* テンプレート(どのページでも見えるもの) */
+div#header {
+    border-bottom: groove black 2px;
+}
+
+h1.title {
+    font-size: 200%;
+}
+address {
+    text-align: right;
+}
+div#body {
+    width: 100%;
+    min-height: 500px;
+    font-size: 14px;
+}
+div#main {
+    margin-left: 210px;
+    //max-width: 60em;
+}
+div#menu {
+    width: 200px;
+    float: left;
+    min-height: 500px;
+    background-color: #eeeeff;
+}
+div#footer {
+    clear: both;
+    border-top: groove black 2px;
+}
+blockquote {
+    border: groove black 2px;
+    padding: 10px;
+}
+blockquote p {
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+}
+p {
+    text-indent: 0.5em;
+}
+blockquote + p {
+    text-indent: 0;
+}
+
+del {
+    color: gray;
+}
+
+/********** 日記ヘッダ ************/
+#diary-header {
+    padding-bottom: 0.5em;
+    border-bottom: solid black 1px;
+}
+#diary-header h2 {
+}
+.prev-month {
+    display: inline;
+}
+.next-month {
+    display: inline;
+}
+
+.diary-date {
+    margin-bottom: -0.5em;
+}
+.diary-article {
+    /*width: 80%;*/
+    border-top: double black 3px;
+    margin-top: 1em;
+}
+.diary-article:first-child {
+    border-top: none;
+}
+.diary-article h3 {
+}
+
+#diary-list {
+}
+
+.diary-month-list {
+}
+
+.diary-list-item {
+    display: inline;
+    padding-right: 3px;
+    border-right: solid black 1px;
+}
+.diary-link {
+    display: inline;
+}
+.diary-menu {
+    padding-left: 0px;
+}
+
+pre.code {
+    font-family: monospace;
+}
+
+ul.horizontal-list {
+    border-left: solid black 1px;
+}
+li.horizontal-list-item {
+    display: inline;
+    padding-right: 3px;
+    border-right: solid black 1px;
+    border-collapse: collapse;
+}
+
+/************ Kramdownの吐くHTML関連 ************/
+div.footnotes {
+    width: 100%;
+    font-size: 80%;
+    background-color: lightyellow;
+}
+
+div.CodeRay {
+    padding: 0;
+}
+
+div.code {
+    background-color: lightyellow;
+    border: 1px solid;
+    max-height: 30em;
+    overflow: auto;
+}
+
+div.code pre {
+    margin: 0;
+}
+
+div.code span.line-numbers {
+    margin-right: 5px;
+    padding: 0 3px 0 1px;
+    background-color: darkgray;
+}
+
+div.code span.line-numbers a:link {
+    color: white;
+    text-decoration: none;
+}
+
+div.code span.line-numbers a:visited {
+    color: white;
+}
+
+/************ Kogarasi関連 ******************/
+div.kogarasi-mark {
+    background-color: #ffffdd;
+    //max-width: 60em;
+    padding: 5px;
+    border: 1px solid gray;
+    height: 230px;
+    overflow: hidden;
+    position: relative;
+}
+
+div.kogarasi-expand {
+    position: static;
+    background-color: rgba(255, 255, 221, 0.6);
+    border-radius: 5px;
+    z-index: 1;
+}
+
+span.kogarasi-expand-text {
+    position: relative;
+    left: 50%;
+    background-color: #ffffdd;
+    display: inline-block;
+}
+
+div.kogarasi-comment {
+    background-color: #ffeedd;
+    padding: 3px;
+    margin-bottom: 0.5em;
+    border: 1px dotted black;
+}
+
+div.kogarasi-name:before {
+    content: "Name: ";
+}
+
+div.kogarasi-name {
+    display: inline-block;
+}
+
+div.kogarasi-posted:before {
+    content: "Posted: ";
+}
+div.kogarasi-posted {
+    display: inline;
+    float: right;
+}
+
+div.kogarasi-body {
+    margin-top: 0.5em;
+}
+
+div.kogarasi-form {
+    position: static;
+    width: 100%;
+    background-color: #ffffdd;
+}
+
+div.kogarasi-form textarea {
+    min-width: 300px;
+    width: 60%;
+}
+
+div.kogarasi-footer {
+    position: absolute; 
+    bottom: 0px; 
+    width: 100%;
+}
+
+.kogarasi-upbutton:before {
+    content: '▲';
+    color: #ff4040;
+    font-size: 120%;
+    cursor: pointer;
+}
+
+.kogarasi-downbutton:before {
+    content: '▼';
+    color: #4040ff;
+    font-size: 120%;
+    cursor: pointer;
+}
+
+/************ Pygments ******************/
+pre.code { background-color: #e8e8e8 }
+pre.code .hll { background-color: #ffffcc }
+pre.code .c { color: #408080; font-style: italic } /* Comment */
+pre.code .err { border: 1px solid #FF0000 } /* Error */
+pre.code .k { color: #008000; font-weight: bold } /* Keyword */
+pre.code .o { color: #666666 } /* Operator */
+pre.code .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+pre.code .cp { color: #BC7A00 } /* Comment.Preproc */
+pre.code .c1 { color: #408080; font-style: italic } /* Comment.Single */
+pre.code .cs { color: #408080; font-style: italic } /* Comment.Special */
+pre.code .gd { color: #A00000 } /* Generic.Deleted */
+pre.code .ge { font-style: italic } /* Generic.Emph */
+pre.code .gr { color: #FF0000 } /* Generic.Error */
+pre.code .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+pre.code .gi { color: #00A000 } /* Generic.Inserted */
+pre.code .go { color: #888888 } /* Generic.Output */
+pre.code .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+pre.code .gs { font-weight: bold } /* Generic.Strong */
+pre.code .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+pre.code .gt { color: #0044DD } /* Generic.Traceback */
+pre.code .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+pre.code .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+pre.code .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+pre.code .kp { color: #008000 } /* Keyword.Pseudo */
+pre.code .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+pre.code .kt { color: #B00040 } /* Keyword.Type */
+pre.code .m { color: #666666 } /* Literal.Number */
+pre.code .s { color: #BA2121 } /* Literal.String */
+pre.code .na { color: #7D9029 } /* Name.Attribute */
+pre.code .nb { color: #008000 } /* Name.Builtin */
+pre.code .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+pre.code .no { color: #880000 } /* Name.Constant */
+pre.code .nd { color: #AA22FF } /* Name.Decorator */
+pre.code .ni { color: #999999; font-weight: bold } /* Name.Entity */
+pre.code .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+pre.code .nf { color: #0000FF } /* Name.Function */
+pre.code .nl { color: #A0A000 } /* Name.Label */
+pre.code .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+pre.code .nt { color: #008000; font-weight: bold } /* Name.Tag */
+pre.code .nv { color: #19177C } /* Name.Variable */
+pre.code .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+pre.code .w { color: #bbbbbb } /* Text.Whitespace */
+pre.code .mf { color: #666666 } /* Literal.Number.Float */
+pre.code .mh { color: #666666 } /* Literal.Number.Hex */
+pre.code .mi { color: #666666 } /* Literal.Number.Integer */
+pre.code .mo { color: #666666 } /* Literal.Number.Oct */
+pre.code .sb { color: #BA2121 } /* Literal.String.Backtick */
+pre.code .sc { color: #BA2121 } /* Literal.String.Char */
+pre.code .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+pre.code .s2 { color: #BA2121 } /* Literal.String.Double */
+pre.code .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+pre.code .sh { color: #BA2121 } /* Literal.String.Heredoc */
+pre.code .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+pre.code .sx { color: #008000 } /* Literal.String.Other */
+pre.code .sr { color: #BB6688 } /* Literal.String.Regex */
+pre.code .s1 { color: #BA2121 } /* Literal.String.Single */
+pre.code .ss { color: #19177C } /* Literal.String.Symbol */
+pre.code .bp { color: #008000 } /* Name.Builtin.Pseudo */
+pre.code .vc { color: #19177C } /* Name.Variable.Class */
+pre.code .vg { color: #19177C } /* Name.Variable.Global */
+pre.code .vi { color: #19177C } /* Name.Variable.Instance */
+pre.code .il { color: #666666 } /* Literal.Number.Integer.Long */

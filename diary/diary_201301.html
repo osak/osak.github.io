@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | 日記 - 2013-01</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../program/index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    
+<div id="diary-header">
+<h2>日記 - 2013-01</h2>
+
+  <div class="prev-month"><a href="diary_201212.html">&lt;前の月へ</a></div>
+
+
+  <div class="next-month"><a href="diary_201302.html">次の月へ&gt;</a></div>
+
+<ul class="diary-menu horizontal-list">
+  <li class="horizontal-list-item"><a href="diary_list.html">日記一覧</a></li>
+  <li class="horizontal-list-item"><a href="./rss">RSS1.0</a></li>
+</ul>
+</div>
+<div class="diary-articles">
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130113" class="diary-date"><a href="diary_201301.html#20130113">2013-01-13</a></h2>
+    <h3 id="im">ぼくのかんがえたさいきょうの日本語IM</h3>
+
+<p>Linuxの日本語入力環境について．</p>
+
+<p>ちょっと前まではibus-skk使っていて，去年の12月ごろにArchのibusがぶっ壊れたのでuim-skkに乗り替えました
+(それ以前にも何度かibus-skkとuim-skkを行ったり来たりしてたけど)．
+基本的にはuim-skkが使いやすいし動作も安定していて良いのですが，なぜか内部エンコーディングがEUC-JPになっているため，
+最近流行りのUnicodeをバリバリ使った顔文字が辞書登録できません．
+まあ日本語がストレスなく入力できればSKKでなくてmozcとかでも良いのですが，
+いかんせん世の中にはいろいろIMがあってそれぞれ一長一短なので，比較のためにも自分の欲しい機能を洗い出してみることにしました．</p>
+
+<p>とりあえず候補となるIMを決めるため，普段使っているIMについてTwitterでふわっとアンケートを取ってみたところ，</p>
+
+<ul>
+  <li>ibus-mozc 4人</li>
+  <li>Anthy 2人</li>
+  <li>uim + T-Code 1人</li>
+</ul>
+
+<p>という感じでした．</p>
+
+<h4 id="section">ほしいきのう</h4>
+
+<dl>
+  <dt>誤変換が少なく，スムーズに入力できる</dt>
+  <dd>重要です．
+以前に使っていた感じだと，Anthyは文節の切り方が甘く，かなり小さい単位で細かく変換してあげないとすぐ変換できなくなった記憶があります．
+mozcは使っているうちに過学習してだんだん変換候補がおかしくなっていった気がしますが，最近は使ってないので不明．
+SKKは文節を入力しながら自分で指定するため，変換精度はかなり高いです．
+T-Codeも入力はスムーズそうだけど，学習コストが高いのが気になります．</dd>
+  <dt>辞書にUnicodeが使える</dt>
+  <dd>uim-skkは上にも書いた通り，内部エンコーディングがEUC-JPなのでUnicodeが登録できません．
+それ以外のIMではちゃんと調べてないけど使えるんじゃないかな……．</dd>
+  <dt>辞書登録が楽</dt>
+  <dd>SKKは変換候補が尽きても変換できなかった場合，その場で辞書登録モードになって新しい単語を登録できるのが大変便利です．
+他のIMではわざわざ単語登録ウインドウを開いて登録するというのが一般的だと思います．</dd>
+  <dt>vimperatorと干渉しない</dt>
+  <dd>日本語入力モードのときvimperatorでヒントを入力すると，全角文字が入ってしまって変なことになる場合があります．
+ただし <a href="http://d.hatena.ne.jp/tarao/20110523/1306161796">imekeys.js</a>
+という素晴らしいプラグインがあるため，問題になることは少ないかもしれません．
+それでも今のibusは日本語入力を切り替えると勝手にキーボードレイアウトを変えてしまうバグがあって，回避できないのですが……．</dd>
+</dl>
+
+<h4 id="section-1">結論</h4>
+
+<p>mozc試してみます．</p>
+
+    <div id="kogarasi-diary_201301-html-20130113" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+</div>
+<div id="diary-footer">
+
+  <div class="prev-month"><a href="diary_201212.html">&lt;前の月へ</a></div>
+
+
+  <div class="next-month"><a href="diary_201302.html">次の月へ&gt;</a></div>
+
+</div>
+ 
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-12-10 01:08:00 +0900</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | Patching mikutter</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="patching-mikutter">Patching mikutter</h2>
+<p><a href="http://www.adventar.org/calendars/120">mikutter Advent Calendar</a> 24日目の記事です。</p>
+
+<p>ところで<a href="http://atnd.org/events/45072">Vim Advent Calendar</a>はVACと略されることがあるようですが、mikutter Advent Calendarも同じように略すとMACになりますね。
+Macといえば某りんご社のコンピュータが有名ですが、mikutterをMacで動かしたい人は<a href="http://akkiesoft.hatenablog.jp/entry/20131202/1385969580">mikutter Advent Calendar 2013 Day2</a>を読みましょう。<br />
+こんな情報もすぐに見つかる。そう、mikutterならね。</p>
+
+<p>閑話休題。</p>
+
+<p>mikutterといえば変態的なプラグインを導入したり開発したりして楽しむものというイメージが強いですが、mikutterの魅力はそれだけに留まりません。
+この記事では、隠れた楽しみ方のひとつであるパッチ作成について、実例を交えながら誰でも簡単に始められるような解説を書きます。</p>
+
+<p>大丈夫だよ、みんなやっていることだし、mikutterを改良していくのはとっても気持ちいいんだ。
+ちょっとでいいからやってみようよ。すぐに良くなるよ。</p>
+
+<h3 id="mikutter-redmine">1. mikutter Redmineに登録する</h3>
+<p>何はともあれ、mikutter Redmineに登録するのが最優先です。
+<a href="http://dev.mikutter.hachune.net/projects/mikutter">トップページ</a>のリンクから登録申請を投げましょう。</p>
+
+<p><img src="img/mikutter_register.png" alt="" /></p>
+
+<p>色々とアレですが気にしてはいけません。</p>
+
+<p>申請を投げてからしばらくすると@toshi_aさんに承認されてアカウントが有効化されます。
+数日待っても音沙汰がない場合はデスマ等で見落とされている可能性があるので、Twitterでつついてみましょう。</p>
+
+<h3 id="section">2. 問題を見つける</h3>
+<p>mikutterは結構バグや微妙な挙動、物足りない箇所があります。
+そういうものを見つけたら、Redmineに報告してみましょう。</p>
+
+<p>また、チケット一覧を見て気になるものがあればそれを追ってみるのも良いと思います。
+今回は、TLで見かけた「<a href="http://dev.mikutter.hachune.net/issues/629">バグ#629: mikutter makepot コマンドが正しく動作しないらしい</a>」を追ってみることにしました。</p>
+
+<p>とりあえずdevelopブランチの最新版をpullしてから、<code>./mikutter.rb makepot</code>してみます。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ git branch
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>* develop
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  master
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>$ git pull
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>Already up-to-date.
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>$ ./mikutter.rb makepot
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span>failed plugins: [:achievement, :activity, :bugreport, :change_account, :command, &quot;console&quot;, &quot;direct_message&quot;, :extract, :gtk, :gui, :home_timeline, :mentions, :notify, :openimg, :profile, :proxy, :ratelimit, :saved_search, :search, :set_input, :set_view, :settings, :shortcutkey, :smartthread, :sound, :streaming, :geocode]
+</pre></div>
+</div>
+</div>
+
+<p>たしかにコケてますね。
+最新版でも直っていないようですし、追ってみましょう。</p>
+
+<h3 id="section-1">3. 問題箇所を特定する</h3>
+<p>追いかける問題が決まったら、コードを見ていきます。
+mikutterの機能の大部分は<code>core/plugin</code>以下にあるプラグインで実装されているので、まずはそれっぽいプラグイン名から当たってみるのが良いでしょう。
+プロフィール関係の挙動がおかしいなら<code>core/plugin/profile</code>、画像プレビュー関係なら<code>core/plugin/openimg</code>のようになります。
+mikutterのコードは連続するendが1行にまとめられている以外は結構普通で読みやすいので、このへんは一通り読んでおくと、コア部分の知識があまりなくてもなんとなく仕組みが見えてくるのではないかと思います。</p>
+
+<p>今回のバグはプラグインではなく、mikutterの起動時に渡すコマンドライン引数の処理なのでちょっと特殊です。
+そもそもコマンドライン引数がどう処理されるかよく知らないので、<code>core/boot/option.rb</code>を覗いてみます。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">if</span> <span style="color:#069">ARGV</span>[<span style="color:#00D">0</span>]
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  require <span style="color:#036;font-weight:bold">File</span>.expand_path(<span style="color:#036;font-weight:bold">File</span>.join(<span style="color:#036;font-weight:bold">File</span>.dirname(<span style="color:#069">__FILE__</span>), <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">..</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">utils</span><span style="color:#710">'</span></span>))
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  miquire <span style="color:#A60">:boot</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">check_config_permission</span><span style="color:#710">'</span></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  file = <span style="color:#036;font-weight:bold">File</span>.join(<span style="color:#036;font-weight:bold">File</span>.dirname(<span style="color:#069">__FILE__</span>), <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">shell/</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span><span style="color:#069">ARGV</span>[<span style="color:#00D">0</span>]<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">.rb</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  <span style="color:#080;font-weight:bold">if</span> <span style="color:#036;font-weight:bold">FileTest</span>.exist?(file)
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    require file
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#080;font-weight:bold">else</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">no such command: </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span><span style="color:#069">ARGV</span>[<span style="color:#00D">0</span>]<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  exit
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>このへんがコマンドライン引数の処理っぽいですね。
+どうやら<code>core/boot/shell/makepot.rb</code>を見ればいいみたいです。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#777"># -*- coding: utf-8 -*-</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span><span style="color:#777"># 全プラグインにpot作成</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>miquire <span style="color:#A60">:core</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">miquire_plugin</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>require <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">gettext/tools</span><span style="color:#710">'</span></span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>mo_root = <span style="color:#036;font-weight:bold">File</span>.join(<span style="color:#036;font-weight:bold">CHIConfig</span>::<span style="color:#036;font-weight:bold">CACHE</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">uitranslator</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">locale</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span><span style="color:#036;font-weight:bold">Miquire</span>::<span style="color:#036;font-weight:bold">Plugin</span>.loadpath &lt;&lt; <span style="color:#036;font-weight:bold">Environment</span>::<span style="color:#036;font-weight:bold">PLUGIN_PATH</span> &lt;&lt; <span style="color:#036;font-weight:bold">File</span>.join(<span style="color:#036;font-weight:bold">File</span>.dirname(<span style="color:#069">__FILE__</span>), <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">..</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">..</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">plugin</span><span style="color:#710">&quot;</span></span>) &lt;&lt; <span style="color:#036;font-weight:bold">File</span>.join(<span style="color:#036;font-weight:bold">Environment</span>::<span style="color:#036;font-weight:bold">CONFROOT</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">plugin</span><span style="color:#710">'</span></span>)
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>enable_plugins = <span style="color:#069">ARGV</span>[<span style="color:#00D">1</span>,]
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>failed_plugins = []
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span><span style="color:#036;font-weight:bold">Miquire</span>::<span style="color:#036;font-weight:bold">Plugin</span>.each_spec <span style="color:#080;font-weight:bold">do</span> |spec|
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>  <span style="color:#080;font-weight:bold">if</span> (enable_plugins.empty? <span style="color:#080;font-weight:bold">or</span> enable_plugins.include? spec[<span style="color:#A60">:slug</span>].to_s) <span style="color:#080;font-weight:bold">and</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>      (<span style="color:#080;font-weight:bold">defined?</span>(spec[<span style="color:#A60">:depends</span>][<span style="color:#A60">:plugin</span>]) <span style="color:#080;font-weight:bold">and</span> spec[<span style="color:#A60">:depends</span>][<span style="color:#A60">:plugin</span>].include? <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">uitranslator</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    po_root = <span style="color:#036;font-weight:bold">File</span>.join spec[<span style="color:#A60">:path</span>], <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">po</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>    <span style="color:#080;font-weight:bold">begin</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>      <span style="color:#036;font-weight:bold">GetText</span>.update_pofiles(spec[<span style="color:#A60">:slug</span>].to_s,
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>                             <span style="color:#036;font-weight:bold">Dir</span>.glob(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>spec[<span style="color:#A60">:path</span>]<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">/**/*.rb</span><span style="color:#710">&quot;</span></span>),
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>                             <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>spec[<span style="color:#A60">:slug</span>]<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20"> </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>spec[<span style="color:#A60">:version</span>]<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>,
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>                             <span style="color:#606">po_root</span>: po_root)
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>    <span style="color:#080;font-weight:bold">rescue</span> <span style="color:#036;font-weight:bold">Exception</span> =&gt; e
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>      failed_plugins &lt;&lt; spec[<span style="color:#A60">:slug</span>]
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">failed plugins: </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>failed_plugins<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span> <span style="color:#080;font-weight:bold">unless</span> failed_plugins.empty?
+</pre></div>
+</div>
+</div>
+
+<p><code>GetText.update_pofiles</code>が失敗すると、さっきのような表示が生成されるようです。
+適当に例外を表示するようにして、もう一度<code>makepot</code>してみます。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ ./mikutter.rb makepot
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>undefined method `update_pofiles' for GetText:Module
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>(以下略)
+</pre></div>
+</div>
+</div>
+
+<p>どうも呼び出しているメソッドがまずいみたいです。
+gettextに関してはほとんど知らないですが、さすがに存在しないメソッドを呼び出すようなコードを書いていて気づかないということはあり得ないので、
+ライブラリのバージョンが上がってインターフェースが変わってしまった可能性が高そうです。</p>
+
+<p><code>git log</code>でコミットログを見てみると</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>commit fb5fe2aa0fb01a7b1eab1426f06cd9ab9f117a27
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>Author: Toshiaki Asai &lt;toshi.alternative@gmail.com&gt;
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>Date:   Mon Sep 23 18:26:10 2013 +0900
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>    uitranslator: gettext 3.0に切り替え
+</pre></div>
+</div>
+</div>
+
+<p>というログが引っかかりました。
+ちょっと古いですが、mikutterの他言語化に関わっている人は少ないうえ、言語ファイルを作り直すような変更はここ最近なかったため、単に今まで気づかれていなかったといっても納得できないことはありません。</p>
+
+<h3 id="section-2">4. パッチを書く</h3>
+<p>問題箇所がわかったらパッチを書きます。
+書き換える箇所がプラグインであれば、Alt+xでコンソールを開いて<code>Plugin.uninstall(:profile)</code>のようにしてから、修正したコードを貼り付けてCtrl+Enterで実行することでプラグインが更新され、
+わざわざmikutterを再起動しなくても反映されることが多いです。</p>
+
+<p><img src="img/mikutter_plugin_uninstall.png" alt="" />
+<img src="img/mikutter_plugin_reinstall.png" alt="" /></p>
+
+<p>プラグインが複数のファイルに分かれていたり、内部でクラスを定義していたりオープンクラスしていたり、問題箇所がコア機能だったりするときは諦めて再起動を繰り返してください。
+mikutterは起動時のリクエストはキャッシュを使うので、再起動を繰り返したからといってAPI切れで規制されるようなことはそうそうないはずです。</p>
+
+<p>今回はプラグインそのものではないですが、GUI絡みではないので割と楽です。
+とりあえず<a href="http://rubydoc.info/gems/gettext/file/doc/text/news.md#3_0_0__2013-08-31">gettextのNews</a>を見てみると、確かにインターフェースが変わったと書いてあります。
+<code>GetText::Tools::Task</code>を使えばよいということなので、<code>Task</code>を生成させてRubyコードから<code>invoke</code>する方針で修正することにしました。</p>
+
+<p>（GetTextのコードを読んで書き方を調べたりしたけど省略）</p>
+
+<p>最終的に、こういう感じになりました。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#777"># -*- coding: utf-8 -*-</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span><span style="color:#777"># 全プラグインにpot作成</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>miquire <span style="color:#A60">:core</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">miquire_plugin</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>require <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">gettext/tools/task</span><span style="color:#710">'</span></span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>require <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">rake</span><span style="color:#710">'</span></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>mo_root = <span style="color:#036;font-weight:bold">File</span>.join(<span style="color:#036;font-weight:bold">CHIConfig</span>::<span style="color:#036;font-weight:bold">CACHE</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">uitranslator</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">locale</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span><span style="color:#036;font-weight:bold">Miquire</span>::<span style="color:#036;font-weight:bold">Plugin</span>.loadpath &lt;&lt; <span style="color:#036;font-weight:bold">Environment</span>::<span style="color:#036;font-weight:bold">PLUGIN_PATH</span> &lt;&lt; <span style="color:#036;font-weight:bold">File</span>.join(<span style="color:#036;font-weight:bold">File</span>.dirname(<span style="color:#069">__FILE__</span>), <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">..</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">..</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">plugin</span><span style="color:#710">&quot;</span></span>) &lt;&lt; <span style="color:#036;font-weight:bold">File</span>.join(<span style="color:#036;font-weight:bold">Environment</span>::<span style="color:#036;font-weight:bold">CONFROOT</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">plugin</span><span style="color:#710">'</span></span>)
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>enable_plugins = <span style="color:#069">ARGV</span>[<span style="color:#00D">1</span>,]
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>failed_plugins = []
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span><span style="color:#036;font-weight:bold">Miquire</span>::<span style="color:#036;font-weight:bold">Plugin</span>.each_spec <span style="color:#080;font-weight:bold">do</span> |spec|
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>  <span style="color:#080;font-weight:bold">if</span> (enable_plugins.empty? <span style="color:#080;font-weight:bold">or</span> enable_plugins.include? spec[<span style="color:#A60">:slug</span>].to_s) <span style="color:#080;font-weight:bold">and</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>      (<span style="color:#080;font-weight:bold">defined?</span>(spec[<span style="color:#A60">:depends</span>][<span style="color:#A60">:plugin</span>]) <span style="color:#080;font-weight:bold">and</span> spec[<span style="color:#A60">:depends</span>][<span style="color:#A60">:plugin</span>].include? <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">uitranslator</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>    po_root = <span style="color:#036;font-weight:bold">File</span>.join spec[<span style="color:#A60">:path</span>], <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">po</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>    <span style="color:#080;font-weight:bold">begin</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>      <span style="color:#036;font-weight:bold">GetText</span>::<span style="color:#036;font-weight:bold">Tools</span>::<span style="color:#036;font-weight:bold">Task</span>.define <span style="color:#080;font-weight:bold">do</span> |task|
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>        task.spec = <span style="color:#036;font-weight:bold">Gem</span>::<span style="color:#036;font-weight:bold">Specification</span>.new <span style="color:#080;font-weight:bold">do</span> |s|
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>          s.name = spec[<span style="color:#A60">:slug</span>].to_s
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>          s.version = spec[<span style="color:#A60">:version</span>].to_s
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>          s.files = <span style="color:#036;font-weight:bold">Dir</span>.glob(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>spec[<span style="color:#A60">:path</span>]<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">/**/*.rb</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>        <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>        task.locales = [<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ja</span><span style="color:#710">&quot;</span></span>]
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>        task.po_base_directory = po_root
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>      <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>    <span style="color:#080;font-weight:bold">rescue</span> <span style="color:#036;font-weight:bold">Exception</span> =&gt; e
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>      failed_plugins &lt;&lt; spec[<span style="color:#A60">:slug</span>]
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>notice <span style="color:#036;font-weight:bold">Rake</span>::<span style="color:#036;font-weight:bold">Task</span>.tasks.join(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#b0b">\n</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span><span style="color:#777"># gettext:po:updateがいちいち翻訳者名とか聞いてきてうざいので潰す。</span>
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span><span style="color:#777"># 本来はgettextにパッチを送るとかするべきな気がする。</span>
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">GetText::Tools::MsgInit</span>
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">translator_full_name</span>
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>    <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">translator_mail</span>
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>    <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span><span style="color:#036;font-weight:bold">Rake</span>::<span style="color:#036;font-weight:bold">Task</span>[<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">gettext:pot:create</span><span style="color:#710">&quot;</span></span>].invoke
+<span class="line-numbers"><a href="#n49" name="n49">49</a></span><span style="color:#036;font-weight:bold">Rake</span>::<span style="color:#036;font-weight:bold">Task</span>[<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">gettext:po:update</span><span style="color:#710">&quot;</span></span>].invoke
+<span class="line-numbers"><strong><a href="#n50" name="n50">50</a></strong></span>
+<span class="line-numbers"><a href="#n51" name="n51">51</a></span>puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">failed plugins: </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>failed_plugins<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span> <span style="color:#080;font-weight:bold">unless</span> failed_plugins.empty?
+</pre></div>
+</div>
+</div>
+
+<p>そういえばmikutterにパッチを送るとき、連続するendを1行にまとめるとかはあまり気にしてないですね……。</p>
+
+<h3 id="section-3">5. パッチを投げる</h3>
+<p>mikutterはgit管理されているので、編集した差分は<code>git diff</code>することで表示できます。
+この出力をファイルに書き出し、Redmineで修正報告と一緒に添付します。
+場合によっては、チケットを立てると同時にパッチを添付してもよいでしょう。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ git diff &gt; makepot.patch
+</pre></div>
+</div>
+</div>
+
+<p>パッチができたらRedmineで報告します。</p>
+
+<p><img src="img/mikutter_submit_patch.png" alt="" /></p>
+
+<h3 id="section-4">6. 受理される</h3>
+<p>@toshi_aさんがパッチを確認するとなんらかのレスポンスをくれます（メールが飛んでくるはずです）。
+肯定的な返事が返ってきて、状態が「レビュー待ち」になったらパッチが適用されたということなので、最新のコードを<code>git pull</code>などで引っ張ってきて、自分のパッチが正常にマージされているか、
+ちゃんとmikutterが起動するかなどを確認します。
+問題がなさそうだったら状態を「解決」にしてもう一度Redmineに報告を投げると、そのうちチケットがクローズされます。</p>
+
+<p>ちなみに、パッチが取り込まれるとその人の名前でコミットされます。
+ちょっと嬉しいですね。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ git show bb56b
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>commit bb56b64833c808cfe61577a696552c5294209947
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>Author: Osamu Koga &lt;osak.63@gmail.com&gt;
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>Date:   Sat Dec 21 15:03:53 2013 +0900
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>    uitranslator: gettext 3.0で、makepotが機能しない問題への対応 refs #629
+</pre></div>
+</div>
+</div>
+
+<h3 id="section-5">7. おわりに</h3>
+<p>この記事では、mikutterにパッチを送る流れを解説しました。
+これを読んで、mikutterの改善に興味をもつ人が増えると嬉しいなぁと思います。</p>
+ 
+    
+        <div id="kogarasi-program-patching_mikutter" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-12-24 00:56:07</p>
+</div>
+
+</body>
+</html>

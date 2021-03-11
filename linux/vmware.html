@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | LinuxでVMwareを使う</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../program/index.html">Program</a></li>
+      <li><a href="index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="linuxvmware">LinuxでVMwareを使う</h2>
+
+<p>iPadの曲管理をLinux上でやりたかったので，VMware
+Player4.0.1を導入してWindows入れてみました．</p>
+
+<h3 id="vmware">VMwareのインストール</h3>
+
+<p>Arch Linuxなので <a href="https://wiki.archlinux.org/index.php/VMware">Arch
+wikiのVMware記事</a>
+を全面的に参考にします．
+書いてある通りにバイナリを落としてきて入れるだけ．簡単！</p>
+
+<p>モジュールのパッチは添付のスクリプトだとVMwareのバージョンチェックで弾かれてしまうので，plreqverを適当にいじって通します．
+このパッチの効能はよく分かってないのですが，当てないで動かしてたらネットワークアクセス時に落ちることがありました．</p>
+
+<p>あと，初期状態だとなぜかUSBが認識されません．
+<a href="https://wiki.archlinux.org/index.php/VMware#USB_devices_not_recognized_by_VMware_workstation_8">この現象もちゃんとWikiに書いてある</a>
+ので，リンク先のフォーラムに貼ってあるスクリプトをrc.dに放り込みましょう．</p>
+
+<h3 id="windows">Windowsのインストール</h3>
+
+<pre><code>$ vmplayer
+</code></pre>
+
+<p>でVMwareを起動してから，Windowsのインストールディスクを適当に放り込んでインストールします．
+途中でVMware toolsを入れるか聞いてくるので入れましょう
+(ここで入れなくてもVirtual Machine→VirtualMachine Setting→Install VMware
+toolsから入れられます)．
+これがないと，音が早回しになったりノイズが乗ったり，共有フォルダが使えなかったりするっぽいです．</p>
+
+<p>ここまでやっとけば大体のことはできるので，あとは適当に．</p>
+ 
+    
+        <div id="kogarasi-linux-vmware" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-10-17 02:38:57</p>
+</div>
+
+</body>
+</html>

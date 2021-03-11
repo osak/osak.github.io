@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | 日記 - 2012-09</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../program/index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    
+<div id="diary-header">
+<h2>日記 - 2012-09</h2>
+
+  <div class="prev-month"><a href="diary_201208.html">&lt;前の月へ</a></div>
+
+
+  <div class="next-month"><a href="diary_201210.html">次の月へ&gt;</a></div>
+
+<ul class="diary-menu horizontal-list">
+  <li class="horizontal-list-item"><a href="diary_list.html">日記一覧</a></li>
+  <li class="horizontal-list-item"><a href="./rss">RSS1.0</a></li>
+</ul>
+</div>
+<div class="diary-articles">
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20120924" class="diary-date"><a href="diary_201209.html#20120924">2012-09-24</a></h2>
+    <h3 id="section">精進</h3>
+
+<p>JAGの夏合宿行ったりCodeforces出たりして思ったけど，競技プログラミング力の不足を感じます．
+期待値とか数え上げの問題が出ると全然解けないし，夏合宿のフロー問題も解き方が見えずに結局解けませんでした．</p>
+
+<p>まあ競技プログラミングより物を作ってるほうが楽しいと言ってしまえばそれまでなんですが，せっかくICPCのアジア地区大会に出られるし，
+負けっぱなしは悔しいので実力を付けたいです．
+アジア地区大会で1桁順位は取りたいところ．願わくば世界大会．</p>
+
+<p>上位集団とは今は少し隔たっている感じがありますが，がんばれば埋められる差だと思っています．
+精進あるのみ．</p>
+
+    <div id="kogarasi-diary_201209-html-20120924" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20120913" class="diary-date"><a href="diary_201209.html#20120913">2012-09-13</a></h2>
+    <h3 id="section">項目追加</h3>
+
+<p><a href="../food/index.html">Food</a></p>
+
+<p>おいしい食べ物の記録とか書こうと思ってページは作ってたんだけど，リンクを張り忘れてたので追加．</p>
+
+<p>しかし日記システムを作れば毎日適当になんか書くかと思いきや，全然書かないですね……．
+何事をするにも腰が重くてなかなか続かないのやめたい．</p>
+
+    <div id="kogarasi-diary_201209-html-20120913" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20120903" class="diary-date"><a href="diary_201209.html#20120903">2012-09-03</a></h2>
+    <h3 id="section">院試</h3>
+
+<p>今日は東工大の物理情報システムの口頭試問でした．</p>
+
+<p>とりあえずスーツ着て行ったけど，面接では研究室の志望理由と今やってる研究の内容について聞かれただけで，
+合計時間は3分くらいだったので暑い思いをしてまで着ていく意味があったか疑問ですね……．</p>
+
+<p>まあとりあえず，午後の配属調整フェーズをすっ飛ばして呼ばれて，
+合格発表のときに番号があれば第一志望のとこ確定だと言われたので多分受かっているでしょう．</p>
+
+    <div id="kogarasi-diary_201209-html-20120903" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20120901" class="diary-date"><a href="diary_201209.html#20120901">2012-09-01</a></h2>
+    <h3 id="pdf">画像群とPDFの相互変換</h3>
+
+<p>自炊など電子化した漫画があって，これをPDFにしてまとめておきたい or
+PDFになっているものから画像を抽出したい，というときの手段．</p>
+
+<h4 id="pdf--">PDF → 画像</h4>
+
+<p><code>pdfimages</code> を使います．</p>
+
+<pre><code>$ pdfimages -j -p hoge.pdf out/hoge
+</code></pre>
+
+<p>こんな感じにすると， <code>out/hoge-000-000.jpg</code>
+のようなファイル名で画像が出力されます．
+最後の引数は本当にファイル名のprefixとして働くだけの適当仕様なので注意．</p>
+
+<h4 id="pdf-1">画像 → PDF</h4>
+
+<p>ImageMagickの <code>convert</code> を使います．</p>
+
+<pre><code>$ convert hoge00.jpg hoge01.jpg hoge02.jpg hoge.pdf
+</code></pre>
+
+<p>こんな感じにすると，指定した画像ファイルからなるPDFが生成されます．
+いつも思うけどImageMagick賢すぎですね．</p>
+
+    <div id="kogarasi-diary_201209-html-20120901" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+</div>
+<div id="diary-footer">
+
+  <div class="prev-month"><a href="diary_201208.html">&lt;前の月へ</a></div>
+
+
+  <div class="next-month"><a href="diary_201210.html">次の月へ&gt;</a></div>
+
+</div>
+ 
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-12-10 01:08:00 +0900</p>
+</div>
+
+</body>
+</html>

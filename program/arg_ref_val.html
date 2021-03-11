@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | 「参照の値渡し」とはどういうことか</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="section">「参照の値渡し」とはどういうことか</h2>
+<p>割と簡単な話なのに言語によって微妙に意味が違ったりして、ハマる人が割といるっぽいのでまとめてみる。</p>
+
+<p>ここでは、タイトルの通り「参照の値渡し」と「参照渡し」の違いについて説明する。
+参照を使うとどんなうれしいことがあるか、といった話題には触れない。</p>
+
+<h3 id="section-1">参照とは</h3>
+<p>変数に「アクセスできる」という状態を形にしたもの。
+CやC++におけるポインタみたいなものを一般化したものと考えるとよい（ポインタも参照の一種だが、C++では「参照」というとポインタを使わない参照を示すのでめんどい）。</p>
+
+<p>変数がある。</p>
+
+<p><img src="img/variable.png" alt="variable" /></p>
+
+<p>これを「参照」するとこういうものができる。</p>
+
+<p><img src="img/reference.png" alt="reference" /></p>
+
+<p><strong>この矢印が「参照」</strong>である。
+アクセスは以下のように、普通の変数と同じようになる。</p>
+
+<p><img src="img/reference_read.png" alt="read" /></p>
+
+<p>ここで、矢印の <code>ref</code> は、プログラム上では変数に見えたり、もっと複雑なものに見えたりするが、とにかく変数へのアクセスを媒介するものである。
+<code>ref</code> に対して何かしらの操作を加えると、実際には変数に対する操作になる。
+<code>ref</code> が物理的に何であるかは「参照」概念を考える上では特に関係ない。
+実際には言語や環境によって単に変数と呼ばれていたり、ポインタと呼ばれていたり、ハンドルと呼ばれていたりする。</p>
+
+<h3 id="section-2">「渡し」とは</h3>
+<p>引数を関数に渡すこと。
+本来参照と関数呼び出しとは独立した概念だが、関数に渡したときに参照が一見複雑な動きをするため、特にこの場合について議論されることが多い（んだと思う）。
+特に、多くの言語では参照を用いて関数を呼び出す時、呼び出し側では記法に変化がないのに、関数宣言の形によって参照の渡され方が異なる
+（C++で <code>int f(int v)</code> と <code>int f(int &amp;v)</code> はどちらも <code>f(v)</code> で呼び出せるなど）という点が非直感的なのだと思う。</p>
+
+<h3 id="section-3">参照の値渡し</h3>
+<p>上記したように「参照」そのものの実装はなんでもよいが、PascalやCの流れを汲む言語では、ポインタを使った実装が用意されていることが多い
+（これらの言語で、ポインタによる形でしか参照が実装されていないという意味ではない）。</p>
+
+<p>ポインタとは、簡単に言えば変数の通し番号である。
+PascalやCでは変数にユニークな番号が振ってあり、番号と変数の間には一対一対応がある。
+これを利用することで、実行時に変数を動的に増やしたり、大きいオブジェクトをコピーせずに渡したりすることができる
+（よく言われる「メモリ上の位置」という表現は、変数に対して一意にこの値が決まることをポインタに利用しているだけであり、必ずそういう実装をしないといけないわけではない）<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>。</p>
+
+<p>このとき、ポインタを単なる整数値として関数に渡し、プログラム側からは「ポインタとして特別に扱う」という操作を通すことで、参照として扱うことができる。
+これが「参照の値渡し」である。
+たとえばC言語であれば <code>int *ref;</code> のように変数をポインタ型として宣言した上で、 <code>*ref = 10;</code> のように <code>*</code> 演算子を付ける必要がある。
+もしも <code>*</code> を付けない場合、ポインタが保持している通し番号そのものを書き換え、参照先をすげ替えることになる。</p>
+
+<p><img src="img/reference_ptr.png" alt="ptr" /></p>
+
+<p>このとき、 <code>ref</code> そのものも書き換え可能な変数であることに注意。
+この形式で関数に参照を渡すときは次のようになる。</p>
+
+<p><img src="img/reference_val_call.png" alt="val_call" /></p>
+
+<p><code>ref</code> の保持している値が <code>arg</code> にコピーされることで、参照のコピーを実現している。
+これが「値渡し」と呼ばれる理由である。</p>
+
+<p>JavaやRuby、Pythonといった、近代的なオブジェクト指向言語では、この方針で実装されているものを単に「参照」と呼んでいる。
+ただし、これらの言語では <code>*</code> を付けるといったような特別な記法が必要なく、 また「通し番号」そのものを（通常の手段では）見ることができないため、
+C言語のポインタ等と比べてしまうと混乱しやすいかもしれない。</p>
+
+<h3 id="section-4">参照渡し</h3>
+<p>一方、C++やC#、D言語などではポインタを介さない形での参照が用意されている。
+C++では <code>int &amp;ref;</code> のように変数宣言時に <code>&amp;</code> を付けることによって、C#やD言語では <code>ref</code> や <code>inout</code> といったキーワードを付加することでこれらの参照を使うことができる。</p>
+
+<p>ポインタを介さないというのは、 <code>ref</code> という名前で呼ばれているものが実際には何か分からないという意味である。
+値渡しされたときは、 <code>ref</code> は明確に中身がある変数であった。
+しかし、参照渡しにおいては <code>ref</code> というのは <code>azusa</code> と完全に同一視可能な名前であり、 <code>ref = 10</code> という式と <code>azusa = 10</code> という式は完全に同一視できる。
+内部実装としてポインタを使うのはもちろん自由だが、（可能であれば）コンパイル時に変形を行い、全ての <code>ref</code> を <code>azusa</code> に置き換えるような実装でも構わない。</p>
+
+<p>すなわち、最初に示した</p>
+
+<p><img src="img/reference.png" alt="reference" /></p>
+
+<p>と（ユーザから見える概念としては）全く同じものである。
+この形式で関数に引数を渡すと、次のようになる。</p>
+
+<p><img src="img/reference_ref_call.png" alt="ref_call" /></p>
+
+<p><code>f()</code> が呼び出されたときに <code>arg</code> が生成され、<code>f()</code> からは直接 <code>azusa</code> にアクセスすることが可能となる。
+このとき <code>ref</code> はポインタのように書き換え可能な実体をもたない。
+すなわち、ポインタのような値ではなく、直接的に「参照」が渡されているように見える。</p>
+
+<p>C++ではこの形式のものを「参照」と呼んでいる。ポインタを使ったものは「ポインタ」である。
+C#は値渡しされるものも、 <code>ref</code> を付けたものも、どっちも参照と呼んでいる気がする（ふつうは文脈で判断できる、はず）。</p>
+
+<h3 id="section-5">結局どう違うの？</h3>
+<p>以下は、簡単なC++コードによる実証実験である。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#579">#include</span> <span style="color:#B44;font-weight:bold">&lt;iostream&gt;</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span><span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> std;
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span><span style="color:#088;font-weight:bold">void</span> func(<span style="color:#0a8;font-weight:bold">int</span> v, <span style="color:#0a8;font-weight:bold">int</span> *ptr, <span style="color:#0a8;font-weight:bold">int</span> &amp;ref) {
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    <span style="color:#777">// 読み出し方法の違い</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    cout &lt;&lt; v &lt;&lt; <span style="color:#D20">' '</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>         &lt;&lt; *ptr &lt;&lt; <span style="color:#D20">' '</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>         &lt;&lt; ref &lt;&lt; endl;
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>    <span style="color:#777">// 書き込み</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>    v = <span style="color:#00D">100</span>;
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    *ptr = <span style="color:#00D">200</span>;
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>    ref = <span style="color:#00D">300</span>;
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>    <span style="color:#777">// 書き込んだ後の結果</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    cout &lt;&lt; v &lt;&lt; <span style="color:#D20">' '</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>         &lt;&lt; *ptr &lt;&lt; <span style="color:#D20">' '</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>         &lt;&lt; ref &lt;&lt; endl;
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>    <span style="color:#777">// 最後にポインタ参照を消してみる</span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>    ptr = nullptr;
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>}
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span><span style="color:#0a8;font-weight:bold">int</span> main() {
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>    <span style="color:#0a8;font-weight:bold">int</span> v = <span style="color:#00D">1</span>, p = <span style="color:#00D">2</span>, r = <span style="color:#00D">3</span>;
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>    func(v, &amp;p, r);
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>    <span style="color:#777">// func内で書き込んだ後の結果</span>
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>    cout &lt;&lt; v &lt;&lt; <span style="color:#D20">' '</span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>         &lt;&lt; p &lt;&lt; <span style="color:#D20">' '</span>
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>         &lt;&lt; r &lt;&lt; endl;
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>    <span style="color:#080;font-weight:bold">return</span> <span style="color:#00D">0</span>;
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>}
+</pre></div>
+</div>
+</div>
+
+<p>このC++コードを実行すると、</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>1 2 3
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>100 200 300
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>1 200 300
+</pre></div>
+</div>
+</div>
+
+<p>と出力される。
+<code>main</code> 内にある <code>r</code> と、 <code>func</code> 内にある <code>ref</code> が、構文上同じように扱われていることが分かる。
+また、「参照の値渡し」で渡された <code>ptr</code> は、参照を媒介する変数である <code>ptr</code> そのものを書き換えても、元の変数には影響していない。</p>
+
+<h3 id="section-6">参考文献</h3>
+<ul>
+  <li><a href="http://ja.wikipedia.org/wiki/%E5%BC%95%E6%95%B0">引数 - Wikipedia</a></li>
+</ul>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>機械語の間接参照はまさに「メモリ上の位置」を使うものであり、これに近づけると有利な仕様になっているのは間違いない。 <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+ 
+    
+        <div id="kogarasi-program-arg_ref_val" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2014-03-07 02:50:07</p>
+</div>
+
+</body>
+</html>

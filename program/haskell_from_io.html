@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | I/Oから学ぶHaskell</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="iohaskell">I/Oから学ぶHaskell</h2>
+
+<h3 id="section">対象読者</h3>
+<p>関数型言語は聞いたことくらいしかないが、CやJava、Python等の手続き型っぽい言語はそれなりに書ける人。
+あとHaskellの環境を独力で導入できる人（面倒なのでこの記事でHaskellの導入手順は示さない）。</p>
+
+<h3 id="section-1">0. 前準備</h3>
+<p>Haskellを導入しておく。<a href="https://www.haskell.org/platform/index.html">Haskell Platform</a>を使うのがオススメ。
+Macだったら<code>brew install haskell-platform</code>でも入る。
+LinuxだったらCentOSでもない限り公式リポジトリにある。</p>
+
+<p>ghc-modを使った補完機能が動くようなエディタがあると便利。
+Vimなら<a href="https://github.com/eagletmt/ghcmod-vim">ghcmod-vim</a>がある。
+Emacsなら<a href="http://www.haskell.org/haskellwiki/Emacs">HaskellWikiにページがある</a>
+（Emacsはほとんど使わないのでよく知らない）。
+この手のプラグインを使うと、式の型がエディタ上で見れて学習にすごく便利。</p>
+
+<h3 id="hello-world">1. Hello World</h3>
+<p>とりあえず最初に書くものはHello Worldと相場が決まっている。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>main :: IO ()
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>main = do
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>    putStrLn &quot;Hello World!&quot;
+</pre></div>
+</div>
+</div>
+
+<p>Haskellでは、トップレベルに置いてあって小文字で始まるものは関数になる。
+ここでは<code>main</code>という関数を定義している。
+察しのとおりエントリポイントである。</p>
+
+<p>1行目に書いてある謎の記法は、<code>main</code>の型を指定している。
+関数の型というのは、引数の型とその渡す順番、それと返り値の型を並べた感じのものになる。
+<code>main</code>は引数を持たない関数なので、上のコードでは引数は省略され、返り値である<code>IO ()</code>だけが指定されている。
+Cの関数ポインタだと引数がないことを示すのに<code>IO (*)(void)</code>みたいに<code>void</code>が必要になるが、Haskellでは省略するだけでよい。
+<code>IO ()</code>というのはうさんくさい名前だが、これでひとつの名前である<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>。</p>
+
+<p>2行目からが関数の本体である。
+<code>=</code>というのは代入文っぽいが、これは<code>main</code>の定義であり、<code>main</code>という名前が続く式と等価であることを表している。
+<code>do</code>というのはモナドを快適に使うためのSyntax sugarだが、とりあえず深くは考えず、続く行を<strong>上から順番に</strong>実行してくれるものだと思うと良い
+（上から順番というのは意外と重要で、Haskellは<a href="http://ja.wikipedia.org/wiki/%E8%A9%95%E4%BE%A1%E6%88%A6%E7%95%A5#.E6.AD.A3.E6.A0.BC.E3.81.A7.E3.81.AA.E3.81.84.E8.A9.95.E4.BE.A1">非正格な評価戦略</a>をもつため、
+普通は書いた順に実行されるとは限らない）。</p>
+
+<p><code>putStrLn</code>は”Put String Line”の略である（たぶん）。
+引数の文字列を標準出力に出力し、最後に改行を付け加えてくれる。
+見ての通り、Haskellでは関数呼び出しにカッコがいらない。
+カッコをつけても文句は言われないけど、かっこ悪いのでHaskellerはあまりつけない。</p>
+
+<p><code>putStrLn</code>の型は以下のようになっている。
+型を見るには、コマンドラインでghciを起動して<code>:t putStrLn</code>と打ったり、Vim上で<code>putStrLn</code>の上にカーソルを乗せて<code>:GhcModType</code>したりするとよい<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>。
+Emacsから型を調べる方法は読者への課題とする。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>putStrLn :: String -&gt; IO ()
+</pre></div>
+</div>
+</div>
+
+<p>これは、<code>putStrLn</code>は文字列を引数に取って、<code>IO ()</code>を返す関数という意味である。また<code>IO ()</code>だ。
+注意深く見ると、<code>do</code>が何をやっているのかよく分からないということを除けば、<code>main</code>とは結局<code>putStrLn</code>のことであり、
+<code>IO ()</code>型の何かが返り値となっているので、先頭の型宣言と整合性が取れているように見える。
+実は<code>do</code>はたいしたことをやっていないので、実際そうなっている。</p>
+
+<h3 id="greeting">2. Greeting</h3>
+<p>Hello Worldを書いたら、次は挨拶プログラムと相場が決まっている。
+名前を入れると「こんにちは、中野さん」みたいな挨拶を返してくるだけのアレである。</p>
+
+<h4 id="section-2">コード例</h4>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>import System.IO
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>main :: IO ()
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>main = do
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>    putStr &quot;あなたの名前は？: &quot;
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>    hFlush stdout
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span>    name &lt;- getLine
+<span class="line-numbers"><a href="#n8" name="n8">8</a></span>    putStrLn (&quot;こんにちは、&quot; ++ name ++ &quot;さん。&quot;)
+</pre></div>
+</div>
+</div>
+
+<p>いきなり威圧的になってしまった。</p>
+
+<p>1行目に見えるのは、ライブラリを使うための<code>import</code>文である。JavaやPythonにあるやつとなんとなく同じだと思えばよい。
+今回は<code>hFlush</code>を使うために<code>System.IO</code>を<code>import</code>している。</p>
+
+<p><code>main</code>の型は相変わらずだが、中身は増えている。</p>
+
+<p>まず、名前を尋ねるプロンプトを<code>putStr</code>で出力している。
+これは名前からなんとなく分かる通り、改行しないで文字列を出力する関数である。
+次の<code>hFlush stdout</code>は、C等にある<code>fflush</code>と同じく、バッファを強制的に書き出す。
+標準では改行文字が来るまで出力がバッファされてしまうので、プロンプトみたいな改行を伴わない出力のときには、必然的に<code>hFlush</code>が必要になる。</p>
+
+<p>7行目の<code>name &lt;- getLine</code>は怪しげな記法だが、これは<code>getLine</code>の結果を<code>name</code>という変数に格納するという意味である。
+関数の型宣言にある<code>-&gt;</code>と対称な形だが、別に意味として繋がりがあるわけではない。
+単に擬似コードでよくある、変数への格納を表す記法をそのまま使っただけだと思われる。</p>
+
+<p>最後の<code>putStrLn</code>はカッコが付いてしまった。
+これはカッコを付けて呼び出すと何かが変わるとかではなく、単純に演算子の優先順位の問題である。
+文字列を結合するためには<code>++</code>演算子を使うが、カッコでくくらないと</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>(((putStrLn &quot;こんにちは、&quot;) ++ name) ++ &quot;さん。&quot;)
+</pre></div>
+</div>
+</div>
+
+<p>のような意味になってしまい、どう見ても意図した動きにならない（実際にはコンパイルエラーになる）。
+<code>++</code>に限らず、Haskellの世界では大抵の関数呼び出しは左からどんどん結合していくので、こういう場合に注意が必要である。</p>
+
+<h4 id="section-3"><code>(++)</code>の型</h4>
+
+<p><code>++</code>演算子の型を見てみる。
+Haskellの世界では演算子すらもれっきとした関数であり、関数であるからには型の定義が存在する。
+ghciで試すときは、<code>:t (++)</code>のようにカッコでくくってやらないとうまく行かないので注意。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>(++) :: [a] -&gt; [a] -&gt; [a]
+</pre></div>
+</div>
+</div>
+
+<p>2つ引数を取る関数が初めて出てきたが、引数は1つ1つを<code>-&gt;</code>で区切って書く。
+これはつまり、<code>[a]</code>型の値と<code>[a]</code>型の値を受け取り、<code>[a]</code>型の値を返すという意味である。
+はて、<code>[a]</code>とはなんぞや？</p>
+
+<p>外側にくっついている<code>[]</code>は、リスト構築子である。
+リストとはすなわち、物体がたくさん並んだものである。
+PerlやPythonでリストというと配列っぽいものを指すが、Haskellの場合はLispで言う方のリスト、すなわちconsセルが繋がったものを指す。
+データ構造の言葉では「連結リスト」とも呼ばれる。
+なお、Haskellのリストは同じ型の値しか入れることができない。この辺りはC系の配列っぽい挙動である。</p>
+
+<p>実はHaskellの文字列というのは原始的な型ではなく、1文字を表す<code>Char</code>型のリストとして表現されている<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>。
+ghci上で<code>:i String</code>のようにすると実際の定義が見られる。また、文字列リテラルの型を<code>:t</code>で見ても似たようなことが分かる。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>Prelude&gt; :i String
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>type String = [Char]    -- Defined in `GHC.Base'
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>Prelude&gt; :t &quot;azunyaaaaaaa&quot;
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>&quot;azunyaaaaaaa&quot; :: [Char]
+</pre></div>
+</div>
+</div>
+
+<p>使う分には深く考えず、<code>String</code>と<code>[Char]</code>は完全に等価なものとして、都合のいいように頭の中で変換していればよい。</p>
+
+<p>これで<code>[a]</code>の謎の半分は分かった。
+残るもう半分の謎は、<code>a</code>の意味するところである。</p>
+
+<p>答えから言うと、<code>a</code>は型名のワイルドカードである。
+ここには必要に応じて、どんな型でも入れてよい。
+明示的に指定しない場合には、Haskell処理系が前後の文脈からそれっぽい型を勝手に埋めてくれる。
+これはHaskellの重要な機能のひとつで、<strong>型推論</strong>と言う。</p>
+
+<p>上のコードでは、<code>(++)</code>の引数に文字列を渡していた。
+文字列の型は<code>[Char]</code>であったから、<code>a</code>に<code>Char</code>を突っ込むといい感じに型が合いそうである。</p>
+
+<p>なぜワイルドカードのような仕組みが存在するのかというと、リストの連結という操作には中身の型が何であるかは関係なく、
+consセルが連なっているものという情報さえあれば十分だからである。
+Haskellは型に厳格な言語なので、リストがあればその中身の型まで指定しないと型名として成立しない。<code>[]</code>では型名にならないし、
+かと言って<code>[Char]</code>しか取らないようにしてしまうと、整数のリスト<code>[Int]</code>やユーザが勝手に定義した型のリストを結合したいときに、いったいどうするんだという話になってしまう。
+そこで、ワイルドカードを使ってやると、リストの型名を指定するという要件を満たしつつ、中身の型そのものは気にしない、汎用的な関数が書ける。</p>
+
+<h4 id="getline"><code>getLine</code>の謎</h4>
+
+<p><code>(++)</code>の謎が解けたところで、もうひとつ怪しげな<code>&lt;-</code>記法の謎を掘り下げてみる<sup id="fnref:4"><a href="#fn:4" class="footnote">4</a></sup>。
+まず、<code>getLine</code>の型を見てみる。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>getLine :: IO String
+</pre></div>
+</div>
+</div>
+
+<p>ん、<code>IO String</code>？<code>String</code>じゃないじゃないか。
+実は<code>name</code>も<code>IO String</code>で、さっきの<code>(++)</code>の型は何かごまかしがあったのでは？ghciで試してみよう。</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>Prelude&gt; name &lt;- getLine
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>azunyaaaaa
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>Prelude&gt; :t name
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>name :: String
+</pre></div>
+</div>
+</div>
+
+<p>ちゃんと<code>String</code>になっている。</p>
+
+<p>ざっくりと言えば、これが<code>&lt;-</code>記法の効果である。
+getLineは<code>IO String</code>という謎の型を返してくるが、<code>&lt;-</code>記法で束縛すると頭の<code>IO</code>が外れるのである。</p>
+
+<p>勘のいい人は気付くかもしれないが、ここで<code>IO</code>が外れるというのは<code>main</code>の型宣言が<code>IO ()</code>であることと無関係ではない。
+<code>IO</code>は名前と使われ方からなんとなく分かるように、入出力に関わる関数にくっつく型である。
+これがなぜ必要かという説明は後に回すが、ここではひとまず、入出力をすると邪魔な<code>IO</code>がくっついてくるので、<code>&lt;-</code>で外すということが分かればよい。</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>厳密には<code>IO</code>と<code>()</code>に分割されるが、型としては<code>IO ()</code>でひとつの型として機能する。 <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>満足したら<code>:GhcModTypeClear</code>しないといつまでもハイライトされ続けるので注意。 <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>ちなみに、Haskellの<code>Char</code>はUnicode1文字を表す型であると決められているので、日本語も自然に使える。リテラルや入出力はよしなにしてくれる。 <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:4">
+      <p><code>&lt;-</code>はそういう記法であり、<code>(++)</code>のような演算子とは異なる。 <a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+ 
+    
+        <div id="kogarasi-program-haskell_from_io" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2014-04-16 04:00:41</p>
+</div>
+
+</body>
+</html>

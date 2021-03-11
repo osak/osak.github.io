@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | 日記 - 2013-05</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../program/index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    
+<div id="diary-header">
+<h2>日記 - 2013-05</h2>
+
+  <div class="prev-month"><a href="diary_201304.html">&lt;前の月へ</a></div>
+
+
+  <div class="next-month"><a href="diary_201306.html">次の月へ&gt;</a></div>
+
+<ul class="diary-menu horizontal-list">
+  <li class="horizontal-list-item"><a href="diary_list.html">日記一覧</a></li>
+  <li class="horizontal-list-item"><a href="./rss">RSS1.0</a></li>
+</ul>
+</div>
+<div class="diary-articles">
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130528" class="diary-date"><a href="diary_201305.html#20130528">2013-05-28</a></h2>
+    <h3 id="section">つらぽよ</h3>
+
+<p>Wikipediaで <a href="http://ja.wikipedia.org/wiki/大脳皮質">大脳皮質</a>
+を調べたらなぜかナチュラルに前頭葉が切除されてる脳の画像が出てきて面白かったので，
+<a href="../other/wikipedia_img.html">Wikipediaのおもしろ画像集</a> を作りました．
+とは言ってもまだ3つしかありません．もっといろいろあった気はするんだけど覚えてないです．
+これぞというネタを知ってる人がいたら教えてください．</p>
+
+<p>最近は研究テーマが決まらなくてつらぽよです．
+調べれば調べるほど無力感が増していく……．</p>
+
+    <div id="kogarasi-diary_201305-html-20130528" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130525" class="diary-date"><a href="diary_201305.html#20130525">2013-05-25</a></h2>
+    <h3 id="section">イベントまとめ</h3>
+
+<p>最近いろいろと面白そうなイベントがあるので，
+<a href="../other/events.html">備忘録を兼ねてまとめました</a>．
+基本的には自分の興味で選んでます．
+自分と興味の範囲が重なってそうで，なんか面白そうなイベントを他に知ってる人がいたら教えてもらえると嬉しいです．</p>
+
+    <div id="kogarasi-diary_201305-html-20130525" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130519" class="diary-date"><a href="diary_201305.html#20130519">2013-05-19</a></h2>
+    <h3 id="mecab-ruby">mecab-rubyのマーク漏れバグ</h3>
+
+<p>この情報はmecab-ruby-0.996時点のものです．</p>
+
+<p>mecab-rubyはC言語用APIの単なる薄いラッパーなので色々とRubyっぽくない点があるのですが（nodeのイテレーションがその最たるもの）
+先日マーク漏れバグを発見しました．</p>
+
+<p>以下のコードを実行すると，80%くらいの確率でSEGVします．
+試した処理系はx86_64上のRuby2.0.0p195です．</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#34b">#!/usr/bin/env ruby</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>require <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">MeCab</span><span style="color:#710">'</span></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span><span style="color:#036;font-weight:bold">GC</span>.stress = <span style="color:#069">true</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>node = ::<span style="color:#036;font-weight:bold">MeCab</span>::<span style="color:#036;font-weight:bold">Tagger</span>.new.parseToNode(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">たいたいたい～ｗ</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span><span style="color:#080;font-weight:bold">while</span> node
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  <span style="color:#080;font-weight:bold">unless</span> node.surface.empty?
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>node.surface<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>  node = node.next
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>何が起きているかというと，MeCabでパースされた後のノードはC++レベルの
+<code>MeCab::Tagger</code> 上に乗っているのですが <sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> ， Ruby的にはパースした後は
+<code>Tagger</code> が不要になっているためGCされることがあります．
+これが発生してしまうと， <code>Tagger</code>
+上にあったはずのノードも一緒に消えて全て無効になってしまうため，アクセス時にSEGVとなります．</p>
+
+<p>以下のように， <code>Tagger</code>
+を変数に代入してやればGCを回避できるのでSEGVしなくなります．</p>
+
+<div><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#34b">#!/usr/bin/env ruby</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>require <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">MeCab</span><span style="color:#710">'</span></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span><span style="color:#036;font-weight:bold">GC</span>.stress = <span style="color:#069">true</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>tagger = ::<span style="color:#036;font-weight:bold">MeCab</span>::<span style="color:#036;font-weight:bold">Tagger</span>.new
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>node = tagger.parseToNode(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">たいたいたい～ｗ</span><span style="color:#710">&quot;</span></span>)
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span><span style="color:#080;font-weight:bold">while</span> node
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>  <span style="color:#080;font-weight:bold">unless</span> node.surface.empty?
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>    puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>node.surface<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  node = node.next
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>この問題は@taiki45さんが作った<a href="https://github.com/taiki45/mecab-ext">mecab-ext</a>
+が当初はTaggerをnewして使い捨てる実装になっており（今は修正されています）
+このgemを使って発生したSEGVを調査していたら発見しました．</p>
+
+<p>これは <code>MeCab::Node</code> が <code>MeCab::Tagger</code>
+に内部的に依存していることがnative
+extention上で表明されていないことが原因で，
+本質的にはmecab-rubyのマークミスなのですが，mecab-rubyはSWIGで生成されていてRubyに特化したマーク処理ができない気がするので，修正は難しいと思っています．
+誰か詳しい人がいたら教えてください．</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>厳密にはtagger.cpp:325のallocator_が持っているバッファ上です． <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    <div id="kogarasi-diary_201305-html-20130519" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130513" class="diary-date"><a href="diary_201305.html#20130513">2013-05-13</a></h2>
+    <h3 id="section">知能とは何か？</h3>
+
+<p>知能システム専攻の講義「パターン情報システム」で，知能とは何かというテーマでの討論会がありました．
+1人が前で10分プレゼンして，残り20分で質疑応答を行うというプロセスを90分の授業で3回やるものです．
+今回自分は話さなかったのですが，登壇者の話と議論を聞いていると色々な考え方に触れられて，大いに刺激を受けました．</p>
+
+<p>1人めは知能を一般常識を学習することと定義し，その手段として人間のもつ感覚器官で最も情報量の多い視覚を挙げて，
+視覚の構造を解明することから知能の本質に迫れるのではないかという内容でした．
+最後には映画「アイ，ロボット」を例に出し，十分に知的に見えるなのに人間を攻撃したという点から，人間的な知能の本質の存在を指摘していました．</p>
+
+<p>2人めは知能に関する疑問という形で様々に問題を提起し，知能の本質としては創発性を挙げていました．
+また，人間と同様に見える人形やジェミノイドは知的に見える（人間の特別性），人間と同じ構造でない知能も存在し得るといった切り口での議論もしていました．
+知能をアルゴリズム的に完全に再現できると考えるか質問したところ，完全にはできないと思う，いくら似せても必ず人工的に作れない，本質と呼ぶべき部分があるのではないかとの答えでした．</p>
+
+<p>3人めは知能を形成するための要素として個性を挙げ，遺伝的アルゴリズムによる迷路学習を引き合いに出して，均質でない個性が知的な振る舞いを生み出すという主張でした．
+また，コンピュータシミュレーションによる知能はコピー可能であることを指摘し，完全に同じものが作れるため個性に欠け，真の知能とは呼べないと論じていました．</p>
+
+<p>自分自身の考えとしては2人めの人とほぼ同じなのですが，人間が大きく依存している視覚を研究することで知能の形成過程をボトムアップに解析するといった視点や，
+多様性から知能が生じるという視点はあまり考えたことがなく，新鮮に感じました．
+意識のコピーに関してはまた別に思うところがあったので質問したかったのですが，残念ながら時間が足りず，質問できなかったのが少し心残りです．</p>
+
+    <div id="kogarasi-diary_201305-html-20130513" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130512" class="diary-date"><a href="diary_201305.html#20130512">2013-05-12</a></h2>
+    <h3 id="section">ハマるあずにゃん</h3>
+
+<p>梓「あれ，Data.Textを使ったコードを書いたらGHCに
+<code>Couldn't match type `Text' with `Text'</code>
+って言われちゃった……．どっちも <code>Text</code> なのになんで～？」</p>
+
+<p>梓「うわーん，わからないよー！」</p>
+
+<p>唯「あずにゃんあずにゃん，それは <code>Data.Text</code> と <code>Data.Text.Lazy</code></p>
+
+<p>のことだよ」</p>
+
+<p>梓「ほ，ほんとだ！ <code>import Data.Text.Lazy</code>
+したら型が合いました！さすが唯先輩……」</p>
+
+<p>というので今日ハマりかけましたが，Twitterでつぶやいたら@daimatzさんに指摘されて事なきを得ました．
+なんかハマったらあずにゃんがハマったことにすると萌えると思います．</p>
+
+<blockquote class="twitter-tweet"><p>Couldn't match type `Text' with `Text' ってどういうことや……</p>&mdash; あずにゃんと論文と蜂蜜酒 (@osa_k) <a href="https://twitter.com/osa_k/status/333550300252217344">May 12, 2013</a></blockquote>
+<blockquote class="twitter-tweet"><p>@<a href="https://twitter.com/osa_k">osa_k</a> Lazy と Strict では</p>&mdash; あなたと Delphi (@daimatz) <a href="https://twitter.com/daimatz/status/333550429394829314">May 12, 2013</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+    <div id="kogarasi-diary_201305-html-20130512" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130509" class="diary-date"><a href="diary_201305.html#20130509">2013-05-09</a></h2>
+    <h3 id="section">酒</h3>
+
+<p><a href="../food/alcohol.html">酒</a> 更新．
+最近飲んだ酒でおいしかった，蜂蜜酒とキャプテンモルガンを追加しました．</p>
+
+<p>今日は月曜授業だったので大岡山に行って，ICPC練習会に参加してきました．
+色々面白い話ができて満足．
+3日分くらいのやる気を補充した（4日分以上はストックできない）のでまだがんばれそうです．</p>
+
+    <div id="kogarasi-diary_201305-html-20130509" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20130506" class="diary-date"><a href="diary_201305.html#20130506">2013-05-06</a></h2>
+    <h3 id="section">ゴールデンウイーク</h3>
+
+<p>GWやったことまとめ．</p>
+
+<h4 id="section-1">5/3</h4>
+
+<p>@slope81のふぁぼを機械学習すると面白いんじゃないかと思いついたので，12時くらいに起きてからずっとそれ関連のコードを書きまくる．
+ふぁぼと非ふぁぼそれぞれのツイートを1:5くらいでもってきて，適当に素性を抽出すればできるだろーという浅はかな考えでした．
+あと，人間が解釈できる形で学習結果を出したいと思ったので半強制的に決定木を使うことになりました．</p>
+
+<p>結果としては，素性が多すぎて決定木には荷が重かったのか，そもそもふぁぼが無差別すぎて学習が無意味なのか，とにかくあまり精度がよくなりませんでした．
+とりあえず内輪で公開して（そもそも内輪ネタだし）無理矢理一区切りとしました．</p>
+
+<h4 id="section-2">5/4</h4>
+
+<p>11時くらいに起きてから15:30まで前日の残り作業をして，てオフへ．
+皇居の公園に20人くらいのておくれが集まったけど，人数が多すぎてまとまって動くのは難しいということで自己紹介して30分で解散．ておい．</p>
+
+<p>その後は@Phenomer，@brsywe，@notegia，@penguin2716と新橋の方へ適当に歩いて行き，ご飯を食べつつmikutterのこととかLinuxのこととかを話してました．
+ぺんぎんさんがやってた，フレームバッファを画面の画素数より大きく取ってから
+<code>-scale</code> で縮小して擬似高解像度を実現するやつがやばかった．</p>
+
+<h4 id="section-3">5/5</h4>
+
+<p>また12時くらいに起きて，水曜提出の英語の課題をだらだらとやる．
+軽いエッセイ課題だけど，結局普段から考えてる認知科学っぽい内容でごまかす．
+というか英語の課題で脳科学か認知科学のことしか書いてない．
+完全に興味が偏ってるけど，興味のないことはやる気が起きないし……．</p>
+
+<p>その後は五反田の原価バーで@carbon_twelveと飲み．
+研究のこととか，周囲の人が優秀でつらぽよ～という感じのことを話してました．
+ISではとりあえず優秀と付けて煽る文化が最近流行っているらしい．やばい．</p>
+
+<p>普段外では居酒屋でしか飲まないので，まともな酒が飲めるというだけでも原価バーは良かったです．食事もおいしかったし．
+キャプテンモルガン
+プライベートストックというラム酒が良かったので今度買おうかと思います．</p>
+
+<h4 id="section-4">5/6</h4>
+
+<p>なぜか7時くらいに目が覚めて，ニコニコで超電磁砲を観てからiPadでWebページをさまよってたらいつの間にか二度寝していて，気づいたら12時でした．
+とりあえず起きてから，みっくストアをAURっぽくする計画のためRails4.0.0-beta1を試してみることに．
+Railsは半年以上前にちょっとチュートリアルをやったけど，それからなんも作ってないです．</p>
+
+<p>GW最終日なのでやる気がなく（という言い訳），Twitter見ながらだらだらとコードを書いていたんですが，ルーティングに
+<code>resources :model</code> と書いておくと <code>/model/:id</code>
+でModelsController#showに飛ぶ仕組みが気になってしまったのでRailsの中を掘り返してました．
+メタプログラミングは関係ないとこだけど，単純に型注釈がないのに大規模なので追いづらい……．
+あとpry-debuggerで <code>next</code> や <code>continue</code> を実行しても <code>step</code>
+っぽい処理になってしまうことがあって割とハマってしまい，結局それで1日が終わりました．
+（pry-debuggerの問題は分かってない）</p>
+
+    <div id="kogarasi-diary_201305-html-20130506" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+</div>
+<div id="diary-footer">
+
+  <div class="prev-month"><a href="diary_201304.html">&lt;前の月へ</a></div>
+
+
+  <div class="next-month"><a href="diary_201306.html">次の月へ&gt;</a></div>
+
+</div>
+ 
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-12-10 01:08:00 +0900</p>
+</div>
+
+</body>
+</html>

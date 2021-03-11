@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | PostgreSQLの初期設定</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../program/index.html">Program</a></li>
+      <li><a href="index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="postgresql">PostgreSQLの初期設定</h2>
+
+<p>新規環境でPostgreSQLを導入するたび、初期設定のやりかたを忘れていて面倒なのでメモしておく。</p>
+
+<h3 id="section">管理者でログインできるようにする</h3>
+<p>PostgreSQLの管理者はpostgres。独自にユーザを管理しているわけではなく、 <code>/etc/passwd</code> に書いてあるユーザ名を認証に使っている。</p>
+
+<pre><code>$ sudo -u postgres psql postgres`
+postgres=# \password postgres
+</code></pre>
+
+<p>これでpostgresのパスワードを設定する。</p>
+
+<h3 id="section-1">ユーザを作る</h3>
+
+<pre><code>$ sudo -u postgres createuser [options] username
+$ sudo useradd username
+</code></pre>
+
+<p>Linuxユーザも作っておかないと、後でめんどい。</p>
+
+<h3 id="section-2">特定のユーザとしてログインする</h3>
+<p>基本的に、プロセスを実行しているユーザの権限でログインしようとする。
+<code>-U</code> でログイン名を指定したいときは <code>pg_hba.conf</code> をいじる必要があるらしい。</p>
+
+<pre><code>$ sudo -u username psql
+</code></pre>
+ 
+    
+        <div id="kogarasi-linux-postgresql" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2014-08-03 17:52:54</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | 日記 - 2012-07</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../program/index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    
+<div id="diary-header">
+<h2>日記 - 2012-07</h2>
+
+
+  <div class="next-month"><a href="diary_201208.html">次の月へ&gt;</a></div>
+
+<ul class="diary-menu horizontal-list">
+  <li class="horizontal-list-item"><a href="diary_list.html">日記一覧</a></li>
+  <li class="horizontal-list-item"><a href="./rss">RSS1.0</a></li>
+</ul>
+</div>
+<div class="diary-articles">
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20120721" class="diary-date"><a href="diary_201207.html#20120721">2012-07-21</a></h2>
+    <h3 id="centospython273">CentOSにPython2.7.3を入れる</h3>
+
+<p>CentOSにPython2.7.3を入れようとして4時間ほどRPMと格闘してました．</p>
+
+<p>最初はspecを自分で書いてがんばってたんだけど，どうもラチが開かないしspec変えたらビルドプロセスごとやり直しで面倒臭すぎるので，
+結局 <a href="http://blog.milford.io/2012/01/building-and-installing-python-2-7-rpms-on-centos-5-7/">Building and Installing Python 2.7 RPMs on CentOS 5.7 |
+blog.milford.io</a>
+のspecを使わせてもらいました．</p>
+
+<p>ただversionを2.7.2から2.7.3にしただけでは通らず，pythonインストーラがライブラリにインストール時のパスをハードコーディングするっぽいのを直す必要がありました．
+<a href="http://adam.younglogic.com/2010/05/found-buildroot-in-installed-files-aborting/">Found ‘${BUILDROOT}’ in installed files; aborting | Adam Young’s Web
+Log</a>
+のコメント欄で言われているように， <code>%install</code> セクションの最後の方に</p>
+
+<p>~~~~ {.sourceCode .}
+find $RPM_BUILD_ROOT -type f | xargs sed -i “s|$RPM_BUILD_ROOT||g”
+~~~~</p>
+
+<p>を追加するとうまく行きます．</p>
+
+<p>また，このspecでRPMを作ると通常のパッケージとdevelパッケージの2つができますが，develパッケージを入れようとすると
+<code>python(abi)=2.7</code> の依存が解決できなくて入らないので <code>rpm</code> に <code>--nodeps</code>
+を与えて無理矢理入れました．
+どうせファイル自体は依存関係満たしてるの分かってるし．</p>
+
+    <div id="kogarasi-diary_201207-html-20120721" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20120718" class="diary-date"><a href="diary_201207.html#20120718">2012-07-18</a></h2>
+    <h3 id="as">劇場版なのはA’s観た</h3>
+
+<p>劇場版なのはA’s観てきました．</p>
+
+<p>グレアム中将とかリーゼアリア，リーゼロッテが出てこないということだったので若干心配だったんですが，2時間半に圧縮されてることを考えるとそれで丁度いいバランスでした．
+話の流れは変えないまま要所要所の設定を変更しつつ，なのはとフェイトの再開からリインフォース消滅までをうまくまとめた感じ．
+戦闘シーンの密度が高いのとか，武器のメカメカしさが増しているのが良かったです．</p>
+
+<p>ただ，アニメ版と比べるとやはり時間的制約のせいか，テンポがちょっと速すぎる感じ．
+キャラの心情変化が出来事に対して大きすぎる気がしました．
+ヴォルケンリッターがはやての命令に背いてまで闇の書のページを埋めるに至るまでの日常とか，なかなかページが集まらないことに対して焦りを感じるまでの展開とか，
+全体的にアニメ版を知ってないと変化が突然すぎるように見える印象です．
+他にも仮面の男が出てきたときの敵か味方か分からない緊張感とか，リーゼアリア，リーゼロッテがはやての前でヴォルケンリッターを消して覚醒させた後味の悪さとか，
+そういうものが全部なくなって1期のようなストレートな展開になっているので，個人的にはTV版の方が好きです．</p>
+
+<p>あとヴォルケンリッター達との初戦で敗北したレイジングハートとバルディッシュがベルカ式カートリッジの導入を要求するシーン，
+あれはなのは全編でもダントツの名場面なので映画でも観ることができて良かったです．
+無機質なAIが敗北を機に，持ち主をこれ以上負けさせないため自分の強化を望むという展開は非常にアツいですね．
+インテリジェントデバイスの場合はタチコマみたいな感情によるものではなく，純粋に勝利のための判断だと思われるのですが，
+この道具としての使命を全うしようという姿勢が逆に愛着を持たせます．</p>
+
+<p>そういえばエクセリオンモードにすると壊れるかもしれないっていう設定も言及されてなかったな……．</p>
+
+    <div id="kogarasi-diary_201207-html-20120718" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20120717" class="diary-date"><a href="diary_201207.html#20120717">2012-07-17</a></h2>
+    <h3 id="icfpc2012">ICFPC2012参加記</h3>
+
+<p><a href="../program/icfpc2012.html">書いた</a> ．</p>
+
+<p>去年は@Mi_Sawaと2人で参加して，思いついたアイデアの割に時間が足りなくて不完全燃焼感があったので今年はたくさん人を集めてみました．</p>
+
+<p>Twitterでは4回に分けて仕様変更するのがクソだとか仕様書が適当でクソだとかいろいろ言われてたけど，全体的には良いコンテストだったんじゃないかと思いました．
+最初のFloodが来たときはうげーと思ったけど，TrampolineとBeardが来たあたりで仕様変更に追随するのが快感になってきて面白かったです．
+仕様書が適当なのも結局Web
+Validatorに入力投げてVMの仕様解析するという，よくある感じの解析ゲーに落ちて楽しかったし(解析好き)．</p>
+
+<p>個人的にはシミュレータ実装や解析の楽しさにハマってしまってAIをほとんど人に任せきりになってしまったのが反省点かも．
+A*とかBeam
+Searchとか書いてヒューリスティック関数の構成に悩んでたけど，その暇でAIのコード片を量産して多角的に攻めるべきだった感じがありますね．</p>
+
+<p>あとはいろいろな環境構築スキルが欲しいと思いました．
+他の人の参加記読むとサーバ上で勝手にAI走らせて評価しとくとか，複数のAIでスコアを競うようにするとかしてるのが良さそうだったのでこの手のスキルを磨きたいですね．
+<a href="https://twitter.com/xhl_kogitsune/status/224843877394296832">@xhl_kogitsuneさんの環境</a>
+が大変楽しそうでうらやましいです．</p>
+
+    <div id="kogarasi-diary_201207-html-20120717" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20120712" class="diary-date"><a href="diary_201207.html#20120712">2012-07-12</a></h2>
+    <h3 id="rss">RSS配信機能</h3>
+
+<p>WebサイトがあるならRSSくらい配信できないとアレだよね，ってことで日記だけRSSを配信するようにしてみました．</p>
+
+<p><a href="./rss">RSS</a></p>
+
+<p>更新情報とかは全部日記に書くから，これだけ見てれば大丈夫なはず．</p>
+
+    <div id="kogarasi-diary_201207-html-20120712" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+  
+  <div class="diary-article">
+    
+    
+    <h2 id="20120701" class="diary-date"><a href="diary_201207.html#20120701">2012-07-01</a></h2>
+    <h3 id="section">日記システムつくった</h3>
+
+<p>Twitterで色々書き散らしているだけだとまとまった記録になりにくいので，日々思ったことをそれなりにまとまった形で書き残す場所を作りました．
+はてなダイアリーはあるけど，やっぱり自分で管理したいというのと，はてな記法が書きにくいので自作です．</p>
+
+<p>システムの概要は気が向いたら書きます．</p>
+
+    <div id="kogarasi-diary_201207-html-20120701" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+  </div>
+
+</div>
+<div id="diary-footer">
+
+
+  <div class="next-month"><a href="diary_201208.html">次の月へ&gt;</a></div>
+
+</div>
+ 
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-12-10 01:08:00 +0900</p>
+</div>
+
+</body>
+</html>

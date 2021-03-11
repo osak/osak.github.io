@@ -1,0 +1,7 @@
+digraph reference {
+    rankdir=LR;
+    ref [shape=none label=""];
+    azusa [shape=box];
+
+    ref -> azusa[label="ref" penwidth=5];
+}

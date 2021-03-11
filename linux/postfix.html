@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | Postfixの設定</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../program/index.html">Program</a></li>
+      <li><a href="index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="postfix">Postfixの設定</h2>
+
+<h3 id="section">メールの基本</h3>
+<p><a href="http://www.atmarkit.co.jp/ait/articles/0105/02/news001.html">インターネット・プロトコル詳説（5）：SMTP（Simple Mail Transfer Protocol）～前編 - ＠IT</a></p>
+
+<p>SMTP自体はメールの送信要求をサーバへ伝えるだけの役割をもつ。サーバでは、受け取ったメールに対して以下の処理を行う。</p>
+
+<ul>
+  <li>送信先のドメインが自分の担当ドメインの場合、ローカルのメールボックスに配送する。</li>
+  <li>そうでない場合、送信先のドメインに対してSMTPで同じメールを送り直す。</li>
+</ul>
+
+<p>一般に、Gmailなどでメールを送る場合は下の流れが発生しており、1回gmail.comを経由することで、送信者が本当にgmail.comのアカウントをもっており、かつ正規ユーザであることが証明できる。</p>
+
+<h3 id="section-1">注意すべき点</h3>
+<p>SMTP自体は認証機構をもっていないので、<a href="http://ja.wikipedia.org/wiki/POP_before_SMTP">POP before SMTP</a>やSMTP-AUTHなどの方法でサーバが責任をもって認証する必要がある。ここをちゃんとしていないと、スパムが勝手にSMTPへメールを送りつけて転送させ、踏み台として使われることがある。こうなるとドメインがブラックリストに登録され、送信サーバとして使えなくなる可能性がある。</p>
+
+<p>メールの送信要求とサーバ間のリレーがまったく同じプロトコルで行われるというのがどうにも古臭く、現代的なシステムに慣れていると直感に反する。</p>
+
+<h3 id="postfix-1">Postfixの設定</h3>
+<p>以上を踏まえて、Postfixを設定する。ポリシーは以下の通り。</p>
+
+<ul>
+  <li>osak.jpとmail.osak.jpに来たメールはメールボックスに入れる。</li>
+  <li>それ以外のドメインが送信先の場合は転送せず、問答無用で弾く。
+    <ul>
+      <li>osak.jpドメインを使って外部にメールを送ることは、たとえ自分でもできない。</li>
+    </ul>
+  </li>
+</ul>
+
+<pre><code>$ sudo postconf -e 'myorigin = $mydomain' # Postfixが送信するメールが、受け取り先でどのドメインから来たように見えるか
+$ sudo postconf -e 'mydestination = osak.jp mail.osak.jp' # このドメインに対して送信されたメールはこのマシンで処理する（これ以上転送しない）
+$ sudo postconf -e 'smtpd_client_restrictions = reject_unknown_client' # ドメインを引けないIPから接続してきたら弾く
+$ sudo postconf -e 'smtpd_recipient_restrictions = reject_unauth_destination' # RCPT TOが外部サーバの時は弾く
+</code></pre>
+
+<h3 id="section-2">参考</h3>
+<ul>
+  <li><a href="http://www.atmarkit.co.jp/ait/articles/0105/02/news001.html">インターネット・プロトコル詳説（5）：SMTP（Simple Mail Transfer Protocol）～前編 - ＠IT</a></li>
+  <li><a href="http://www.postfix.org/STANDARD_CONFIGURATION_README.html">Postfix Standard Configuration Examples</a></li>
+  <li><a href="http://www.postfix.org/SMTPD_ACCESS_README.html">Postfix SMTP relay and access control</a></li>
+</ul>
+
+<p>以下はPostfixドキュメントの日本語訳だが、底本が古い（現在Postfixの最新版は2.11だが、翻訳元が2.2のドキュメントになっている）。</p>
+
+<ul>
+  <li><a href="http://www.postfix-jp.info/trans-2.2/jhtml/BASIC_CONFIGURATION_README.html">Postfix 基本設定</a></li>
+  <li><a href="http://www.postfix-jp.info/trans-2.2/jhtml/SMTPD_ACCESS_README.html">Postfix SMTP リレーおよびアクセス制御</a></li>
+</ul>
+ 
+    
+        <div id="kogarasi-linux-postfix" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2014-08-25 02:16:36</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | mikutterとの出会い</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="index.html">Program</a></li>
+      <li><a href="../linux/index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="mikutter">mikutterとの出会い</h2>
+
+<p>これは <a href="http://atnd.org/events/33911">mikutterアドベントカレンダー</a>
+3日目の記事として書かれました．</p>
+
+<p>前の人は <a href="http://d.hatena.ne.jp/Bardiche_A/20121202">@Fei3939さん</a>
+です．</p>
+
+<p>次の人は @shijin_cmpb さんです．</p>
+
+<p>今回の話は，mikutterとの出会いについて．</p>
+
+<h3 id="section">出会い</h3>
+
+<p>mikutterとの出会いは，Twilogによれば
+<a href="http://twilog.org/osa_k/date-110427">2011年4月27日</a> らしい．</p>
+
+<p>当時は <a href="http://twicli.neocat.jp/">twicli</a>
+というWebブラウザベースのクライアントを主に使っていて，
+カスタマイズ性も高くて好きだったのだが，Firefoxでタブを大量に開いてvimperatorで移動するという自分の使い方ではすぐにタブが隠れてしまい，
+常にTLを画面に出しておきたいという欲求を満たせなかったため新しいTwitterクライアントを探していた．</p>
+
+<p>Linuxで動くTwitterクライアントはただでさえ少ないのだが，色々と試してみてもしっくりくる物がない．
+しばらく探した後，これは自分で作る必要がありそうだと思った．
+しかしLinuxでGUIプログラムを1から書くのは面倒そうなので，既存のTwitterクライアントを改造して必要な機能を入れようと考えてオープンソースのTwitterクライアントを探していた．</p>
+
+<p>mikutterはそうしてTwitterクライアントを探し回っているときに見つけた．
+たしか，その頃一部クラスタがmikutterなるクライアントの話を時々持ち出していたのだと思う．
+調べてみたらRuby製でオープンソースらしい．
+これは試してみる価値がありそうだ，と思ってすぐダウンロードして起動してみた．</p>
+
+<h3 id="section-1">プロキシパッチ</h3>
+
+<p>当時の感想はよく覚えていないが，アイコンのロールオーバーに各種機能を割り当てていたり，
+リプライ時にそのTweetにくっついた形でテキストボックスが出現したりする挙動や，ユーザが自由に拡張できるプラグインシステムを見て面白いクライアントだと思ったことは覚えている．
+最初は投稿クライアント名が表示されていないことに気づいたので，どうせ改造するのだからとその場で適当にアタリを付けて表示部分を読んで改造し，
+クライアント名が表示されるようにした．
+このとき，ソースコードのそこかしこに一行に連続したendやmiquireという謎のメソッドが見えて，作者がおかしいことを確信した気がする．</p>
+
+<p>その数日後，今度は大学内無線LANからmikutterを使うため，Javaの講義を聞き流しながらプロキシプラグインを書いた
+(mikutterのRedmineにはプロキシ対応予定のチケットがあったが，あまり優先度が高くなさそうだったので自分で書くことにした)．
+最初はmikutterコアの改造が必要になるかと思っていたがOAuth
+gem周辺の構造がよく分かっておらず，またうまく設定を流し込むにも大工事が必要になりそうだと感じて断念した．
+しかし大学でmikutterを使うにはどうしてもプロキシが必要になる．
+そこでRedmineにアイデアとして書いてあった，Net::HTTPにモンキーパッチを当てる方法なら楽にできそうだと思ってプラグインとして実装した．</p>
+
+<p>Redmineにはモンキーパッチ方式だとトラブルの元になるかもしれないと書いてあったので，とりあえず手元で数日様子を見てから大丈夫そうなら作者に投げよう
+と思ってプロキシを書いたことだけtweetしておいたら，翌日には@toshi_aさんに捕捉されてmikutterに取り込んでもらえることになった．</p>
+
+<h3 id="ui">新UI</h3>
+
+<p>ちょうどこの頃，mikutterは新UI(現行のcairoを使った表示形式)へと移行しようとしていた．
+当時のmikutterは画面更新がかなり遅く，UserStreamだと1分近く画面が真っ白になることも頻発するような状況だったので，
+&lt;r300あたりで新UIがまともに動作するようになったというアナウンスが@toshi_aさんからあった時にはすぐ試してみた&gt;．</p>
+
+<p>この時は32bit環境でtweet
+idが正常に扱われないバグがあったので，GLib周りのコードを勘で読んでパッチを当てて動くようにした．
+ちゃんと動いたときはTweetがするすると流れていき，それまでのコンポーネントベースの表示と比べるとあまりの違いに笑うしかなかった．</p>
+
+<p>使いやすいデザインのUIと，プラグインで好き勝手に機能を追加できるというプログラマ好みの機能．
+そしてリアルタイムで更新されていき，その度に高速化やUIの改善，落ちる頻度の改善(たまに改悪も)がなされる臨場感．
+当時感じて今でも続いている，mikutterの面白さはここにあると思う．</p>
+
+<p>結局，新UIがリリースされたことでmikutterに満足してしまい自作のTwitterクライアントを作るところまでは行かなかった．
+そして多くのmikutterianの影響を受けてておくれの世界を知ったり，ふぁぼ閾値が下がってふぁぼり数が一気に増えたりして今に至る．</p>
+
+<h3 id="section-2">まとめ</h3>
+
+<p>この記事ではmikutterとの出会いについて書きました．
+まあmikutter使ってる人の中にはこういう人もいるよ，ってことで．</p>
+ 
+    
+        <div id="kogarasi-program-mikutter_advent_calendar_2012" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2013-10-17 02:38:57</p>
+</div>
+
+</body>
+</html>

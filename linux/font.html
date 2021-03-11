@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="../style_memoyoushi.css" />
+
+
+
+
+<title>メモ用紙2.0 | Linuxのフォント設定</title>
+</head>
+<body>
+<div id="header">
+  <h1 class="title"><a href="../index_memoyoushi.html">メモ用紙2.0</a></h1>
+  <address>osak.63 at_mark gmail.com</address>
+</div>
+<div id="body">
+  <div id="menu">
+    <ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../program/index.html">Program</a></li>
+      <li><a href="index.html">Linux</a></li>
+      <li><a href="../hardware/index.html">Hardware</a></li>
+      <li><a href="../trip/index.html">Trip</a></li>
+      <li><a href="../food/index.html">Food</a></li>
+      <li><a href="../other/index.html">Other</a></li>
+      <li><a href="../diary/index.html">Diary</a></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2 id="linux">Linuxのフォント設定</h2>
+<p>Linux(XOrg)のフォント管理についてまとめる。</p>
+
+<h3 id="fontconfig">Fontconfig</h3>
+<p>一般に、GUIアプリケーションは起動される環境にどんなフォントが入っているか分からないので、特定のフォントを決め打ちでテキストを描画すると環境によって文字が出たり出なかったりしてあまりよくない。そこで、フォントをserifやsans-serif、monospaceといった汎用的な特徴名で参照するようにして、実際に使われるフォントがIPAゴシックであるか、M+であるか、ヒラギノであるかといった部分は、利用者の環境にたまたま存在しているものを適宜使ってもらうようにすると具合がよい。このようなインターフェースを提供するのがFontconfigである。</p>
+
+<p>具体的には、以下のようなことができる。- システム(Xorg)にインストールされたフォントの認識- フォント名と実際に使われるフォントのマッピング（1つのフォント名に複数の実体をひも付けることも可能）- </p>
+
+<p>設定ファイルはXMLで書かれており、フォントの参照名(serifとかmonospaceとか)に対して、実体となるフォントの組み合わせを指定することでカスタマイズができる。</p>
+
+<p>参考文献- <a href="http://www.freedesktop.org/wiki/Software/fontconfig">fontconfig</a> - 本家。- <a href="http://www.freedesktop.org/software/fontconfig/fontconfig-user.html">fonts-conf</a> - Fontconfigの設定方法に関するドキュメント。- <a href="http://ja.wikipedia.org/wiki/Fontconfig">Fontconfig - Wikipedia</a>
+- <a href="https://wiki.archlinux.org/index.php/Font_configuration">Font configuration - ArchWiki</a></p>
+ 
+    
+        <div id="kogarasi-linux-font" class="kogarasi-mark">ここにはかつてコメントが表示されていました</div>
+    
+  </div>
+</div>
+<div id="footer">
+  <p>Last update: 2015-04-28 01:17:46</p>
+</div>
+
+</body>
+</html>
