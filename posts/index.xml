@@ -6,10 +6,6 @@
     <description>Recent content in Posts on osak.jp</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 08 Nov 2020 16:03:26 +0900</lastBuildDate>
-    
-	<atom:link href="https://osak.jp/posts/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 08 Nov 2020 16:03:26 +0900</lastBuildDate><atom:link href="https://osak.jp/posts/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
