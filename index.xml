@@ -31,7 +31,7 @@ BackgroundとMotivationよりも具体的な要素に関しては、影響範囲
       
       <guid>https://osak.jp/posts/en/code-review-goals-and-approaches/</guid>
       <description>This is a translation of my original blog post written in Japanese. Baseline translation was powered by DeepL Translate.
-  Preface The Goal of Code Review  Main Goals Sub goals   Checklist  High priority Medium priority Low priority   How to avoid turning reviews into a burden  Control the size of reviews Who should be the reviewer? How to organize the discussion Criticism and personal offense   Advice for Reviewers Advice for Code Authors References    Preface The advantages of code reviews have long been emphasized.</description>
+  Preface The Goal of Code Review  Main Goals Sub goals   Checklist  High priority Medium priority Low priority   How to avoid turning reviews into a burden  Control the size of reviews Who should be the reviewer? How to organize the discussion Criticism and personal offense   Advice for Reviewers Advice for Code Authors References    Preface    The advantages of code reviews have long been emphasized.</description>
     </item>
     
   </channel>
