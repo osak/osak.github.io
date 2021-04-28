@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="color-scheme" content="light dark">
+
+    
+
+    <meta name="author" content="Osamu Koga (osa_k)">
+    <meta name="description" content="定義 主要な性質（余弦定理との関係） 直交判定 三角形の面積 内積と外積 コサイン類似度    高校数学レベルで理解可能な内積の性質と、その利用法について簡単にまとめる。
+定義    ベクトル $\vec{a} = (x_a, y_a)$ と $\vec{b} = (x_b, y_b)$ について、内積 $\vec{a} \cdot \vec{b} $ は以下の等式で定義される。
+$$ \begin{equation} \label{inner-product} \vec{a} \cdot \vec{b} = x_a x_b &#43; y_a y_b \end{equation} $$
+主要な性質（余弦定理との関係）    内積の主要な性質として、以下の等式が成立することが知られている。
+$$ \begin{equation} \label{inner-product-cos-thm} \vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos \theta \end{equation} $$
+このことは、ベクトル $\vec{a}$ と $\vec{b}$ によって張られる三角形を考えて、余弦定理 $c^2 = a^2 &#43; b^2 - 2ab \cos \theta_{ab}$ を変形して得られる等式">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="内積とはなんなのか"/>
+<meta name="twitter:description" content="定義 主要な性質（余弦定理との関係） 直交判定 三角形の面積 内積と外積 コサイン類似度    高校数学レベルで理解可能な内積の性質と、その利用法について簡単にまとめる。
+定義    ベクトル $\vec{a} = (x_a, y_a)$ と $\vec{b} = (x_b, y_b)$ について、内積 $\vec{a} \cdot \vec{b} $ は以下の等式で定義される。
+$$ \begin{equation} \label{inner-product} \vec{a} \cdot \vec{b} = x_a x_b &#43; y_a y_b \end{equation} $$
+主要な性質（余弦定理との関係）    内積の主要な性質として、以下の等式が成立することが知られている。
+$$ \begin{equation} \label{inner-product-cos-thm} \vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos \theta \end{equation} $$
+このことは、ベクトル $\vec{a}$ と $\vec{b}$ によって張られる三角形を考えて、余弦定理 $c^2 = a^2 &#43; b^2 - 2ab \cos \theta_{ab}$ を変形して得られる等式"/>
+
+    <meta property="og:title" content="内積とはなんなのか" />
+<meta property="og:description" content="定義 主要な性質（余弦定理との関係） 直交判定 三角形の面積 内積と外積 コサイン類似度    高校数学レベルで理解可能な内積の性質と、その利用法について簡単にまとめる。
+定義    ベクトル $\vec{a} = (x_a, y_a)$ と $\vec{b} = (x_b, y_b)$ について、内積 $\vec{a} \cdot \vec{b} $ は以下の等式で定義される。
+$$ \begin{equation} \label{inner-product} \vec{a} \cdot \vec{b} = x_a x_b &#43; y_a y_b \end{equation} $$
+主要な性質（余弦定理との関係）    内積の主要な性質として、以下の等式が成立することが知られている。
+$$ \begin{equation} \label{inner-product-cos-thm} \vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos \theta \end{equation} $$
+このことは、ベクトル $\vec{a}$ と $\vec{b}$ によって張られる三角形を考えて、余弦定理 $c^2 = a^2 &#43; b^2 - 2ab \cos \theta_{ab}$ を変形して得られる等式" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://osak.jp/posts/ja/what-is-inner-product/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-28T01:28:00-05:00" />
+<meta property="article:modified_time" content="2021-04-28T01:28:00-05:00" />
+
+
+
+    <title>
+  内積とはなんなのか · osak.jp
+</title>
+
+    
+      <link rel="canonical" href="https://osak.jp/posts/ja/what-is-inner-product/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.1.7" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.eb7743f94930acfd17146aecc1f80e86fe35b3e451f2ec0c98485f9c4d962f34.css" integrity="sha256-63dD&#43;UkwrP0XFGrswfgOhv41s&#43;RR8uwMmEhfnE2WLzQ=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.dde8a61eb31a32353b4baf3d9113f03c4ea2a8ca9bb736f59ca2d2b2cb664f0b.css" integrity="sha256-3eimHrMaMjU7S689kRPwPE6iqMqbtzb1nKLSsstmTws=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      osak.jp
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/en/">Blog (en)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/ja/">Blog (ja)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://osak.hatenablog.jp/">Blog (Hatena)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://osak.jp/posts/ja/what-is-inner-product/">
+              内積とはなんなのか
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-04-28T01:28:00-05:00'>
+                April 28, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              2-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+        <div class="toc">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#定義">定義</a></li>
+    <li><a href="#主要な性質余弦定理との関係">主要な性質（余弦定理との関係）</a></li>
+    <li><a href="#直交判定">直交判定</a></li>
+    <li><a href="#三角形の面積">三角形の面積</a></li>
+    <li><a href="#内積と外積">内積と外積</a></li>
+    <li><a href="#コサイン類似度">コサイン類似度</a></li>
+  </ul>
+</nav>
+</div>
+
+<p>高校数学レベルで理解可能な内積の性質と、その利用法について簡単にまとめる。</p>
+<h2 id="定義">
+  定義
+  <a class="heading-link" href="#%e5%ae%9a%e7%be%a9">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>ベクトル $\vec{a} = (x_a, y_a)$ と $\vec{b} = (x_b, y_b)$ について、内積 $\vec{a} \cdot \vec{b} $ は以下の等式で定義される。</p>
+<p>$$
+\begin{equation}
+\label{inner-product}
+\vec{a} \cdot \vec{b} = x_a  x_b + y_a y_b
+\end{equation}
+$$</p>
+<h2 id="主要な性質余弦定理との関係">
+  主要な性質（余弦定理との関係）
+  <a class="heading-link" href="#%e4%b8%bb%e8%a6%81%e3%81%aa%e6%80%a7%e8%b3%aa%e4%bd%99%e5%bc%a6%e5%ae%9a%e7%90%86%e3%81%a8%e3%81%ae%e9%96%a2%e4%bf%82">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>内積の主要な性質として、以下の等式が成立することが知られている。</p>
+<p>$$
+\begin{equation}
+\label{inner-product-cos-thm}
+\vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos \theta
+\end{equation}
+$$</p>
+<p>このことは、ベクトル $\vec{a}$ と $\vec{b}$ によって張られる三角形を考えて、余弦定理 $c^2 = a^2 + b^2 - 2ab \cos \theta_{ab}$ を変形して得られる等式</p>
+<p>$$
+\begin{equation}
+\label{inner-product-alt}
+|\vec{a}||\vec{b}| \cos \theta_{ab} = \frac{|\vec{a}|^2 + |\vec{b}|^2 - |\vec{c}|^2}{2}
+\end{equation}
+$$</p>
+<p>の右辺を実際に計算することで確かめられる。ただし、 $\vec{c} = \vec{b} - \vec{a} = (x_b - x_a, \ y_b - y_a)$ である。</p>
+<p><img src="/posts/images/cosine_thm.png" alt=""></p>
+<p><strong>練習問題</strong>：式 $\ref{inner-product-alt}$ の右辺を実際に計算し、 式 $\ref{inner-product}$ と一致することを確かめよ。</p>
+<p>内積の値そのものを目に見えるように図示することは難しいが、式 $\ref{inner-product-cos-thm}$ によって $\cos \theta$ の値を計算できるため、便利な利用方法がいくつか存在する。</p>
+<h2 id="直交判定">
+  直交判定
+  <a class="heading-link" href="#%e7%9b%b4%e4%ba%a4%e5%88%a4%e5%ae%9a">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>$\cos (\pi/2) = 0$ であるから、$\vec{a}$ と $\vec{b}$ が直交している場合、式 \ref{inner-product-cos-thm} より $\vec{a} \cdot \vec{b} = 0$ となる。つまり、ベクトル $\vec{a}$ と $\vec{b}$ の成分さえ分かっていれば、簡単な掛け算と足し算だけで直交しているかどうかの判定ができる。</p>
+<p><strong>練習問題</strong>:</p>
+<ol>
+<li>$\vec{a} = (12, \ 4)$ と $\vec{b} = (-3, 9)$ が直交していることを確かめよ。 また、$\vec{c} = 4\vec{a} = (48, 16)$ と $\vec{b}$ ではどうか。</li>
+<li>自分で適当に2ベクトルを定め、直交しているかどうかを判定せよ。</li>
+</ol>
+<h2 id="三角形の面積">
+  三角形の面積
+  <a class="heading-link" href="#%e4%b8%89%e8%a7%92%e5%bd%a2%e3%81%ae%e9%9d%a2%e7%a9%8d">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>ベクトル $\vec{a}$ と $\vec{b}$ で張られる三角形OABの面積を求めることを考える。</p>
+<p><img src="/posts/images/OAB.png" alt=""></p>
+<p>三角形の面積は (底辺×高さ)/2 で求められるから、点Bから $\vec{a}$ に下した垂線の長さを知りたい。
+ここで、垂線の足をPとして直角三角形OBPを考えると、垂線BPの長さは $|\vec{b}| \sin \theta$ であることが分かる。</p>
+<p>三角関数の関係式より $(\sin \theta)^2 + (\cos \theta)^2 = 1$ であるから、 $\sin \theta = \pm \sqrt{1 - (\cos \theta)^2}$ である。本当なら $\sin \theta$ の符号を真面目に考える必要があるのだが、面積を求める上では最後に絶対値を取れば無視できるので、とりあえず非負（正か0）であると思うことにする。このとき、三角形の面積は以下のように書くことができる。</p>
+<p>$$
+\begin{equation}
+\label{triangle-area}
+\triangle OAB = \frac{|\vec{a}||\vec{b}| \sin \theta}{2} = \frac{|\vec{a}||\vec{b}|\sqrt{1 - (\cos \theta)^2}}{2}
+\end{equation}
+$$</p>
+<p>辺aとbの長さしか分かっていないのなら$\cos \theta$を求める方法は存在しないが、今はそれぞれの辺が$\vec{a} = (x_a, y_a)$と$\vec{b} = (x_b, y_b)$と表されることが分かっている。ここで2ベクトルの内積を取ると、式 $\ref{inner-product-cos-thm}$ によって、$\cos \theta$に辺aとbの長さを掛けたものが得られる。aとbの長さは分かっているので、結局$\cos \theta$そのものの値を得ることができて、式$\ref{triangle-area}$に代入すると面積を求められる。</p>
+<p><strong>練習問題</strong>:</p>
+<ol>
+<li>式 \ref{inner-product-cos-thm} を用いて、$\cos \theta$ を $\vec{a}$と$\vec{b}$の式として表せ。</li>
+<li>得られた $\cos \theta$ の式を式 \ref{triangle-area} に代入し、外側の$|\vec{a}||\vec{b}|$を用いて根号内の分母を払え。</li>
+<li>得られた式に含まれるベクトルを展開して、$\triangle OAB$を $x_a, y_a, x_b, y_b$ の式で表せ。</li>
+</ol>
+<h2 id="内積と外積">
+  内積と外積
+  <a class="heading-link" href="#%e5%86%85%e7%a9%8d%e3%81%a8%e5%a4%96%e7%a9%8d">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>先ほどの練習問題を最後まで計算すると
+$$
+\triangle OAB = \frac{x_a y_b - y_a x_b}{2}
+$$</p>
+<p>という形の式が得られる。実は右辺の分子 $x_a y_b - y_a x_b$ には<strong>外積</strong>という名前がついており、$\vec{a} \times \vec{b}$ で表す。 厳密には外積 $\vec{a} \times \vec{b}$ の値は3次元ベクトルとして定義され、そのベクトルは$\vec{a}$ と $\vec{b}$ の両方に直交し、長さは $\vec{a}$ と $\vec{b}$ の張る平行四辺形の面積に等しい。$\vec{a}$ と $\vec{b}$ がどちらもXY平面上にある場合は、この平面に直交する向きはZ軸と平行になるため $\vec{a} \times \vec{b} = (0, \ 0, \ x_a y_b - y_a x_b)$ であり、この時のZ成分も便宜的に外積と呼ぶことがあるのである。</p>
+<p><img src="/posts/images/cross_product.png" alt=""></p>
+<p>ここまでの流れから気付くかもしれないが、外積$\vec{a} \times \vec{b}$は$|\vec{a}||\vec{b}|\sin \theta$に等しい。定義式の形も内積となんとなく似ているが、こちらの関係はより内積との対応関係を感じさせるものになっている。</p>
+<p>外積は定義式に引き算を含むことや、図形的な等式に$\sin \theta$を含むことから推察されるように、$\vec{a}$と$\vec{b}$の順番をひっくり返すと正負が逆転する。すなわち、$\vec{a} \times \vec{b} = -(\vec{b} \times \vec{a})$である。図形的には外積の結果として出てくるベクトルの向きに影響するが、この関係は俗に「右ねじの進む向き」と呼ばれる。$\vec{a}$から$\vec{b}$に回すのと同じ向きで右ねじ（いわゆる普通のねじ）を回すと、$\vec{a} \times \vec{b}$ベクトルの向きにねじが進むという意味である。</p>
+<p>外積の値は平行四辺形の面積になり、2で割ると三角形の面積になるという事実は、覚えておくとたまに役に立つことがある。</p>
+<h2 id="コサイン類似度">
+  コサイン類似度
+  <a class="heading-link" href="#%e3%82%b3%e3%82%b5%e3%82%a4%e3%83%b3%e9%a1%9e%e4%bc%bc%e5%ba%a6">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>$\cos \theta$ は円周上の点のX成分の大きさだから、$\theta = 0$ で最大値 $\cos \theta = 1$ を取り、$\theta = \pi$ で最小値 $\cos \theta = -1$ を取る。したがって、一方のベクトルをX軸正の方向に固定して、もう一方のベクトルを反時計回りに回転させていくと、2つのベクトルがだいたい同じ向きを向いているときには $\cos \theta$ は1に近い値を取っているが、直角に近づくにつれて値は0へと近づいていき、逆方向を向き始めると更に小さくなって負になる。</p>
+<p>$\cos \theta$ のこの性質を利用しているのが <strong>コサイン類似度</strong> と呼ばれるものであり、現実での内積の利用法の一つである。これは大雑把に言うと、2つのベクトルがどれくらい似ているかどうかを測るための尺度の一つである。</p>
+<p>ベクトルという概念は平面上の点を表すためだけのものではなく、一般的に複数の数値の列として表されるものはだいたいベクトル表記ができる。</p>
+<ul>
+<li>例：コンピュータ上で色を扱うときにはR, G, Bという光の三原色の配分で色を表すが、この3要素からなる $(R, G, B)$ は色を表すベクトルである。たとえば、$(R, G, B) = (255, 128, 0)$ というベクトルはオレンジ色を表す。言い換えると、3次元空間の点 $(255, 128, 0)$ をRGBの色として解釈するとオレンジ色になる。</li>
+<li>例：味覚は甘味、酸味、塩味、苦味、うま味という基本味の組み合わせからなるとされているが、それぞれの基本味の強さを数値で表したとき（たとえば0～10とする）、5つの数値を組にしてベクトルを作ることができる。このベクトルは5次元空間の点を表すものでもあり、特定の味を表すものでもある。</li>
+</ul>
+<p>このようにして概念をベクトル化したとき、ベクトル同士がどれくらい似ているかを評価できると便利である。たとえば $(255, 128, 0)$ のオレンジ色と $(230, 130, 50)$ の黄土色は似ているが、$(255, 0, 128)$ のピンク色とはあまり似ていない。ベクトルの各成分さえ分かっていれば、式 $\ref{inner-product-cos-thm}$ を利用することで簡単に $\cos \theta$ が求められるため、「似ている度」を測る簡易な指標として使うことができる。</p>
+<p><strong>練習問題</strong>：例に挙げた色どうしで $\cos \theta$ の値を求め、自分の感覚と比較してみよ。</p>
+<p>複数の値を一つの値に押し込めてしまう都合上、コサイン類似度は万能の概念ではない（これはコサイン類似度に限った話ではなく、何かを計測するという行為一般に常について回る問題である）。色の例で言えば、白 $(255, 255, 255)$ と灰色 $(128, 128, 128)$ のコサイン類似度は1であるが、白と灰色が同じであると言う人はまずいないだろう。評価指標は目的に応じて適切に作る必要がある。</p>
+
+      </div>
+
+
+      <footer><section class="hatena-star">
+    <script type="text/javascript">
+        window.Hatena = {
+            Star: {
+                SiteConfig: {
+                    entryNodes: {
+                        'article': {
+                            uri: 'a.title-link',
+                            title: 'h1.title',
+                            container: 'section.hatena-star'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <script async type="text/javascript" src="https://s.hatena.ne.jp/js/HatenaStar.js"></script>
+</section><section class="share-buttons"><a href="https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="vertical-normal" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+        <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "osak-jp" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true,
+        tags: 'ams'
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+          2019 -
+        
+        2021
+         Osamu Koga (osa_k) 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K7GK6FJ729"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-K7GK6FJ729', { 'anonymize_ip': false });
+}
+</script>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+  </body>
+
+</html>

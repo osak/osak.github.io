@@ -6,7 +6,21 @@
     <description>Recent content on osak.jp</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 04 Apr 2021 03:00:00 -0500</lastBuildDate><atom:link href="https://osak.jp/posts/ja/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Apr 2021 01:28:00 -0500</lastBuildDate><atom:link href="https://osak.jp/posts/ja/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>内積とはなんなのか</title>
+      <link>https://osak.jp/posts/ja/what-is-inner-product/</link>
+      <pubDate>Wed, 28 Apr 2021 01:28:00 -0500</pubDate>
+      
+      <guid>https://osak.jp/posts/ja/what-is-inner-product/</guid>
+      <description>定義 主要な性質（余弦定理との関係） 直交判定 三角形の面積 内積と外積 コサイン類似度    高校数学レベルで理解可能な内積の性質と、その利用法について簡単にまとめる。
+定義    ベクトル $\vec{a} = (x_a, y_a)$ と $\vec{b} = (x_b, y_b)$ について、内積 $\vec{a} \cdot \vec{b} $ は以下の等式で定義される。
+$$ \begin{equation} \label{inner-product} \vec{a} \cdot \vec{b} = x_a x_b + y_a y_b \end{equation} $$
+主要な性質（余弦定理との関係）    内積の主要な性質として、以下の等式が成立することが知られている。
+$$ \begin{equation} \label{inner-product-cos-thm} \vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos \theta \end{equation} $$
+このことは、ベクトル $\vec{a}$ と $\vec{b}$ によって張られる三角形を考えて、余弦定理 $c^2 = a^2 + b^2 - 2ab \cos \theta_{ab}$ を変形して得られる等式</description>
+    </item>
+    
     <item>
       <title>シェアボタンとか付けた</title>
       <link>https://osak.jp/posts/ja/added-share-buttons/</link>
