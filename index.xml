@@ -6,7 +6,17 @@
     <description>Recent content on osak.jp</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 13 Jul 2021 07:10:00 -0500</lastBuildDate><atom:link href="https://osak.jp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Jul 2021 09:10:00 -0500</lastBuildDate><atom:link href="https://osak.jp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ICFPC2021 Writeup</title>
+      <link>https://osak.jp/posts/en/icfpc-2021/</link>
+      <pubDate>Tue, 13 Jul 2021 09:10:00 -0500</pubDate>
+      
+      <guid>https://osak.jp/posts/en/icfpc-2021/</guid>
+      <description>I participated in ICFP Content 2021 with regular teammates. Our team name was &amp;ldquo;manarimo&amp;rdquo;, which is what we&amp;rsquo;ve been using for years recently.
+ Repository： https://github.com/manarimo/ICFPC2021/ Portal website： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html Manual solver： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1  We ranked at the second place as of when the scoreboard was frozen. I&amp;rsquo;m happy with this result as we are #1 among Japanese teams. I was thinking we could get the global #1, however, RGBTeam did a better job then us.</description>
+    </item>
+    
     <item>
       <title>ICFPC2021感想</title>
       <link>https://osak.jp/posts/ja/icfpc-2021/</link>

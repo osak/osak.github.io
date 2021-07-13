@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="color-scheme" content="light dark">
+
+    
+
+    <meta name="author" content="Osamu Koga (osa_k)">
+    <meta name="description" content="I participated in ICFP Content 2021 with regular teammates. Our team name was &ldquo;manarimo&rdquo;, which is what we&rsquo;ve been using for years recently.
+ Repository： https://github.com/manarimo/ICFPC2021/ Portal website： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html Manual solver： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1  We ranked at the second place as of when the scoreboard was frozen. I&rsquo;m happy with this result as we are #1 among Japanese teams. I was thinking we could get the global #1, however, RGBTeam did a better job then us.">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ICFPC2021 Writeup"/>
+<meta name="twitter:description" content="I participated in ICFP Content 2021 with regular teammates. Our team name was &ldquo;manarimo&rdquo;, which is what we&rsquo;ve been using for years recently.
+ Repository： https://github.com/manarimo/ICFPC2021/ Portal website： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html Manual solver： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1  We ranked at the second place as of when the scoreboard was frozen. I&rsquo;m happy with this result as we are #1 among Japanese teams. I was thinking we could get the global #1, however, RGBTeam did a better job then us."/>
+
+    <meta property="og:title" content="ICFPC2021 Writeup" />
+<meta property="og:description" content="I participated in ICFP Content 2021 with regular teammates. Our team name was &ldquo;manarimo&rdquo;, which is what we&rsquo;ve been using for years recently.
+ Repository： https://github.com/manarimo/ICFPC2021/ Portal website： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html Manual solver： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1  We ranked at the second place as of when the scoreboard was frozen. I&rsquo;m happy with this result as we are #1 among Japanese teams. I was thinking we could get the global #1, however, RGBTeam did a better job then us." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://osak.jp/posts/en/icfpc-2021/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-13T09:10:00-05:00" />
+<meta property="article:modified_time" content="2021-07-13T09:10:00-05:00" />
+
+
+
+    <title>
+  ICFPC2021 Writeup · osak.jp
+</title>
+
+    
+      <link rel="canonical" href="https://osak.jp/posts/en/icfpc-2021/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.1.7" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.eb7743f94930acfd17146aecc1f80e86fe35b3e451f2ec0c98485f9c4d962f34.css" integrity="sha256-63dD&#43;UkwrP0XFGrswfgOhv41s&#43;RR8uwMmEhfnE2WLzQ=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.dde8a61eb31a32353b4baf3d9113f03c4ea2a8ca9bb736f59ca2d2b2cb664f0b.css" integrity="sha256-3eimHrMaMjU7S689kRPwPE6iqMqbtzb1nKLSsstmTws=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <link rel="author" href="http://www.hatena.ne.jp/osa_k/" />
+    
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      osak.jp
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/en/">Blog (en)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/ja/">Blog (ja)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://osak.hatenablog.jp/">Blog (Hatena)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://osak.jp/posts/en/icfpc-2021/">
+              ICFPC2021 Writeup
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-07-13T09:10:00-05:00'>
+                July 13, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              8-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+        <p>I participated in <a href="https://icfpcontest2021.github.io/">ICFP Content 2021</a> with regular teammates. Our team name was &ldquo;manarimo&rdquo;, which is what we&rsquo;ve been using for years recently.</p>
+<ul>
+<li>Repository： <a href="https://github.com/manarimo/ICFPC2021/">https://github.com/manarimo/ICFPC2021/</a></li>
+<li>Portal website： <a href="http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html">http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html</a></li>
+<li>Manual solver： <a href="http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1">http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1</a></li>
+</ul>
+<p>We ranked at <a href="https://poses.live/teams">the second place as of when the scoreboard was frozen</a>. I&rsquo;m happy with this result as we are #1 among Japanese teams.
+I was thinking we could get the global #1, however, RGBTeam did a better job then us. Potentially some other teams may be still submarining in the board, but more or less, invisible scores don&rsquo;t mean anything until the final result is announced&hellip;</p>
+<h2 id="summary--approach">
+  Summary &amp; Approach
+  <a class="heading-link" href="#summary--approach">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>This year&rsquo;s problem featured <a href="https://www.youtube.com/watch?v=6DYJXSSgW08">a game named &ldquo;Brain Wall&rdquo;</a> (I hadn&rsquo;t heard of this game before though, it appeared to be a component of a famous Japanese TV show). In the problem, you are given a mesh that represents a character who has to go through the hole in the wall. The hole is represented as a polygon. Then you are asked to embed the mesh into the hole, that is, move the vertices of the mesh without changing the length of edges too much. The coordinates of vertices must be integers. Then, calculate the sum of the distance between each point of the hole and the nearest vertex of the mesh. The goal is to minimize this sum.</p>
+<p>It immediately recalled our memory from the content on 2016, which featured Origami, and we concluded that the manual solving should be the key. Given that, we decided to build a visualizer that supported manual play for the first thing. In the meanwhile, other members worked on a general solver using simmulated annealing and specialized solvers for specific patterns.
+After 24 hours from the contest had begun, an additional rule was announced: by placing a vertex of the mesh at a specific coordinate in the polygon, you can obtain a bonus that can be used to relax the constraints in an other specified level. For example, you may place a vertex in outside of the polygon, or may freely stretch or contract an edge ignoring the constraint on the edge length. We basically used manual approach to take the bonuses into account. A tricky part, however, was that sometimes you had to give up an optimal solution in order to obtain a bonus in a specific level, so the optimality should be considered among all levels. Since this problem really looked like a kind of optimization problem, we decided to make solutions with and without using bonuses for each level, then choose the optimal ones at the time of submission with considering whether the bonus was obtained in the dependent level. In the end, we used a linear programming library to calculate the optimal set of the solutions.</p>
+<p>We created following tools during the contest (roughly in the order of creation):</p>
+<ul>
+<li>bruteforce: enumerates every possible arrangement of vertices, then outputs the valid and optimal one (@pepsin_amylase, @y3eadgbe)</li>
+<li>checker: checks the validaty of the solutions (@osa_k, @pepsin_amylase)</li>
+<li>gen_web: generates HTML files to list problems and solutions (@osa_k)</li>
+<li>visualizer: visualizer that you can manually move vertices on it (@kenkoooo &amp; keita)</li>
+<li>simulated_annealing: neighbors are: moving a vertex by 1, moving an edge by 1, moving whole mesh by 1, moving a 1-degree vertex to the symmetric coordinate, moving a 2-degrees vertex to reflection coordinate, warping a vertex onto a point of the polygon. Penalties are: distance between out-of-bounds vertex and the polygon, the number of out-of-bounds edges, and deviation of length constraints (@kawatea, @y3eadgbe, @osa_k)</li>
+<li>contour fitter: as we noticed that some problems appeared to be generated by shuffling the vertices from the exact-fit solution (ex: <a href="http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html#64">64</a>), this tool compares the length of edges of the mesh and the polygon, then outputs the sequence of vertices that continuously fits the contour of the polygon (@yuusti)</li>
+<li>manten: for problems which are known to have a solution with dislike=0 from the scoreboard, try every permutation of vertices to match up with the points of the polygon (@pepsin_amylase)</li>
+<li>package_solutions: submits the solutions of the highest score for each level. After the bonus was introduced, it also solves a linear programming problem to detemine in which levels the bonuses should be collected (@pepsin_amylase)</li>
+<li>globalist-optimize: uses hill climbing to optimize the edge costs when GLOBALIST bonus is applicable (@kenkoooo)</li>
+</ul>
+<p>Also, we had 4 enthusiastic manual solvers: mkut, @y3eadgbe, @kawatea, @yuusti. It was quite exciting to see they solving complex problems such as <a href="http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html#64">64</a> or <a href="http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html#105">105</a> without using a help of automation tools!</p>
+<h2 id="what-i-did">
+  What I Did
+  <a class="heading-link" href="#what-i-did">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>I was mainly working on managing the portal size, manually creating solutions, optimization of simulated annealing, and parallel execution of SA.</p>
+<h3 id="portal-site">
+  Portal Site
+  <a class="heading-link" href="#portal-site">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>We usually build a web application for a portal site, however, it was kind of tedious because we face troubles with it every single year - like I/O issues or accidentally making a weird bugs to break the website at undesired moment. So I decided to only use static assets this year. Originally I intended to host it on GitHub Pages, but as it turned out that it was not suppored for private repositories in the free tier, I decided to upload them to S3 and used a static website hosting feature. The problems and solutions were directly committed into the main repository. The site was built and uploaded in GitHub Actions which was triggered on push.</p>
+<p>I feel like it was a good decision. Since our portal site merely processes data for statistics and formats them neatly, there&rsquo;s no good reason to bother spinning up a server and run calculation every time requested. I was planning to switch the portal site to a React app that fetches preprocessed JSON from the S3 server in case the amount of data exceed the point that make this approach infeasible, however, we actually didn&rsquo;t reach to that point. Also, it was quite handy to have all problems and solutions in the local copy of the repo while writing submission script or using existing solutions as the input for automatic solvers.</p>
+<p>The script to generate the website was written in Ruby. I was planning to rewrite it with a staticly typed language such as Rust or TypeScript before it grows too large, but I ended up keeping extending the original Ruby script. It was tiresome in the end because I somehow directly embeded HTML fragments as string literals, without using erb or something&hellip;</p>
+<p>Additionally, I saw a issue that all files are upload to S3 in every run of GitHub Actions, because it generates the static files to update file timestamps, even if the content remains intact. Unlike rsync does, S3 doesn&rsquo;t compare the file with its hash&hellip; As a workaround, I passed <code>--size-only</code> flag to <code>s3-sync</code> action so that the files are uploaded only when its size had changed. It was initially working well, but as we started to often see cases that the file size remained intact while numbers in the page had changed, I ended up dropping the flag to upload everything in the end. Probably I could create a separate repo to manage the generated files.</p>
+<h3 id="solution-making">
+  Solution Making
+  <a class="heading-link" href="#solution-making">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>At the beginning, I was solving levels that looked interesting on our visualizer to build a sense towards this year&rsquo;s problem. Then I realized that the simulated annealing solver should play a crucial role for the levels whose optimal solution is nontrivial, so I requested to add a feature to load the manual solution as a initial state of the SA, and intensely ran the program with tuning initial temperature and time limit. Also I pointed out several bottleneck by looking at the output of <code>gprof</code>.</p>
+<p>For running SA in parallel, I launched a c5.24xlarge instance on EC2 and ran a Ruby script that ran as many background jobs as the number of CPU cores. I didn&rsquo;t use any specific way to manage task submission, but just constructed a command line in the Ruby script, ran all commands at once, then waited until all jobs finished. Looking back at it, I feel like I should have used a job queue to simplify the management. We usually use Jenkins as a drop-in job queue in such cases, however, I was reluctant to use it in this year because I was worried about hitting problems such as management of the tasks in the queue or collecting the output files, like which we encounter every single year in some form.</p>
+<h2 id="thoughts">
+  Thoughts
+  <a class="heading-link" href="#thoughts">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>As this year&rsquo;s problem was at a quite high quality, I really enjoyed it. I feel that the problem is tuned-up pretty well by collecting the good elements from the recent contests. It was clearly based on the Origami one from 2016, but the enhancements were pushing up the quality above that. For instance, limitation on the coordinates to be intergers makes the problem easier to deal with, and with the use of bonuses such as 2017 (Punter) or 2019 (Cleaning Robot) I never felt boared. I also want to remark the hilarious animation in the submission result pages:</p>
+<img src="/posts/images/icfpc2021-94.svg" width="400">
+<p>The levels were nicely complecated but not too much, and the bonuses were quite well designed so that they were helpful with careful thoughts but never be too powerful. I was also guessing that the participants were asked to submit the levels at some point, as like 2016, but it never happened. Acutally I feel it was a great decision of the organizer; since such an open-ended levels would have spoiled the quite well designed balance of levels prepared by the organizer.</p>
+
+      </div>
+
+
+      <footer><section class="share-buttons"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "osak-jp" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+          2019 -
+        
+        2021
+         Osamu Koga (osa_k) 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K7GK6FJ729"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-K7GK6FJ729', { 'anonymize_ip': false });
+}
+</script>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+  </body>
+
+</html>
