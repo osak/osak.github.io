@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="color-scheme" content="light dark">
+
+    
+
+    <meta name="author" content="Osamu Koga (osa_k)">
+    <meta name="description" content="ICFP Content 2021にいつものメンバーで参加した。チーム名はここ最近使っているmanarimoにした。
+ リポジトリ： https://github.com/manarimo/ICFPC2021/ ポータルサイト： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html 手動ソルバー： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1  順位は終了前のスコアボード凍結時点で2位。とりあえず日本勢の中では1位になれたので嬉しい。全体1位も行けるかと思っていたけど、RGBTeamが強かった。他のチームもいい解を出し惜しみして潜伏しているかもしれないけど、少なくとも今は見えない点数に価値はないので……。
+概要 &amp; 方針    今年の問題は「脳カベ」というゲーム（自分は知らなかったけど、とんねるずの1コーナーらしい）を題材にしており、メッシュとして表現された人物を多角形の中に埋め込む問題だった。 メッシュの辺の長さをあまり変えないようにしながら頂点の座標を好きに選ぶことで多角形に埋め込む。ただし座標は整数である必要がある。そうして配置を決めたあと、多角形の各点について一番近い頂点との距離を計算し、その総和が小さいほどよい。
+いかにも2016年の折り紙回を彷彿とさせる設定で、手作業で解くのが肝だと判断したので、とりあえず手で遊べるビジュアライザの構築を優先して、並列で焼きなましベースや特定のパターンに特化したプログラムも実装するという方針になった。 24時間が経過したところでルール追加の発表があり、各面ごとに特定の座標にメッシュの頂点を配置すると、他の特定の面で制限を緩和するアイテムが使えるようになるというシステムが導入された。たとえばメッシュの頂点を1点だけ多角形の外に配置したり、1辺だけ長さ制約を無視して伸び縮みさせられるようになったりする。これらも基本的には手作業で対応したが、アイテムを取ろうとするとその面では最適解を諦める必要があるケースも存在するため、アイテムを取るか取らないかは全体の最適性を考える必要がある。いかにも計画問題っぽい見た目をしているので、とりあえず各面についてアイテムを使う解と使わない解を用意して、依存している面でアイテムが取れているかどうかを考慮しつつ提出時に最適な組み合わせを計算するという方針にした（最終的には線形計画問題としてライブラリで殴った）。
+最終的には以下のツール群が作られていた（だいたい時系列順）。
+ bruteforce： 全ての頂点の配置を試し、有効かつ一番スコアの良かったものを出力する (@pepsin_amylase, @y3eadgbe) checker： 解の正当性を検査する (@osa_k, @pepsin_amylase) gen_web： 問題と解答を一覧するためのHTMLを生成する (@osa_k) ビジュアライザ： 手で頂点を動かして遊べるビジュアライザ (@kenkoooo &amp; keita) 焼きなまし： 近傍としては点の1マス移動、辺の1マス移動、全体の1マス移動、次数1の点の点対称移動、次数2の点の鏡像移動、多角形の頂点上へのワープを使い、ペナルティとしてははみ出ている頂点の多角形までの距離、はみ出ている辺の個数、長さ制約を満たしていない辺の逸脱度合いを使っている (@kawatea, @y3eadgbe, @osa_k) 外周うめるやつ： ぴったり埋め込まれた状態から頂点をシャッフルしたような問題が複数あった（例: 64）ため、メッシュの辺の長さと多角形の辺の長さを比べて、連続して一致するような頂点列を出力する (@yuusti) manten： スコアボードから満点解の存在が分かっている問題に対して、メッシュの頂点と多角形の頂点の対応関係を全て試す (@pepsin_amylase) package_solutions： 生成した解答ファイルの中から一番点数が高いものを提出する。アイテムが追加された後は、どの面でアイテムを取得するのがいいかを線形計画問題として解くようになった (@pepsin_amylase) globalist-optimize： GLOBALISTが使える問題に対して、山登り法を使ってコストを最適化する (@kenkoooo)  手動ではmkut, @y3eadgbe, @kawatea, @yuustiが中心になってひたすらパズルを解いていた。64や105のような問題を、自動ソルバの力を借りずに手だけで解いていくのは見ていてかなり面白かった。
+自分のやったこと    自分は主にポータルサイトの管理、手作業での解答作成、焼きなましの最適化、焼きなましの並列実行を行った。
+ポータルサイト    ポータルサイトは例年はWebアプリケーションを作っているのだが、毎年I/O絡みで何かしら問題が起きたり変なバグを埋め込んで嫌なタイミングで壊れたりするので、今年は静的HTML一本で済ませることにした。最初はGitHub Pagesでホストするつもりだったが、プライベートリポジトリでは課金しないと使えないことが分かったので、予定を変更してS3にアップロードすることにした。問題と解答ファイルは全てリポジトリにコミットするようにして、ページの生成とアップロードはpushでトリガーされるGitHub Actionsで行うようにした。">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ICFPC2021感想"/>
+<meta name="twitter:description" content="ICFP Content 2021にいつものメンバーで参加した。チーム名はここ最近使っているmanarimoにした。
+ リポジトリ： https://github.com/manarimo/ICFPC2021/ ポータルサイト： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html 手動ソルバー： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1  順位は終了前のスコアボード凍結時点で2位。とりあえず日本勢の中では1位になれたので嬉しい。全体1位も行けるかと思っていたけど、RGBTeamが強かった。他のチームもいい解を出し惜しみして潜伏しているかもしれないけど、少なくとも今は見えない点数に価値はないので……。
+概要 &amp; 方針    今年の問題は「脳カベ」というゲーム（自分は知らなかったけど、とんねるずの1コーナーらしい）を題材にしており、メッシュとして表現された人物を多角形の中に埋め込む問題だった。 メッシュの辺の長さをあまり変えないようにしながら頂点の座標を好きに選ぶことで多角形に埋め込む。ただし座標は整数である必要がある。そうして配置を決めたあと、多角形の各点について一番近い頂点との距離を計算し、その総和が小さいほどよい。
+いかにも2016年の折り紙回を彷彿とさせる設定で、手作業で解くのが肝だと判断したので、とりあえず手で遊べるビジュアライザの構築を優先して、並列で焼きなましベースや特定のパターンに特化したプログラムも実装するという方針になった。 24時間が経過したところでルール追加の発表があり、各面ごとに特定の座標にメッシュの頂点を配置すると、他の特定の面で制限を緩和するアイテムが使えるようになるというシステムが導入された。たとえばメッシュの頂点を1点だけ多角形の外に配置したり、1辺だけ長さ制約を無視して伸び縮みさせられるようになったりする。これらも基本的には手作業で対応したが、アイテムを取ろうとするとその面では最適解を諦める必要があるケースも存在するため、アイテムを取るか取らないかは全体の最適性を考える必要がある。いかにも計画問題っぽい見た目をしているので、とりあえず各面についてアイテムを使う解と使わない解を用意して、依存している面でアイテムが取れているかどうかを考慮しつつ提出時に最適な組み合わせを計算するという方針にした（最終的には線形計画問題としてライブラリで殴った）。
+最終的には以下のツール群が作られていた（だいたい時系列順）。
+ bruteforce： 全ての頂点の配置を試し、有効かつ一番スコアの良かったものを出力する (@pepsin_amylase, @y3eadgbe) checker： 解の正当性を検査する (@osa_k, @pepsin_amylase) gen_web： 問題と解答を一覧するためのHTMLを生成する (@osa_k) ビジュアライザ： 手で頂点を動かして遊べるビジュアライザ (@kenkoooo &amp; keita) 焼きなまし： 近傍としては点の1マス移動、辺の1マス移動、全体の1マス移動、次数1の点の点対称移動、次数2の点の鏡像移動、多角形の頂点上へのワープを使い、ペナルティとしてははみ出ている頂点の多角形までの距離、はみ出ている辺の個数、長さ制約を満たしていない辺の逸脱度合いを使っている (@kawatea, @y3eadgbe, @osa_k) 外周うめるやつ： ぴったり埋め込まれた状態から頂点をシャッフルしたような問題が複数あった（例: 64）ため、メッシュの辺の長さと多角形の辺の長さを比べて、連続して一致するような頂点列を出力する (@yuusti) manten： スコアボードから満点解の存在が分かっている問題に対して、メッシュの頂点と多角形の頂点の対応関係を全て試す (@pepsin_amylase) package_solutions： 生成した解答ファイルの中から一番点数が高いものを提出する。アイテムが追加された後は、どの面でアイテムを取得するのがいいかを線形計画問題として解くようになった (@pepsin_amylase) globalist-optimize： GLOBALISTが使える問題に対して、山登り法を使ってコストを最適化する (@kenkoooo)  手動ではmkut, @y3eadgbe, @kawatea, @yuustiが中心になってひたすらパズルを解いていた。64や105のような問題を、自動ソルバの力を借りずに手だけで解いていくのは見ていてかなり面白かった。
+自分のやったこと    自分は主にポータルサイトの管理、手作業での解答作成、焼きなましの最適化、焼きなましの並列実行を行った。
+ポータルサイト    ポータルサイトは例年はWebアプリケーションを作っているのだが、毎年I/O絡みで何かしら問題が起きたり変なバグを埋め込んで嫌なタイミングで壊れたりするので、今年は静的HTML一本で済ませることにした。最初はGitHub Pagesでホストするつもりだったが、プライベートリポジトリでは課金しないと使えないことが分かったので、予定を変更してS3にアップロードすることにした。問題と解答ファイルは全てリポジトリにコミットするようにして、ページの生成とアップロードはpushでトリガーされるGitHub Actionsで行うようにした。"/>
+
+    <meta property="og:title" content="ICFPC2021感想" />
+<meta property="og:description" content="ICFP Content 2021にいつものメンバーで参加した。チーム名はここ最近使っているmanarimoにした。
+ リポジトリ： https://github.com/manarimo/ICFPC2021/ ポータルサイト： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html 手動ソルバー： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1  順位は終了前のスコアボード凍結時点で2位。とりあえず日本勢の中では1位になれたので嬉しい。全体1位も行けるかと思っていたけど、RGBTeamが強かった。他のチームもいい解を出し惜しみして潜伏しているかもしれないけど、少なくとも今は見えない点数に価値はないので……。
+概要 &amp; 方針    今年の問題は「脳カベ」というゲーム（自分は知らなかったけど、とんねるずの1コーナーらしい）を題材にしており、メッシュとして表現された人物を多角形の中に埋め込む問題だった。 メッシュの辺の長さをあまり変えないようにしながら頂点の座標を好きに選ぶことで多角形に埋め込む。ただし座標は整数である必要がある。そうして配置を決めたあと、多角形の各点について一番近い頂点との距離を計算し、その総和が小さいほどよい。
+いかにも2016年の折り紙回を彷彿とさせる設定で、手作業で解くのが肝だと判断したので、とりあえず手で遊べるビジュアライザの構築を優先して、並列で焼きなましベースや特定のパターンに特化したプログラムも実装するという方針になった。 24時間が経過したところでルール追加の発表があり、各面ごとに特定の座標にメッシュの頂点を配置すると、他の特定の面で制限を緩和するアイテムが使えるようになるというシステムが導入された。たとえばメッシュの頂点を1点だけ多角形の外に配置したり、1辺だけ長さ制約を無視して伸び縮みさせられるようになったりする。これらも基本的には手作業で対応したが、アイテムを取ろうとするとその面では最適解を諦める必要があるケースも存在するため、アイテムを取るか取らないかは全体の最適性を考える必要がある。いかにも計画問題っぽい見た目をしているので、とりあえず各面についてアイテムを使う解と使わない解を用意して、依存している面でアイテムが取れているかどうかを考慮しつつ提出時に最適な組み合わせを計算するという方針にした（最終的には線形計画問題としてライブラリで殴った）。
+最終的には以下のツール群が作られていた（だいたい時系列順）。
+ bruteforce： 全ての頂点の配置を試し、有効かつ一番スコアの良かったものを出力する (@pepsin_amylase, @y3eadgbe) checker： 解の正当性を検査する (@osa_k, @pepsin_amylase) gen_web： 問題と解答を一覧するためのHTMLを生成する (@osa_k) ビジュアライザ： 手で頂点を動かして遊べるビジュアライザ (@kenkoooo &amp; keita) 焼きなまし： 近傍としては点の1マス移動、辺の1マス移動、全体の1マス移動、次数1の点の点対称移動、次数2の点の鏡像移動、多角形の頂点上へのワープを使い、ペナルティとしてははみ出ている頂点の多角形までの距離、はみ出ている辺の個数、長さ制約を満たしていない辺の逸脱度合いを使っている (@kawatea, @y3eadgbe, @osa_k) 外周うめるやつ： ぴったり埋め込まれた状態から頂点をシャッフルしたような問題が複数あった（例: 64）ため、メッシュの辺の長さと多角形の辺の長さを比べて、連続して一致するような頂点列を出力する (@yuusti) manten： スコアボードから満点解の存在が分かっている問題に対して、メッシュの頂点と多角形の頂点の対応関係を全て試す (@pepsin_amylase) package_solutions： 生成した解答ファイルの中から一番点数が高いものを提出する。アイテムが追加された後は、どの面でアイテムを取得するのがいいかを線形計画問題として解くようになった (@pepsin_amylase) globalist-optimize： GLOBALISTが使える問題に対して、山登り法を使ってコストを最適化する (@kenkoooo)  手動ではmkut, @y3eadgbe, @kawatea, @yuustiが中心になってひたすらパズルを解いていた。64や105のような問題を、自動ソルバの力を借りずに手だけで解いていくのは見ていてかなり面白かった。
+自分のやったこと    自分は主にポータルサイトの管理、手作業での解答作成、焼きなましの最適化、焼きなましの並列実行を行った。
+ポータルサイト    ポータルサイトは例年はWebアプリケーションを作っているのだが、毎年I/O絡みで何かしら問題が起きたり変なバグを埋め込んで嫌なタイミングで壊れたりするので、今年は静的HTML一本で済ませることにした。最初はGitHub Pagesでホストするつもりだったが、プライベートリポジトリでは課金しないと使えないことが分かったので、予定を変更してS3にアップロードすることにした。問題と解答ファイルは全てリポジトリにコミットするようにして、ページの生成とアップロードはpushでトリガーされるGitHub Actionsで行うようにした。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://osak.jp/posts/ja/icfpc-2021/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-13T07:10:00-05:00" />
+<meta property="article:modified_time" content="2021-07-13T07:10:00-05:00" />
+
+
+
+    <title>
+  ICFPC2021感想 · osak.jp
+</title>
+
+    
+      <link rel="canonical" href="https://osak.jp/posts/ja/icfpc-2021/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.1.7" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.eb7743f94930acfd17146aecc1f80e86fe35b3e451f2ec0c98485f9c4d962f34.css" integrity="sha256-63dD&#43;UkwrP0XFGrswfgOhv41s&#43;RR8uwMmEhfnE2WLzQ=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.dde8a61eb31a32353b4baf3d9113f03c4ea2a8ca9bb736f59ca2d2b2cb664f0b.css" integrity="sha256-3eimHrMaMjU7S689kRPwPE6iqMqbtzb1nKLSsstmTws=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <link rel="author" href="http://www.hatena.ne.jp/osa_k/" />
+    
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      osak.jp
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/en/">Blog (en)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/ja/">Blog (ja)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://osak.hatenablog.jp/">Blog (Hatena)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://osak.jp/posts/ja/icfpc-2021/">
+              ICFPC2021感想
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-07-13T07:10:00-05:00'>
+                July 13, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+        <p><a href="https://icfpcontest2021.github.io/">ICFP Content 2021</a>にいつものメンバーで参加した。チーム名はここ最近使っているmanarimoにした。</p>
+<ul>
+<li>リポジトリ： <a href="https://github.com/manarimo/ICFPC2021/">https://github.com/manarimo/ICFPC2021/</a></li>
+<li>ポータルサイト： <a href="http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html">http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html</a></li>
+<li>手動ソルバー： <a href="http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1">http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1</a></li>
+</ul>
+<p>順位は終了前の<a href="https://poses.live/teams">スコアボード凍結時点で2位</a>。とりあえず日本勢の中では1位になれたので嬉しい。全体1位も行けるかと思っていたけど、RGBTeamが強かった。他のチームもいい解を出し惜しみして潜伏しているかもしれないけど、少なくとも今は見えない点数に価値はないので……。</p>
+<h2 id="概要--方針">
+  概要 &amp; 方針
+  <a class="heading-link" href="#%e6%a6%82%e8%a6%81--%e6%96%b9%e9%87%9d">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>今年の問題は<a href="https://www.youtube.com/watch?v=6DYJXSSgW08">「脳カベ」というゲーム</a>（自分は知らなかったけど、とんねるずの1コーナーらしい）を題材にしており、メッシュとして表現された人物を多角形の中に埋め込む問題だった。
+メッシュの辺の長さをあまり変えないようにしながら頂点の座標を好きに選ぶことで多角形に埋め込む。ただし座標は整数である必要がある。そうして配置を決めたあと、多角形の各点について一番近い頂点との距離を計算し、その総和が小さいほどよい。</p>
+<p>いかにも2016年の折り紙回を彷彿とさせる設定で、手作業で解くのが肝だと判断したので、とりあえず手で遊べるビジュアライザの構築を優先して、並列で焼きなましベースや特定のパターンに特化したプログラムも実装するという方針になった。
+24時間が経過したところでルール追加の発表があり、各面ごとに特定の座標にメッシュの頂点を配置すると、他の特定の面で制限を緩和するアイテムが使えるようになるというシステムが導入された。たとえばメッシュの頂点を1点だけ多角形の外に配置したり、1辺だけ長さ制約を無視して伸び縮みさせられるようになったりする。これらも基本的には手作業で対応したが、アイテムを取ろうとするとその面では最適解を諦める必要があるケースも存在するため、アイテムを取るか取らないかは全体の最適性を考える必要がある。いかにも計画問題っぽい見た目をしているので、とりあえず各面についてアイテムを使う解と使わない解を用意して、依存している面でアイテムが取れているかどうかを考慮しつつ提出時に最適な組み合わせを計算するという方針にした（最終的には線形計画問題としてライブラリで殴った）。</p>
+<p>最終的には以下のツール群が作られていた（だいたい時系列順）。</p>
+<ul>
+<li>bruteforce： 全ての頂点の配置を試し、有効かつ一番スコアの良かったものを出力する (@pepsin_amylase, @y3eadgbe)</li>
+<li>checker： 解の正当性を検査する (@osa_k, @pepsin_amylase)</li>
+<li>gen_web： 問題と解答を一覧するためのHTMLを生成する (@osa_k)</li>
+<li>ビジュアライザ： 手で頂点を動かして遊べるビジュアライザ (@kenkoooo &amp; keita)</li>
+<li>焼きなまし： 近傍としては点の1マス移動、辺の1マス移動、全体の1マス移動、次数1の点の点対称移動、次数2の点の鏡像移動、多角形の頂点上へのワープを使い、ペナルティとしてははみ出ている頂点の多角形までの距離、はみ出ている辺の個数、長さ制約を満たしていない辺の逸脱度合いを使っている (@kawatea, @y3eadgbe, @osa_k)</li>
+<li>外周うめるやつ： ぴったり埋め込まれた状態から頂点をシャッフルしたような問題が複数あった（例: <a href="http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html#64">64</a>）ため、メッシュの辺の長さと多角形の辺の長さを比べて、連続して一致するような頂点列を出力する (@yuusti)</li>
+<li>manten： スコアボードから満点解の存在が分かっている問題に対して、メッシュの頂点と多角形の頂点の対応関係を全て試す (@pepsin_amylase)</li>
+<li>package_solutions： 生成した解答ファイルの中から一番点数が高いものを提出する。アイテムが追加された後は、どの面でアイテムを取得するのがいいかを線形計画問題として解くようになった (@pepsin_amylase)</li>
+<li>globalist-optimize： GLOBALISTが使える問題に対して、山登り法を使ってコストを最適化する (@kenkoooo)</li>
+</ul>
+<p>手動ではmkut, @y3eadgbe, @kawatea, @yuustiが中心になってひたすらパズルを解いていた。<a href="http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html#64">64</a>や<a href="http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html#105">105</a>のような問題を、自動ソルバの力を借りずに手だけで解いていくのは見ていてかなり面白かった。</p>
+<h2 id="自分のやったこと">
+  自分のやったこと
+  <a class="heading-link" href="#%e8%87%aa%e5%88%86%e3%81%ae%e3%82%84%e3%81%a3%e3%81%9f%e3%81%93%e3%81%a8">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>自分は主にポータルサイトの管理、手作業での解答作成、焼きなましの最適化、焼きなましの並列実行を行った。</p>
+<h3 id="ポータルサイト">
+  ポータルサイト
+  <a class="heading-link" href="#%e3%83%9d%e3%83%bc%e3%82%bf%e3%83%ab%e3%82%b5%e3%82%a4%e3%83%88">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>ポータルサイトは例年はWebアプリケーションを作っているのだが、毎年I/O絡みで何かしら問題が起きたり変なバグを埋め込んで嫌なタイミングで壊れたりするので、今年は静的HTML一本で済ませることにした。最初はGitHub Pagesでホストするつもりだったが、プライベートリポジトリでは課金しないと使えないことが分かったので、予定を変更してS3にアップロードすることにした。問題と解答ファイルは全てリポジトリにコミットするようにして、ページの生成とアップロードはpushでトリガーされるGitHub Actionsで行うようにした。</p>
+<p>基本的には良い判断だったと思う。ポータルサイトと言っても毎年データを統計処理してきれいに出すことしかしていないので、わざわざサーバを用意して毎回計算させる意味は薄い。データ量が多くなってきたら統計処理済みのJSONをReactアプリからfetchしてくる構造にスイッチしようと思っていたが、そんなに量が増えなかったので最後まで静的HTMLのままで運用していた。また、提出用スクリプトや自動ソルバの入力として既存の解を使いたいときに、全部のデータがリポジトリの中に入っているのはかなり便利だった。</p>
+<p>生成スクリプトは手癖でRubyで書いて、規模が大きくなってきたらRustやTypeScript等のちゃんと型がついている言語にしようと思っていたのだが、結局最後まで最初に書いたスクリプトを拡張し続けることになってしまった。erbすら使わずHTMLをコード内にベタ書きしているので、最後の方はかなり管理が大変だった……。</p>
+<h3 id="解答作成">
+  解答作成
+  <a class="heading-link" href="#%e8%a7%a3%e7%ad%94%e4%bd%9c%e6%88%90">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>最初の方は面白そうな問題をビジュアライザで解いて、問題に対する感覚を養っていた。最適解が自明でない問題については焼きなましソルバが重要だということが分かってきたので、人間が途中までやった解を読み込む機能をリクエストしたり、焼きなましの初期温度や実行時間をパラメータ化してぶん回したりしていた。あとgprofの出力を眺めてボトルネックの解消をした。</p>
+<p>焼きなましの並列実行は、EC2でc5.24xlargeを借りて、CPUの数だけバックグラウンドジョブとして焼きなましを実行するRubyスクリプトを走らせていた。タスクのサブミット等は特に管理せず、Rubyスクリプトでコマンドを構築して一括で走らせて待つ、という仕組みでやっていたが、これはジョブキューを使って管理したほうが良かった気がする。いつもはこういう道具が必要になったらJenkinsを立ててジョブキュー代わりにしているのだが、キューの中身の管理や出力ファイルの回収などで毎回何かしらの問題を踏むので、ポータルサイトで下したような判断も相まって今回は敬遠してしまっていた。</p>
+<h2 id="感想">
+  感想
+  <a class="heading-link" href="#%e6%84%9f%e6%83%b3">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>今年の問題はかなり質が高くて楽しかった。ここ数年のコンテストから良い要素を集めてくることでうまくバランス調整されていると感じた。ベースは2016年の折り紙だけど、整数座標の制約を入れることでとっつきやすくなっていたり、2017年のPunterや2019年の掃除ロボットのようなアイテム要素が入っていたりと飽きさせない工夫が随所に感じられて良かった。公式ページで問題提出後に見られるアニメーションも面白い。</p>
+<img src="/posts/images/icfpc2021-94.svg" width="400">
+<p>問題の難易度は適度に複雑で、アイテムもよく考えると便利だけど強すぎないという絶妙なバランスだと思う。最初の時点では2016年と同様に参加者が問題を作るフェーズが来ると予想していたけど、結果的にはそういう流れにならなかったことで、運営の考えたバランスの中にうまく収められていた。</p>
+
+      </div>
+
+
+      <footer><section class="hatena-star">
+    <script type="text/javascript">
+        window.Hatena = {
+            Star: {
+                SiteConfig: {
+                    entryNodes: {
+                        'article': {
+                            uri: 'a.title-link',
+                            title: 'h1.title',
+                            container: 'section.hatena-star'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <script async type="text/javascript" src="https://s.hatena.ne.jp/js/HatenaStar.js"></script>
+</section><section class="share-buttons"><a href="https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="vertical-normal" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+        <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "osak-jp" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+          2019 -
+        
+        2021
+         Osamu Koga (osa_k) 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K7GK6FJ729"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-K7GK6FJ729', { 'anonymize_ip': false });
+}
+</script>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+  </body>
+
+</html>
