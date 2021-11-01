@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="color-scheme" content="light dark">
+
+    
+
+    <meta name="author" content="Osamu Koga (osa_k)">
+    <meta name="description" content="ブログを書く気力が出なくて、はてなブログで書いてた月例報告を3ヶ月連続でスキップしている。仕事等で精神的に疲れていて振り返りをする気力が出なかったというのも一因としてあるが、はてなブログのエディタが重くて使いづらいというのも理由としては大きい。ローカルでMarkdownを書く形なら書きやすいんじゃないか……と思ったのでこっちで書いてみる。
+ ゲーム。8月末についにFactorioに手を出した。デモ版を15時間くらいやったあとに製品版を買って、61時間弱で初クリアした。その次は33時間半、RTAやWiki等を見てなんとなく勉強したあとの3回目は19時間半。3回目のクリア後は引き続きプレイして、全研究の実績を解除した。プレイし始めて最初の1週間くらいはほぼ全ての時間をFactorioに使っている感じで、夜1時ころにプレイし始めて気付いたら18時間経って夜7時になってるといった密度でプレイしていた。結局1ヶ月で130時間くらいプレイして、やりたいことは一段落したのでゲームプレイはやめてRTAや極限攻略動画を見ている。Michael Hendriks氏のシリーズが面白い。しばらく時間を置いてまたやりたい気持ちが復活してきたので、何かMODを入れてプレイしようと思っている。
+ 読んだ漫画。読書メーターの記録を見返すと、7月以降に以下の作品を新しく読んでいる。
+ らーめん再遊記（3巻） らーめん才遊記 ヤマケイ新書 山岳遭難の教訓 &ndash;実例に学ぶ生還の条件&ndash; 狐のお嫁ちゃん 喰いしん坊！ ホレンテ島の魔法使い メイドインアビス（10巻） ご注文はうさぎですか？ うちの師匠はしっぽがない（5、6巻） 紡ぐ乙女と大正の月（2巻） ジョジョリオン（27巻） パンプキン・シザーズ 刃牙道 バキ道 さよなら幽霊ちゃん  あと、覚えてる限りではバキ道を読んだあとでバキシリーズを全部読み返したのと、Twitterでなんか言及を見かけたので火の鳥を読み返した。まあ漫画の読み返しはよくあるのでいちいち書いてるとキリがない。
+印象に残ってるやつだと、ごちうさは面白かった。アニメ1期の1話を見てあんまり面白くないなと思って以来作品としては触れてなかったが、COMIC FUZの月額プランで読めるきららMAXに載ってる最近の話は面白いので、せっかくだし履修しておこうと思って単行本を全部読んだ。漫画は最初から絵柄も安定しているし、キャラの作り込みやストーリーもしっかりしていて、10年前に連載開始した作品なのに最近のストーリー重視のきらら漫画と比べても全く引けを取らない濃さだった。
+パンプキン・シザーズも面白かった。生身で戦車と戦えるオーランドはバキのような純粋な力の興奮があるし、WW1くらいの世界から技術力だけ超高速で進歩したようなアンバランスな世界観や軍のパンプキン・シザーズ部隊を中心にしたエピソード構成は、攻殻機動隊SACの個別エピソードのような独特のSFっぽさと人の葛藤を描く味わいがある。かなり終わりに近づいていながらも完結してないのが残念。
+ ルベーグ積分の勉強は、教科書（伊藤清三「ルベーグ積分入門」）の測度論パートを抜け、ルベーグ積分の定義と収束定理まで終わらせたので一区切りというところまで到達した。ルベーグ積分を知ったことそのものよりも、測度論を勉強する過程で身についた無限に対する感覚や証明のテクニックがかなり有用だと感じる。
+ いっぺんにまとまった文章を書こうとすると気後れしがちなので、これくらいの粒度でちまちま書くのがいいのかもしれない。しばらくこういうスタイルで近況報告を書けるといいな。">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="最近やってたこと"/>
+<meta name="twitter:description" content="ブログを書く気力が出なくて、はてなブログで書いてた月例報告を3ヶ月連続でスキップしている。仕事等で精神的に疲れていて振り返りをする気力が出なかったというのも一因としてあるが、はてなブログのエディタが重くて使いづらいというのも理由としては大きい。ローカルでMarkdownを書く形なら書きやすいんじゃないか……と思ったのでこっちで書いてみる。
+ ゲーム。8月末についにFactorioに手を出した。デモ版を15時間くらいやったあとに製品版を買って、61時間弱で初クリアした。その次は33時間半、RTAやWiki等を見てなんとなく勉強したあとの3回目は19時間半。3回目のクリア後は引き続きプレイして、全研究の実績を解除した。プレイし始めて最初の1週間くらいはほぼ全ての時間をFactorioに使っている感じで、夜1時ころにプレイし始めて気付いたら18時間経って夜7時になってるといった密度でプレイしていた。結局1ヶ月で130時間くらいプレイして、やりたいことは一段落したのでゲームプレイはやめてRTAや極限攻略動画を見ている。Michael Hendriks氏のシリーズが面白い。しばらく時間を置いてまたやりたい気持ちが復活してきたので、何かMODを入れてプレイしようと思っている。
+ 読んだ漫画。読書メーターの記録を見返すと、7月以降に以下の作品を新しく読んでいる。
+ らーめん再遊記（3巻） らーめん才遊記 ヤマケイ新書 山岳遭難の教訓 &ndash;実例に学ぶ生還の条件&ndash; 狐のお嫁ちゃん 喰いしん坊！ ホレンテ島の魔法使い メイドインアビス（10巻） ご注文はうさぎですか？ うちの師匠はしっぽがない（5、6巻） 紡ぐ乙女と大正の月（2巻） ジョジョリオン（27巻） パンプキン・シザーズ 刃牙道 バキ道 さよなら幽霊ちゃん  あと、覚えてる限りではバキ道を読んだあとでバキシリーズを全部読み返したのと、Twitterでなんか言及を見かけたので火の鳥を読み返した。まあ漫画の読み返しはよくあるのでいちいち書いてるとキリがない。
+印象に残ってるやつだと、ごちうさは面白かった。アニメ1期の1話を見てあんまり面白くないなと思って以来作品としては触れてなかったが、COMIC FUZの月額プランで読めるきららMAXに載ってる最近の話は面白いので、せっかくだし履修しておこうと思って単行本を全部読んだ。漫画は最初から絵柄も安定しているし、キャラの作り込みやストーリーもしっかりしていて、10年前に連載開始した作品なのに最近のストーリー重視のきらら漫画と比べても全く引けを取らない濃さだった。
+パンプキン・シザーズも面白かった。生身で戦車と戦えるオーランドはバキのような純粋な力の興奮があるし、WW1くらいの世界から技術力だけ超高速で進歩したようなアンバランスな世界観や軍のパンプキン・シザーズ部隊を中心にしたエピソード構成は、攻殻機動隊SACの個別エピソードのような独特のSFっぽさと人の葛藤を描く味わいがある。かなり終わりに近づいていながらも完結してないのが残念。
+ ルベーグ積分の勉強は、教科書（伊藤清三「ルベーグ積分入門」）の測度論パートを抜け、ルベーグ積分の定義と収束定理まで終わらせたので一区切りというところまで到達した。ルベーグ積分を知ったことそのものよりも、測度論を勉強する過程で身についた無限に対する感覚や証明のテクニックがかなり有用だと感じる。
+ いっぺんにまとまった文章を書こうとすると気後れしがちなので、これくらいの粒度でちまちま書くのがいいのかもしれない。しばらくこういうスタイルで近況報告を書けるといいな。"/>
+
+    <meta property="og:title" content="最近やってたこと" />
+<meta property="og:description" content="ブログを書く気力が出なくて、はてなブログで書いてた月例報告を3ヶ月連続でスキップしている。仕事等で精神的に疲れていて振り返りをする気力が出なかったというのも一因としてあるが、はてなブログのエディタが重くて使いづらいというのも理由としては大きい。ローカルでMarkdownを書く形なら書きやすいんじゃないか……と思ったのでこっちで書いてみる。
+ ゲーム。8月末についにFactorioに手を出した。デモ版を15時間くらいやったあとに製品版を買って、61時間弱で初クリアした。その次は33時間半、RTAやWiki等を見てなんとなく勉強したあとの3回目は19時間半。3回目のクリア後は引き続きプレイして、全研究の実績を解除した。プレイし始めて最初の1週間くらいはほぼ全ての時間をFactorioに使っている感じで、夜1時ころにプレイし始めて気付いたら18時間経って夜7時になってるといった密度でプレイしていた。結局1ヶ月で130時間くらいプレイして、やりたいことは一段落したのでゲームプレイはやめてRTAや極限攻略動画を見ている。Michael Hendriks氏のシリーズが面白い。しばらく時間を置いてまたやりたい気持ちが復活してきたので、何かMODを入れてプレイしようと思っている。
+ 読んだ漫画。読書メーターの記録を見返すと、7月以降に以下の作品を新しく読んでいる。
+ らーめん再遊記（3巻） らーめん才遊記 ヤマケイ新書 山岳遭難の教訓 &ndash;実例に学ぶ生還の条件&ndash; 狐のお嫁ちゃん 喰いしん坊！ ホレンテ島の魔法使い メイドインアビス（10巻） ご注文はうさぎですか？ うちの師匠はしっぽがない（5、6巻） 紡ぐ乙女と大正の月（2巻） ジョジョリオン（27巻） パンプキン・シザーズ 刃牙道 バキ道 さよなら幽霊ちゃん  あと、覚えてる限りではバキ道を読んだあとでバキシリーズを全部読み返したのと、Twitterでなんか言及を見かけたので火の鳥を読み返した。まあ漫画の読み返しはよくあるのでいちいち書いてるとキリがない。
+印象に残ってるやつだと、ごちうさは面白かった。アニメ1期の1話を見てあんまり面白くないなと思って以来作品としては触れてなかったが、COMIC FUZの月額プランで読めるきららMAXに載ってる最近の話は面白いので、せっかくだし履修しておこうと思って単行本を全部読んだ。漫画は最初から絵柄も安定しているし、キャラの作り込みやストーリーもしっかりしていて、10年前に連載開始した作品なのに最近のストーリー重視のきらら漫画と比べても全く引けを取らない濃さだった。
+パンプキン・シザーズも面白かった。生身で戦車と戦えるオーランドはバキのような純粋な力の興奮があるし、WW1くらいの世界から技術力だけ超高速で進歩したようなアンバランスな世界観や軍のパンプキン・シザーズ部隊を中心にしたエピソード構成は、攻殻機動隊SACの個別エピソードのような独特のSFっぽさと人の葛藤を描く味わいがある。かなり終わりに近づいていながらも完結してないのが残念。
+ ルベーグ積分の勉強は、教科書（伊藤清三「ルベーグ積分入門」）の測度論パートを抜け、ルベーグ積分の定義と収束定理まで終わらせたので一区切りというところまで到達した。ルベーグ積分を知ったことそのものよりも、測度論を勉強する過程で身についた無限に対する感覚や証明のテクニックがかなり有用だと感じる。
+ いっぺんにまとまった文章を書こうとすると気後れしがちなので、これくらいの粒度でちまちま書くのがいいのかもしれない。しばらくこういうスタイルで近況報告を書けるといいな。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://osak.jp/posts/ja/recent-activities-2021-11-01/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-01T04:00:00-05:00" />
+<meta property="article:modified_time" content="2021-11-01T04:00:00-05:00" />
+
+
+
+    <title>
+  最近やってたこと · osak.jp
+</title>
+
+    
+      <link rel="canonical" href="https://osak.jp/posts/ja/recent-activities-2021-11-01/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.1.7" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.eb7743f94930acfd17146aecc1f80e86fe35b3e451f2ec0c98485f9c4d962f34.css" integrity="sha256-63dD&#43;UkwrP0XFGrswfgOhv41s&#43;RR8uwMmEhfnE2WLzQ=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.dde8a61eb31a32353b4baf3d9113f03c4ea2a8ca9bb736f59ca2d2b2cb664f0b.css" integrity="sha256-3eimHrMaMjU7S689kRPwPE6iqMqbtzb1nKLSsstmTws=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <link rel="author" href="http://www.hatena.ne.jp/osa_k/" />
+    
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      osak.jp
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/en/">Blog (en)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/ja/">Blog (ja)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://osak.hatenablog.jp/">Blog (Hatena)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://osak.jp/posts/ja/recent-activities-2021-11-01/">
+              最近やってたこと
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-11-01T04:00:00-05:00'>
+                November 1, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+        <p>ブログを書く気力が出なくて、はてなブログで書いてた月例報告を3ヶ月連続でスキップしている。仕事等で精神的に疲れていて振り返りをする気力が出なかったというのも一因としてあるが、はてなブログのエディタが重くて使いづらいというのも理由としては大きい。ローカルでMarkdownを書く形なら書きやすいんじゃないか……と思ったのでこっちで書いてみる。</p>
+<hr>
+<p>ゲーム。8月末についにFactorioに手を出した。デモ版を15時間くらいやったあとに製品版を買って、<a href="https://twitter.com/osa_k/status/1436798256000942080">61時間弱で初クリアした</a>。<a href="https://twitter.com/osa_k/status/1438874295405580290">その次は33時間半</a>、RTAやWiki等を見てなんとなく勉強したあとの3回目は<a href="https://twitter.com/osa_k/status/1440254323728867328">19時間半</a>。3回目のクリア後は引き続きプレイして、全研究の実績を解除した。プレイし始めて最初の1週間くらいはほぼ全ての時間をFactorioに使っている感じで、夜1時ころにプレイし始めて気付いたら18時間経って夜7時になってるといった密度でプレイしていた。結局1ヶ月で130時間くらいプレイして、やりたいことは一段落したのでゲームプレイはやめてRTAや極限攻略動画を見ている。<a href="https://www.youtube.com/c/MichaelHendriks">Michael Hendriks</a>氏のシリーズが面白い。しばらく時間を置いてまたやりたい気持ちが復活してきたので、何かMODを入れてプレイしようと思っている。</p>
+<hr>
+<p>読んだ漫画。読書メーターの記録を見返すと、7月以降に以下の作品を新しく読んでいる。</p>
+<ul>
+<li>らーめん再遊記（3巻）</li>
+<li>らーめん才遊記</li>
+<li>ヤマケイ新書 山岳遭難の教訓 &ndash;実例に学ぶ生還の条件&ndash;</li>
+<li>狐のお嫁ちゃん</li>
+<li>喰いしん坊！</li>
+<li>ホレンテ島の魔法使い</li>
+<li>メイドインアビス（10巻）</li>
+<li>ご注文はうさぎですか？</li>
+<li>うちの師匠はしっぽがない（5、6巻）</li>
+<li>紡ぐ乙女と大正の月（2巻）</li>
+<li>ジョジョリオン（27巻）</li>
+<li>パンプキン・シザーズ</li>
+<li>刃牙道</li>
+<li>バキ道</li>
+<li>さよなら幽霊ちゃん</li>
+</ul>
+<p>あと、覚えてる限りではバキ道を読んだあとでバキシリーズを全部読み返したのと、Twitterでなんか言及を見かけたので火の鳥を読み返した。まあ漫画の読み返しはよくあるのでいちいち書いてるとキリがない。</p>
+<p>印象に残ってるやつだと、ごちうさは面白かった。アニメ1期の1話を見てあんまり面白くないなと思って以来作品としては触れてなかったが、COMIC FUZの月額プランで読めるきららMAXに載ってる最近の話は面白いので、せっかくだし履修しておこうと思って単行本を全部読んだ。漫画は最初から絵柄も安定しているし、キャラの作り込みやストーリーもしっかりしていて、10年前に連載開始した作品なのに最近のストーリー重視のきらら漫画と比べても全く引けを取らない濃さだった。</p>
+<p>パンプキン・シザーズも面白かった。生身で戦車と戦えるオーランドはバキのような純粋な力の興奮があるし、WW1くらいの世界から技術力だけ超高速で進歩したようなアンバランスな世界観や軍のパンプキン・シザーズ部隊を中心にしたエピソード構成は、攻殻機動隊SACの個別エピソードのような独特のSFっぽさと人の葛藤を描く味わいがある。かなり終わりに近づいていながらも完結してないのが残念。</p>
+<hr>
+<p>ルベーグ積分の勉強は、教科書（伊藤清三「ルベーグ積分入門」）の測度論パートを抜け、ルベーグ積分の定義と収束定理まで終わらせたので一区切りというところまで到達した。ルベーグ積分を知ったことそのものよりも、測度論を勉強する過程で身についた無限に対する感覚や証明のテクニックがかなり有用だと感じる。</p>
+<hr>
+<p>いっぺんにまとまった文章を書こうとすると気後れしがちなので、これくらいの粒度でちまちま書くのがいいのかもしれない。しばらくこういうスタイルで近況報告を書けるといいな。</p>
+
+      </div>
+
+
+      <footer><section class="hatena-star">
+    <script type="text/javascript">
+        window.Hatena = {
+            Star: {
+                SiteConfig: {
+                    entryNodes: {
+                        'article': {
+                            uri: 'a.title-link',
+                            title: 'h1.title',
+                            container: 'section.hatena-star'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <script async type="text/javascript" src="https://s.hatena.ne.jp/js/HatenaStar.js"></script>
+</section><section class="share-buttons"><a href="https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="vertical-normal" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+        <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "osak-jp" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+          2019 -
+        
+        2021
+         Osamu Koga (osa_k) 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K7GK6FJ729"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-K7GK6FJ729', { 'anonymize_ip': false });
+}
+</script>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+  </body>
+
+</html>

@@ -3,8 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://osak.jp/posts/</loc>
-    <lastmod>2021-07-13T09:10:00-05:00</lastmod>
+    <lastmod>2021-11-01T04:00:00-05:00</lastmod>
     <priority>0</priority>
+  </url><url>
+    <loc>https://osak.jp/posts/ja/</loc>
+    <lastmod>2021-11-01T04:00:00-05:00</lastmod>
+  </url><url>
+    <loc>https://osak.jp/</loc>
+    <lastmod>2021-11-01T04:00:00-05:00</lastmod>
+  </url><url>
+    <loc>https://osak.jp/posts/ja/recent-activities-2021-11-01/</loc>
+    <lastmod>2021-11-01T04:00:00-05:00</lastmod>
   </url><url>
     <loc>https://osak.jp/posts/en/</loc>
     <lastmod>2021-07-13T09:10:00-05:00</lastmod>
@@ -12,12 +21,6 @@
   </url><url>
     <loc>https://osak.jp/posts/en/icfpc-2021/</loc>
     <lastmod>2021-07-13T09:10:00-05:00</lastmod>
-  </url><url>
-    <loc>https://osak.jp/</loc>
-    <lastmod>2021-07-13T09:10:00-05:00</lastmod>
-  </url><url>
-    <loc>https://osak.jp/posts/ja/</loc>
-    <lastmod>2021-07-13T07:10:00-05:00</lastmod>
   </url><url>
     <loc>https://osak.jp/posts/ja/icfpc-2021/</loc>
     <lastmod>2021-07-13T07:10:00-05:00</lastmod>
