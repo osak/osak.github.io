@@ -3,14 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://osak.jp/posts/</loc>
-    <lastmod>2021-11-01T04:00:00-05:00</lastmod>
+    <lastmod>2021-12-23T05:40:00-06:00</lastmod>
     <priority>0</priority>
   </url><url>
     <loc>https://osak.jp/posts/ja/</loc>
-    <lastmod>2021-11-01T04:00:00-05:00</lastmod>
+    <lastmod>2021-12-23T05:40:00-06:00</lastmod>
+  </url><url>
+    <loc>https://osak.jp/posts/ja/log4j-vulnerability-and-how-to-deal-with-libraries/</loc>
+    <lastmod>2021-12-23T05:40:00-06:00</lastmod>
   </url><url>
     <loc>https://osak.jp/</loc>
-    <lastmod>2021-11-01T04:00:00-05:00</lastmod>
+    <lastmod>2021-12-23T05:40:00-06:00</lastmod>
   </url><url>
     <loc>https://osak.jp/posts/ja/recent-activities-2021-11-01/</loc>
     <lastmod>2021-11-01T04:00:00-05:00</lastmod>
