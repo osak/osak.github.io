@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="color-scheme" content="light dark">
+
+    
+
+    <meta name="author" content="Osamu Koga (osa_k)">
+    <meta name="description" content="2021年振り返り。
+今年の前半は毎月の振り返りをしていたものの、7月から面倒になって書くのをやめてしまった。理由はいくつかあるけど、はてなブログのUIが妙に重くてブログを書こうと思い立ってからのリードタイムが長いことが大きい。去年せっかくosak.jpも整理したことだし、しばらくはこっちで書いてみようかと思う。
+2021年はなんもしてなかった気がしたけど、リングフィットアドベンチャーを始めたのも、コロナウイルスのワクチンを2回接種したのも、Ray Tracing in One Weekendをやったのも、いろいろパン作りをしていたのも全部今年だった。そういえば引っ越しもしたし、同じ時期に大寒波で大変なことになっていたりもした。ずっと家に引きこもっているからか時間が間延びしているような気がする。
+やったゲームを覚えている範囲で並べてみる。軽いブラウザゲー等で覚えてないやつもたぶんある。そういうゲームも記録しときたいね。
+ ライザのアトリエ2 トトリのアトリエ アーシャのアトリエ ソフィーのアトリエDX（途中） リングフィットアドベンチャー FORM ぎゃる☆がん2 2縺､縺ｮ縺ｻ縺（文字化けではなくこういう名前のブラウザゲー） Quantum Protocol Recursed Factorio Shapez.io Baba Is You（アップデート） Helltaker みんなの早押しクイズ  Factorioがとにかく大ヒットだった。以前の記事でも書いた通り、1ヶ月で130時間くらいプレイした。資源を集めてラインを構築してちゃんと動くかどうか見張るという行動の繰り返しではあるものの、考えるパートと手を動かすパートがはっきり分かれていることもあり、いくらでも遊んでいられる。通常モードは3回クリアしたのでMODを入れて遊ぼうかと思ったけど結局まだやっていない。Recursedも面白かった。アクションパズルというジャンルはやり直しに手間がかかるので敬遠しがちなんだけど、Recursedはパズル自体を難しくすることで1つの面があまり大きくならないようにしていて、ちゃんとパズルで悩まされる構成になっていて良かった。DLCのIce Palaceはめちゃめちゃな歯ごたえで、表だけ全クリして裏は放置している。
+アトリエは2021年中に黄昏を全部終わらせようと思っていたけど、気力が足りずアーシャ以降やってない。アーシャのアトリエは西洋ファンタジー風の雰囲気がとても良く、シナリオを進めるのもアイテムを強化するのも楽しかった。ライザのアトリエ2は戦闘システムが爽快で他のアトリエもこのシステムでプレイしてみたいと思うくらいだったけど、シナリオやキャライベントは作り込みが甘く感じて今ひとつだった。リングフィットアドベンチャーは100日ちょいで1周クリアして、その後はほとんどやっていない。プレイ前に着替えたりコントローラーをセットアップしたりといった準備が必要なので、そういう作業を面倒くさいと思ってしまうとだんだん足が遠のいてしまう。そのせいか9月頃から体重がまた増え始めてきたので、新年にまた運動する習慣を戻したい。
+3月にVRヘッドセットのHP Reverb G2を買ったものの、VRゲームはあまりプレイしていない。画面の解像度には文句ないんだけど、Windows Mixed Realityのデバイスとして動くためかSteamVRとの相性が悪く、コントローラーの操作設定がおかしかったり妙にカクついたりと問題が多い。こういったソフトウェアの相性問題や物理的な取り回しやすさを考えるとOculus Questが一番良いのかなぁとも思うが、Facebookアカウントと紐付けないといけないという点がどうにも気持ち悪くて二の足を踏んでいる。
+数学の勉強はペースにムラがあったものの、毎週の進捗報告会が良いペースメーカーになってくれたので1年を通じて続けることができた。位相論の基礎から始まり、複素解析を経て測度論、ルベーグ積分、関数空間と勉強を進めている。測度論とルベーグ積分では抽象的な議論が続いていたので、関数空間では久しぶりに具体的なものを触れそうで楽しみ。1年を通してこれらの勉強をしてきたことで、数学的に厳密な議論の作り方や無限に対する考え方の感覚をかなり身につけることができたと感じている。
+趣味プログラミングはあんまりやらなかった気がする。明確にやったと言えるのは
+ Ray Tracing in One Weekend ICFPC ハグルでハグハグ  Ray Tracing in One Weekendは名前の通りお手軽なレイトレーシングのハンズオン教本で、サンプルコードを写経していくとレイトレーシングのプログラムがだんだんと出来上がっていくようになっている。最初はただの円板を描くだけだったのが、章を進めるにつれて影ができたり反射光ができたりと目に見える変化が起きるので面白い。ICFPCはいつものようにインフラをやっていた。スコアボードは生成スクリプトが魔境になってしまったことを除けば方針は良かったと思う。ソルバーの方では、平面上の点の焼きなましのような逐次改善していく＋人間の手助けが役に立つタイプのプログラムをビジュアライズする経験値があまりにも足りず、こういうことができたら嬉しいかなぁと思っていたことを結局実装できずに終わってしまったのが悔しい。後からTwitter等で他のチームが作っていたビジュアライザを見ると、リアルタイムで焼きなましの状況を表示したり人間が点の位置を再配置したりする機能を実装しているチームが結構あったので、こういうコードがさっと書けるようになりたい……と思いつつまだ手を付けていない。
+ハグルでハグハグはハグルというボードゲームをオンラインの仲間内で遊ぶために作ったプラットフォームで、配られたカードを見せ合ったりトークンをやりとりしたりといったアクションがブラウザ上でできるようになっている。Kotlin &#43; Spring &#43; PostgreSQLでバックエンドを書いてReact &#43; Redux &#43; Redux-Sagaでフロントエンドという結構真面目な構成になっているけど、実際のところバックエンドはある程度の整合性を保ちつつDBへ読み書きができればいいので、FirebaseやAWS AppSync等を使ってサーバレスにしたほうが楽で良かったかなと思っている。そういった経緯もあって年末にAWS Amplifyを触ってみている。
+コロナ禍でみんな暇なのか、Twitterでプログラマ論について議論が盛り上がっては炎上するのを数回見た。こういった議論に入れ込みすぎることの是非はさておき、自分が何を大切に思っているかを見つめ直すきっかけとしてはそこそこ有用なので、見かけるたびに数時間くらい考えている。この記事は振り返りなので各論について特に意見表明はしないけど、これらの思索を通じて、最近の自分は技術が社会的に価値を生むかどうかを過度に重視してしまっており、それが新しいことを試すときの心理的障壁になっていると感じた。たぶん仕事に毒されすぎているんだと思う。プログラムを書いて思ったとおりに歯車が噛み合って動くと面白い、だからプログラムを書くという純粋な気持ちを2022年には取り戻していきたい。">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2021年振り返り"/>
+<meta name="twitter:description" content="2021年振り返り。
+今年の前半は毎月の振り返りをしていたものの、7月から面倒になって書くのをやめてしまった。理由はいくつかあるけど、はてなブログのUIが妙に重くてブログを書こうと思い立ってからのリードタイムが長いことが大きい。去年せっかくosak.jpも整理したことだし、しばらくはこっちで書いてみようかと思う。
+2021年はなんもしてなかった気がしたけど、リングフィットアドベンチャーを始めたのも、コロナウイルスのワクチンを2回接種したのも、Ray Tracing in One Weekendをやったのも、いろいろパン作りをしていたのも全部今年だった。そういえば引っ越しもしたし、同じ時期に大寒波で大変なことになっていたりもした。ずっと家に引きこもっているからか時間が間延びしているような気がする。
+やったゲームを覚えている範囲で並べてみる。軽いブラウザゲー等で覚えてないやつもたぶんある。そういうゲームも記録しときたいね。
+ ライザのアトリエ2 トトリのアトリエ アーシャのアトリエ ソフィーのアトリエDX（途中） リングフィットアドベンチャー FORM ぎゃる☆がん2 2縺､縺ｮ縺ｻ縺（文字化けではなくこういう名前のブラウザゲー） Quantum Protocol Recursed Factorio Shapez.io Baba Is You（アップデート） Helltaker みんなの早押しクイズ  Factorioがとにかく大ヒットだった。以前の記事でも書いた通り、1ヶ月で130時間くらいプレイした。資源を集めてラインを構築してちゃんと動くかどうか見張るという行動の繰り返しではあるものの、考えるパートと手を動かすパートがはっきり分かれていることもあり、いくらでも遊んでいられる。通常モードは3回クリアしたのでMODを入れて遊ぼうかと思ったけど結局まだやっていない。Recursedも面白かった。アクションパズルというジャンルはやり直しに手間がかかるので敬遠しがちなんだけど、Recursedはパズル自体を難しくすることで1つの面があまり大きくならないようにしていて、ちゃんとパズルで悩まされる構成になっていて良かった。DLCのIce Palaceはめちゃめちゃな歯ごたえで、表だけ全クリして裏は放置している。
+アトリエは2021年中に黄昏を全部終わらせようと思っていたけど、気力が足りずアーシャ以降やってない。アーシャのアトリエは西洋ファンタジー風の雰囲気がとても良く、シナリオを進めるのもアイテムを強化するのも楽しかった。ライザのアトリエ2は戦闘システムが爽快で他のアトリエもこのシステムでプレイしてみたいと思うくらいだったけど、シナリオやキャライベントは作り込みが甘く感じて今ひとつだった。リングフィットアドベンチャーは100日ちょいで1周クリアして、その後はほとんどやっていない。プレイ前に着替えたりコントローラーをセットアップしたりといった準備が必要なので、そういう作業を面倒くさいと思ってしまうとだんだん足が遠のいてしまう。そのせいか9月頃から体重がまた増え始めてきたので、新年にまた運動する習慣を戻したい。
+3月にVRヘッドセットのHP Reverb G2を買ったものの、VRゲームはあまりプレイしていない。画面の解像度には文句ないんだけど、Windows Mixed Realityのデバイスとして動くためかSteamVRとの相性が悪く、コントローラーの操作設定がおかしかったり妙にカクついたりと問題が多い。こういったソフトウェアの相性問題や物理的な取り回しやすさを考えるとOculus Questが一番良いのかなぁとも思うが、Facebookアカウントと紐付けないといけないという点がどうにも気持ち悪くて二の足を踏んでいる。
+数学の勉強はペースにムラがあったものの、毎週の進捗報告会が良いペースメーカーになってくれたので1年を通じて続けることができた。位相論の基礎から始まり、複素解析を経て測度論、ルベーグ積分、関数空間と勉強を進めている。測度論とルベーグ積分では抽象的な議論が続いていたので、関数空間では久しぶりに具体的なものを触れそうで楽しみ。1年を通してこれらの勉強をしてきたことで、数学的に厳密な議論の作り方や無限に対する考え方の感覚をかなり身につけることができたと感じている。
+趣味プログラミングはあんまりやらなかった気がする。明確にやったと言えるのは
+ Ray Tracing in One Weekend ICFPC ハグルでハグハグ  Ray Tracing in One Weekendは名前の通りお手軽なレイトレーシングのハンズオン教本で、サンプルコードを写経していくとレイトレーシングのプログラムがだんだんと出来上がっていくようになっている。最初はただの円板を描くだけだったのが、章を進めるにつれて影ができたり反射光ができたりと目に見える変化が起きるので面白い。ICFPCはいつものようにインフラをやっていた。スコアボードは生成スクリプトが魔境になってしまったことを除けば方針は良かったと思う。ソルバーの方では、平面上の点の焼きなましのような逐次改善していく＋人間の手助けが役に立つタイプのプログラムをビジュアライズする経験値があまりにも足りず、こういうことができたら嬉しいかなぁと思っていたことを結局実装できずに終わってしまったのが悔しい。後からTwitter等で他のチームが作っていたビジュアライザを見ると、リアルタイムで焼きなましの状況を表示したり人間が点の位置を再配置したりする機能を実装しているチームが結構あったので、こういうコードがさっと書けるようになりたい……と思いつつまだ手を付けていない。
+ハグルでハグハグはハグルというボードゲームをオンラインの仲間内で遊ぶために作ったプラットフォームで、配られたカードを見せ合ったりトークンをやりとりしたりといったアクションがブラウザ上でできるようになっている。Kotlin &#43; Spring &#43; PostgreSQLでバックエンドを書いてReact &#43; Redux &#43; Redux-Sagaでフロントエンドという結構真面目な構成になっているけど、実際のところバックエンドはある程度の整合性を保ちつつDBへ読み書きができればいいので、FirebaseやAWS AppSync等を使ってサーバレスにしたほうが楽で良かったかなと思っている。そういった経緯もあって年末にAWS Amplifyを触ってみている。
+コロナ禍でみんな暇なのか、Twitterでプログラマ論について議論が盛り上がっては炎上するのを数回見た。こういった議論に入れ込みすぎることの是非はさておき、自分が何を大切に思っているかを見つめ直すきっかけとしてはそこそこ有用なので、見かけるたびに数時間くらい考えている。この記事は振り返りなので各論について特に意見表明はしないけど、これらの思索を通じて、最近の自分は技術が社会的に価値を生むかどうかを過度に重視してしまっており、それが新しいことを試すときの心理的障壁になっていると感じた。たぶん仕事に毒されすぎているんだと思う。プログラムを書いて思ったとおりに歯車が噛み合って動くと面白い、だからプログラムを書くという純粋な気持ちを2022年には取り戻していきたい。"/>
+
+    <meta property="og:title" content="2021年振り返り" />
+<meta property="og:description" content="2021年振り返り。
+今年の前半は毎月の振り返りをしていたものの、7月から面倒になって書くのをやめてしまった。理由はいくつかあるけど、はてなブログのUIが妙に重くてブログを書こうと思い立ってからのリードタイムが長いことが大きい。去年せっかくosak.jpも整理したことだし、しばらくはこっちで書いてみようかと思う。
+2021年はなんもしてなかった気がしたけど、リングフィットアドベンチャーを始めたのも、コロナウイルスのワクチンを2回接種したのも、Ray Tracing in One Weekendをやったのも、いろいろパン作りをしていたのも全部今年だった。そういえば引っ越しもしたし、同じ時期に大寒波で大変なことになっていたりもした。ずっと家に引きこもっているからか時間が間延びしているような気がする。
+やったゲームを覚えている範囲で並べてみる。軽いブラウザゲー等で覚えてないやつもたぶんある。そういうゲームも記録しときたいね。
+ ライザのアトリエ2 トトリのアトリエ アーシャのアトリエ ソフィーのアトリエDX（途中） リングフィットアドベンチャー FORM ぎゃる☆がん2 2縺､縺ｮ縺ｻ縺（文字化けではなくこういう名前のブラウザゲー） Quantum Protocol Recursed Factorio Shapez.io Baba Is You（アップデート） Helltaker みんなの早押しクイズ  Factorioがとにかく大ヒットだった。以前の記事でも書いた通り、1ヶ月で130時間くらいプレイした。資源を集めてラインを構築してちゃんと動くかどうか見張るという行動の繰り返しではあるものの、考えるパートと手を動かすパートがはっきり分かれていることもあり、いくらでも遊んでいられる。通常モードは3回クリアしたのでMODを入れて遊ぼうかと思ったけど結局まだやっていない。Recursedも面白かった。アクションパズルというジャンルはやり直しに手間がかかるので敬遠しがちなんだけど、Recursedはパズル自体を難しくすることで1つの面があまり大きくならないようにしていて、ちゃんとパズルで悩まされる構成になっていて良かった。DLCのIce Palaceはめちゃめちゃな歯ごたえで、表だけ全クリして裏は放置している。
+アトリエは2021年中に黄昏を全部終わらせようと思っていたけど、気力が足りずアーシャ以降やってない。アーシャのアトリエは西洋ファンタジー風の雰囲気がとても良く、シナリオを進めるのもアイテムを強化するのも楽しかった。ライザのアトリエ2は戦闘システムが爽快で他のアトリエもこのシステムでプレイしてみたいと思うくらいだったけど、シナリオやキャライベントは作り込みが甘く感じて今ひとつだった。リングフィットアドベンチャーは100日ちょいで1周クリアして、その後はほとんどやっていない。プレイ前に着替えたりコントローラーをセットアップしたりといった準備が必要なので、そういう作業を面倒くさいと思ってしまうとだんだん足が遠のいてしまう。そのせいか9月頃から体重がまた増え始めてきたので、新年にまた運動する習慣を戻したい。
+3月にVRヘッドセットのHP Reverb G2を買ったものの、VRゲームはあまりプレイしていない。画面の解像度には文句ないんだけど、Windows Mixed Realityのデバイスとして動くためかSteamVRとの相性が悪く、コントローラーの操作設定がおかしかったり妙にカクついたりと問題が多い。こういったソフトウェアの相性問題や物理的な取り回しやすさを考えるとOculus Questが一番良いのかなぁとも思うが、Facebookアカウントと紐付けないといけないという点がどうにも気持ち悪くて二の足を踏んでいる。
+数学の勉強はペースにムラがあったものの、毎週の進捗報告会が良いペースメーカーになってくれたので1年を通じて続けることができた。位相論の基礎から始まり、複素解析を経て測度論、ルベーグ積分、関数空間と勉強を進めている。測度論とルベーグ積分では抽象的な議論が続いていたので、関数空間では久しぶりに具体的なものを触れそうで楽しみ。1年を通してこれらの勉強をしてきたことで、数学的に厳密な議論の作り方や無限に対する考え方の感覚をかなり身につけることができたと感じている。
+趣味プログラミングはあんまりやらなかった気がする。明確にやったと言えるのは
+ Ray Tracing in One Weekend ICFPC ハグルでハグハグ  Ray Tracing in One Weekendは名前の通りお手軽なレイトレーシングのハンズオン教本で、サンプルコードを写経していくとレイトレーシングのプログラムがだんだんと出来上がっていくようになっている。最初はただの円板を描くだけだったのが、章を進めるにつれて影ができたり反射光ができたりと目に見える変化が起きるので面白い。ICFPCはいつものようにインフラをやっていた。スコアボードは生成スクリプトが魔境になってしまったことを除けば方針は良かったと思う。ソルバーの方では、平面上の点の焼きなましのような逐次改善していく＋人間の手助けが役に立つタイプのプログラムをビジュアライズする経験値があまりにも足りず、こういうことができたら嬉しいかなぁと思っていたことを結局実装できずに終わってしまったのが悔しい。後からTwitter等で他のチームが作っていたビジュアライザを見ると、リアルタイムで焼きなましの状況を表示したり人間が点の位置を再配置したりする機能を実装しているチームが結構あったので、こういうコードがさっと書けるようになりたい……と思いつつまだ手を付けていない。
+ハグルでハグハグはハグルというボードゲームをオンラインの仲間内で遊ぶために作ったプラットフォームで、配られたカードを見せ合ったりトークンをやりとりしたりといったアクションがブラウザ上でできるようになっている。Kotlin &#43; Spring &#43; PostgreSQLでバックエンドを書いてReact &#43; Redux &#43; Redux-Sagaでフロントエンドという結構真面目な構成になっているけど、実際のところバックエンドはある程度の整合性を保ちつつDBへ読み書きができればいいので、FirebaseやAWS AppSync等を使ってサーバレスにしたほうが楽で良かったかなと思っている。そういった経緯もあって年末にAWS Amplifyを触ってみている。
+コロナ禍でみんな暇なのか、Twitterでプログラマ論について議論が盛り上がっては炎上するのを数回見た。こういった議論に入れ込みすぎることの是非はさておき、自分が何を大切に思っているかを見つめ直すきっかけとしてはそこそこ有用なので、見かけるたびに数時間くらい考えている。この記事は振り返りなので各論について特に意見表明はしないけど、これらの思索を通じて、最近の自分は技術が社会的に価値を生むかどうかを過度に重視してしまっており、それが新しいことを試すときの心理的障壁になっていると感じた。たぶん仕事に毒されすぎているんだと思う。プログラムを書いて思ったとおりに歯車が噛み合って動くと面白い、だからプログラムを書くという純粋な気持ちを2022年には取り戻していきたい。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://osak.jp/posts/ja/2021-year-end-summary/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-31T23:59:59-06:00" />
+<meta property="article:modified_time" content="2021-12-31T23:59:59-06:00" />
+
+
+
+    <title>
+  2021年振り返り · osak.jp
+</title>
+
+    
+      <link rel="canonical" href="https://osak.jp/posts/ja/2021-year-end-summary/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.1.7" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.eb7743f94930acfd17146aecc1f80e86fe35b3e451f2ec0c98485f9c4d962f34.css" integrity="sha256-63dD&#43;UkwrP0XFGrswfgOhv41s&#43;RR8uwMmEhfnE2WLzQ=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.dde8a61eb31a32353b4baf3d9113f03c4ea2a8ca9bb736f59ca2d2b2cb664f0b.css" integrity="sha256-3eimHrMaMjU7S689kRPwPE6iqMqbtzb1nKLSsstmTws=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <link rel="author" href="http://www.hatena.ne.jp/osa_k/" />
+    
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      osak.jp
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/en/">Blog (en)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/ja/">Blog (ja)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://osak.hatenablog.jp/">Blog (Hatena)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://osak.jp/posts/ja/2021-year-end-summary/">
+              2021年振り返り
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-12-31T23:59:59-06:00'>
+                December 31, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+        <p>2021年振り返り。</p>
+<p>今年の前半は毎月の振り返りをしていたものの、7月から面倒になって書くのをやめてしまった。理由はいくつかあるけど、はてなブログのUIが妙に重くてブログを書こうと思い立ってからのリードタイムが長いことが大きい。去年せっかくosak.jpも整理したことだし、しばらくはこっちで書いてみようかと思う。</p>
+<p>2021年はなんもしてなかった気がしたけど、<a href="https://osak.hatenablog.jp/entry/2021-monthly-report-jan">リングフィットアドベンチャーを始めた</a>のも、<a href="https://osak.hatenablog.jp/entry/covid19-vaccine">コロナウイルスのワクチンを2回接種した</a>のも、<a href="https://osak.hatenablog.jp/entry/2021-monthly-report-feb">Ray Tracing in One Weekendをやった</a>のも、<a href="https://osak.hatenablog.jp/entry/2021/05/01/122302">いろいろパン作りをしていた</a>のも全部今年だった。そういえば引っ越しもしたし、同じ時期に大寒波で大変なことになっていたりもした。ずっと家に引きこもっているからか時間が間延びしているような気がする。</p>
+<p>やったゲームを覚えている範囲で並べてみる。軽いブラウザゲー等で覚えてないやつもたぶんある。そういうゲームも記録しときたいね。</p>
+<ul>
+<li>ライザのアトリエ2</li>
+<li>トトリのアトリエ</li>
+<li>アーシャのアトリエ</li>
+<li>ソフィーのアトリエDX（途中）</li>
+<li>リングフィットアドベンチャー</li>
+<li>FORM</li>
+<li>ぎゃる☆がん2</li>
+<li><a href="https://unityroom.com/games/xxxxx">2縺､縺ｮ縺ｻ縺</a>（文字化けではなくこういう名前のブラウザゲー）</li>
+<li>Quantum Protocol</li>
+<li>Recursed</li>
+<li>Factorio</li>
+<li>Shapez.io</li>
+<li>Baba Is You（アップデート）</li>
+<li>Helltaker</li>
+<li>みんなの早押しクイズ</li>
+</ul>
+<p>Factorioがとにかく大ヒットだった。以前の記事でも書いた通り、1ヶ月で130時間くらいプレイした。資源を集めてラインを構築してちゃんと動くかどうか見張るという行動の繰り返しではあるものの、考えるパートと手を動かすパートがはっきり分かれていることもあり、いくらでも遊んでいられる。通常モードは3回クリアしたのでMODを入れて遊ぼうかと思ったけど結局まだやっていない。Recursedも面白かった。アクションパズルというジャンルはやり直しに手間がかかるので敬遠しがちなんだけど、Recursedはパズル自体を難しくすることで1つの面があまり大きくならないようにしていて、ちゃんとパズルで悩まされる構成になっていて良かった。DLCのIce Palaceはめちゃめちゃな歯ごたえで、表だけ全クリして裏は放置している。</p>
+<p>アトリエは2021年中に黄昏を全部終わらせようと思っていたけど、気力が足りずアーシャ以降やってない。アーシャのアトリエは西洋ファンタジー風の雰囲気がとても良く、シナリオを進めるのもアイテムを強化するのも楽しかった。ライザのアトリエ2は戦闘システムが爽快で他のアトリエもこのシステムでプレイしてみたいと思うくらいだったけど、シナリオやキャライベントは作り込みが甘く感じて今ひとつだった。リングフィットアドベンチャーは100日ちょいで1周クリアして、その後はほとんどやっていない。プレイ前に着替えたりコントローラーをセットアップしたりといった準備が必要なので、そういう作業を面倒くさいと思ってしまうとだんだん足が遠のいてしまう。そのせいか9月頃から体重がまた増え始めてきたので、新年にまた運動する習慣を戻したい。</p>
+<p>3月にVRヘッドセットのHP Reverb G2を買ったものの、VRゲームはあまりプレイしていない。画面の解像度には文句ないんだけど、Windows Mixed Realityのデバイスとして動くためかSteamVRとの相性が悪く、コントローラーの操作設定がおかしかったり妙にカクついたりと問題が多い。こういったソフトウェアの相性問題や物理的な取り回しやすさを考えるとOculus Questが一番良いのかなぁとも思うが、Facebookアカウントと紐付けないといけないという点がどうにも気持ち悪くて二の足を踏んでいる。</p>
+<p>数学の勉強はペースにムラがあったものの、毎週の進捗報告会が良いペースメーカーになってくれたので1年を通じて続けることができた。位相論の基礎から始まり、複素解析を経て測度論、ルベーグ積分、関数空間と勉強を進めている。測度論とルベーグ積分では抽象的な議論が続いていたので、関数空間では久しぶりに具体的なものを触れそうで楽しみ。1年を通してこれらの勉強をしてきたことで、数学的に厳密な議論の作り方や無限に対する考え方の感覚をかなり身につけることができたと感じている。</p>
+<p>趣味プログラミングはあんまりやらなかった気がする。明確にやったと言えるのは</p>
+<ul>
+<li><a href="https://raytracing.github.io/books/RayTracingInOneWeekend.html">Ray Tracing in One Weekend</a></li>
+<li>ICFPC</li>
+<li><a href="https://github.com/haggle-de-haghag/haggle-de-haghag">ハグルでハグハグ</a></li>
+</ul>
+<p>Ray Tracing in One Weekendは名前の通りお手軽なレイトレーシングのハンズオン教本で、サンプルコードを写経していくとレイトレーシングのプログラムがだんだんと出来上がっていくようになっている。最初はただの円板を描くだけだったのが、章を進めるにつれて影ができたり反射光ができたりと目に見える変化が起きるので面白い。ICFPCはいつものようにインフラをやっていた。スコアボードは生成スクリプトが魔境になってしまったことを除けば方針は良かったと思う。ソルバーの方では、平面上の点の焼きなましのような逐次改善していく＋人間の手助けが役に立つタイプのプログラムをビジュアライズする経験値があまりにも足りず、こういうことができたら嬉しいかなぁと思っていたことを結局実装できずに終わってしまったのが悔しい。後からTwitter等で他のチームが作っていたビジュアライザを見ると、リアルタイムで焼きなましの状況を表示したり人間が点の位置を再配置したりする機能を実装しているチームが結構あったので、こういうコードがさっと書けるようになりたい……と思いつつまだ手を付けていない。</p>
+<p>ハグルでハグハグはハグルというボードゲームをオンラインの仲間内で遊ぶために作ったプラットフォームで、配られたカードを見せ合ったりトークンをやりとりしたりといったアクションがブラウザ上でできるようになっている。Kotlin + Spring + PostgreSQLでバックエンドを書いてReact + Redux + Redux-Sagaでフロントエンドという結構真面目な構成になっているけど、実際のところバックエンドはある程度の整合性を保ちつつDBへ読み書きができればいいので、FirebaseやAWS AppSync等を使ってサーバレスにしたほうが楽で良かったかなと思っている。そういった経緯もあって年末にAWS Amplifyを触ってみている。</p>
+<p>コロナ禍でみんな暇なのか、Twitterでプログラマ論について議論が盛り上がっては炎上するのを数回見た。こういった議論に入れ込みすぎることの是非はさておき、自分が何を大切に思っているかを見つめ直すきっかけとしてはそこそこ有用なので、見かけるたびに数時間くらい考えている。この記事は振り返りなので各論について特に意見表明はしないけど、これらの思索を通じて、最近の自分は技術が社会的に価値を生むかどうかを過度に重視してしまっており、それが新しいことを試すときの心理的障壁になっていると感じた。たぶん仕事に毒されすぎているんだと思う。プログラムを書いて思ったとおりに歯車が噛み合って動くと面白い、だからプログラムを書くという純粋な気持ちを2022年には取り戻していきたい。</p>
+
+      </div>
+
+
+      <footer><section class="hatena-star">
+    <script type="text/javascript">
+        window.Hatena = {
+            Star: {
+                SiteConfig: {
+                    entryNodes: {
+                        'article': {
+                            uri: 'a.title-link',
+                            title: 'h1.title',
+                            container: 'section.hatena-star'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <script async type="text/javascript" src="https://s.hatena.ne.jp/js/HatenaStar.js"></script>
+</section><section class="share-buttons"><a href="https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="vertical-normal" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+        <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "osak-jp" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+          2019 -
+        
+        2022
+         Osamu Koga (osa_k) 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K7GK6FJ729"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-K7GK6FJ729', { 'anonymize_ip': false });
+}
+</script>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+  </body>
+
+</html>
