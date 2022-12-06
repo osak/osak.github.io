@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="color-scheme" content="light dark">
+
+    
+
+    <meta name="author" content="Osamu Koga (osa_k)">
+    <meta name="description" content="smhn Advent Calendar 4日目です。ておくれてる？うるせえ4日目だって思ったときが4日目なんだよ。
+他の登録者を見た感じ、なんかおいしい店を紹介するのが流行ってるみたいなのでタスマニアのおいしい店を紹介します。みんな参考にしてね。大体おすすめ度順です。
+Templo     タスマニアの中心都市、Hobartの有名なレストラン。フレンチっぽいコース料理で6品くらい出てくる。素材の味そのものがいいのはもちろん、味付けも素材をうまく引き立てるようにちょうどよく調整されていてとてもうまい。20席くらいしかない小さいレストランだけど、いつも予約でいっぱいなのも納得できる。
+写真は前菜の牡蠣、Kingfish（ヒラマサ）のマリネ、人参のロースト、ほうれん草とリコッタチーズのラビオリ、ラムのロースト、オリーブオイルのチョコケーキ。人参はあまり味が濃くなくて、それがバジルソースとチーズによく合っていた。
+      
+Stillwater     Hobartから車で2時間半ほど北に行ったところにある、Launcestonという都市の有名なレストラン。水車小屋を改造したレストランで、海に面していて雰囲気が良い。
+料理はシーフード、肉、ベジタリアンまで色々ある。前菜のSourdoughとバターは安定のおいしさ（タスマニアはどこに行っても乳製品はうまかった）。ここに来るまでに定番的なおいしいものを食べてきたこともあり、自分はちょっと攻めてOctopus Udonとワラビーのグリルを注文した。
+写真だと分かりづらいが、Octopus Udonは柔らかく茹でたうどんを油そばっぽい味付けでタコと和えてサラダ風にしたもので、予想外においしかった。ワラビーはほのかにナッツのような香りがある硬めの肉で、イノシシに似ている。しかし付け合せのソースとカブが絶妙に濃い味付けになっていて、タンパクな肉でも最後まで飽きずに食べられた。あとはデザートのパンナコッタ。これもうまい。
+     
+Black Cow Bistro    Launcestonにあるステーキハウス。
+名前の通り肉がうまい。前菜のPork Bellyは皮がカリカリに揚がっていて食感がとてもよいし、甘酸っぱいソースもよく合っている。メインのWagyu Filetは火の通し加減も絶妙で、噛むたびに肉の旨味が感じられる。
+      
+Bangor Vineyard Shed     Port Arthurがあるタスマン半島の付け根らへんにあるワイナリー。って言ってもどこって感じですね。各自調べてくだしあ。
+ワインとそれに合う食事で優雅にランチができる。写真は牡蠣、チーズ盛り合わせ、ムール貝のワイン蒸し。牡蠣のジェノベーゼソースは塩気とバジルの香りが絶妙にマッチしていてめちゃくちゃうまい。ムール貝は本当にワインとバターで蒸しただけという感じだけど、新鮮なのでそれだけで十分においしいし、何よりダシのふんだんに出ているスープが良い。
+    
+Devil’s Corner Cellar Door     フレシネ半島へ行く途中にあるワイナリー。ここのワインは単品で飲むとちょっと渋く感じるけど、食事と一緒に飲むと一気に飲みやすくておいしいワインになる。併設されているピザ屋のキノコピザがカマンベールチーズを使っていたんだけど、チーズの塩気とキノコと生地の香ばしさが絶妙にマッチしていておいしかった。別の店で注文したFish &amp; Chipsも魚が新鮮なのでおいしい。">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="タスマニアのおいしい店（smhn Advent Calendar 4日目）"/>
+<meta name="twitter:description" content="smhn Advent Calendar 4日目です。ておくれてる？うるせえ4日目だって思ったときが4日目なんだよ。
+他の登録者を見た感じ、なんかおいしい店を紹介するのが流行ってるみたいなのでタスマニアのおいしい店を紹介します。みんな参考にしてね。大体おすすめ度順です。
+Templo     タスマニアの中心都市、Hobartの有名なレストラン。フレンチっぽいコース料理で6品くらい出てくる。素材の味そのものがいいのはもちろん、味付けも素材をうまく引き立てるようにちょうどよく調整されていてとてもうまい。20席くらいしかない小さいレストランだけど、いつも予約でいっぱいなのも納得できる。
+写真は前菜の牡蠣、Kingfish（ヒラマサ）のマリネ、人参のロースト、ほうれん草とリコッタチーズのラビオリ、ラムのロースト、オリーブオイルのチョコケーキ。人参はあまり味が濃くなくて、それがバジルソースとチーズによく合っていた。
+      
+Stillwater     Hobartから車で2時間半ほど北に行ったところにある、Launcestonという都市の有名なレストラン。水車小屋を改造したレストランで、海に面していて雰囲気が良い。
+料理はシーフード、肉、ベジタリアンまで色々ある。前菜のSourdoughとバターは安定のおいしさ（タスマニアはどこに行っても乳製品はうまかった）。ここに来るまでに定番的なおいしいものを食べてきたこともあり、自分はちょっと攻めてOctopus Udonとワラビーのグリルを注文した。
+写真だと分かりづらいが、Octopus Udonは柔らかく茹でたうどんを油そばっぽい味付けでタコと和えてサラダ風にしたもので、予想外においしかった。ワラビーはほのかにナッツのような香りがある硬めの肉で、イノシシに似ている。しかし付け合せのソースとカブが絶妙に濃い味付けになっていて、タンパクな肉でも最後まで飽きずに食べられた。あとはデザートのパンナコッタ。これもうまい。
+     
+Black Cow Bistro    Launcestonにあるステーキハウス。
+名前の通り肉がうまい。前菜のPork Bellyは皮がカリカリに揚がっていて食感がとてもよいし、甘酸っぱいソースもよく合っている。メインのWagyu Filetは火の通し加減も絶妙で、噛むたびに肉の旨味が感じられる。
+      
+Bangor Vineyard Shed     Port Arthurがあるタスマン半島の付け根らへんにあるワイナリー。って言ってもどこって感じですね。各自調べてくだしあ。
+ワインとそれに合う食事で優雅にランチができる。写真は牡蠣、チーズ盛り合わせ、ムール貝のワイン蒸し。牡蠣のジェノベーゼソースは塩気とバジルの香りが絶妙にマッチしていてめちゃくちゃうまい。ムール貝は本当にワインとバターで蒸しただけという感じだけど、新鮮なのでそれだけで十分においしいし、何よりダシのふんだんに出ているスープが良い。
+    
+Devil’s Corner Cellar Door     フレシネ半島へ行く途中にあるワイナリー。ここのワインは単品で飲むとちょっと渋く感じるけど、食事と一緒に飲むと一気に飲みやすくておいしいワインになる。併設されているピザ屋のキノコピザがカマンベールチーズを使っていたんだけど、チーズの塩気とキノコと生地の香ばしさが絶妙にマッチしていておいしかった。別の店で注文したFish &amp; Chipsも魚が新鮮なのでおいしい。"/>
+
+    <meta property="og:title" content="タスマニアのおいしい店（smhn Advent Calendar 4日目）" />
+<meta property="og:description" content="smhn Advent Calendar 4日目です。ておくれてる？うるせえ4日目だって思ったときが4日目なんだよ。
+他の登録者を見た感じ、なんかおいしい店を紹介するのが流行ってるみたいなのでタスマニアのおいしい店を紹介します。みんな参考にしてね。大体おすすめ度順です。
+Templo     タスマニアの中心都市、Hobartの有名なレストラン。フレンチっぽいコース料理で6品くらい出てくる。素材の味そのものがいいのはもちろん、味付けも素材をうまく引き立てるようにちょうどよく調整されていてとてもうまい。20席くらいしかない小さいレストランだけど、いつも予約でいっぱいなのも納得できる。
+写真は前菜の牡蠣、Kingfish（ヒラマサ）のマリネ、人参のロースト、ほうれん草とリコッタチーズのラビオリ、ラムのロースト、オリーブオイルのチョコケーキ。人参はあまり味が濃くなくて、それがバジルソースとチーズによく合っていた。
+      
+Stillwater     Hobartから車で2時間半ほど北に行ったところにある、Launcestonという都市の有名なレストラン。水車小屋を改造したレストランで、海に面していて雰囲気が良い。
+料理はシーフード、肉、ベジタリアンまで色々ある。前菜のSourdoughとバターは安定のおいしさ（タスマニアはどこに行っても乳製品はうまかった）。ここに来るまでに定番的なおいしいものを食べてきたこともあり、自分はちょっと攻めてOctopus Udonとワラビーのグリルを注文した。
+写真だと分かりづらいが、Octopus Udonは柔らかく茹でたうどんを油そばっぽい味付けでタコと和えてサラダ風にしたもので、予想外においしかった。ワラビーはほのかにナッツのような香りがある硬めの肉で、イノシシに似ている。しかし付け合せのソースとカブが絶妙に濃い味付けになっていて、タンパクな肉でも最後まで飽きずに食べられた。あとはデザートのパンナコッタ。これもうまい。
+     
+Black Cow Bistro    Launcestonにあるステーキハウス。
+名前の通り肉がうまい。前菜のPork Bellyは皮がカリカリに揚がっていて食感がとてもよいし、甘酸っぱいソースもよく合っている。メインのWagyu Filetは火の通し加減も絶妙で、噛むたびに肉の旨味が感じられる。
+      
+Bangor Vineyard Shed     Port Arthurがあるタスマン半島の付け根らへんにあるワイナリー。って言ってもどこって感じですね。各自調べてくだしあ。
+ワインとそれに合う食事で優雅にランチができる。写真は牡蠣、チーズ盛り合わせ、ムール貝のワイン蒸し。牡蠣のジェノベーゼソースは塩気とバジルの香りが絶妙にマッチしていてめちゃくちゃうまい。ムール貝は本当にワインとバターで蒸しただけという感じだけど、新鮮なのでそれだけで十分においしいし、何よりダシのふんだんに出ているスープが良い。
+    
+Devil’s Corner Cellar Door     フレシネ半島へ行く途中にあるワイナリー。ここのワインは単品で飲むとちょっと渋く感じるけど、食事と一緒に飲むと一気に飲みやすくておいしいワインになる。併設されているピザ屋のキノコピザがカマンベールチーズを使っていたんだけど、チーズの塩気とキノコと生地の香ばしさが絶妙にマッチしていておいしかった。別の店で注文したFish &amp; Chipsも魚が新鮮なのでおいしい。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://osak.jp/posts/ja/tasmania-gourmet/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-06T16:00:00&#43;09:00" />
+<meta property="article:modified_time" content="2022-12-06T16:00:00&#43;09:00" />
+
+
+
+    <title>
+  タスマニアのおいしい店（smhn Advent Calendar 4日目） · osak.jp
+</title>
+
+    
+      <link rel="canonical" href="https://osak.jp/posts/ja/tasmania-gourmet/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.1.7" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.eb7743f94930acfd17146aecc1f80e86fe35b3e451f2ec0c98485f9c4d962f34.css" integrity="sha256-63dD&#43;UkwrP0XFGrswfgOhv41s&#43;RR8uwMmEhfnE2WLzQ=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.dde8a61eb31a32353b4baf3d9113f03c4ea2a8ca9bb736f59ca2d2b2cb664f0b.css" integrity="sha256-3eimHrMaMjU7S689kRPwPE6iqMqbtzb1nKLSsstmTws=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <link rel="author" href="http://www.hatena.ne.jp/osa_k/" />
+    
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      osak.jp
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/en/">Blog (en)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/ja/">Blog (ja)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://osak.hatenablog.jp/">Blog (Hatena)</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/memo/">Memo</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://osak.jp/posts/ja/tasmania-gourmet/">
+              タスマニアのおいしい店（smhn Advent Calendar 4日目）
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2022-12-06T16:00:00&#43;09:00'>
+                December 6, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+        <p><a href="https://adventar.org/calendars/7936">smhn Advent Calendar 4日目</a>です。ておくれてる？うるせえ4日目だって思ったときが4日目なんだよ。</p>
+<p>他の登録者を見た感じ、なんかおいしい店を紹介するのが流行ってるみたいなのでタスマニアのおいしい店を紹介します。みんな参考にしてね。大体おすすめ度順です。</p>
+<h1 id="templohttpstemplocomau">
+  <a href="https://templo.com.au/">Templo</a>
+  <a class="heading-link" href="#templohttpstemplocomau">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Templo.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Templo_hu325236f8bb0133a77cc732b4aca2301d_2693766_250x0_resize_q75_box.jpg">
+</a>
+<p>タスマニアの中心都市、Hobartの有名なレストラン。フレンチっぽいコース料理で6品くらい出てくる。素材の味そのものがいいのはもちろん、味付けも素材をうまく引き立てるようにちょうどよく調整されていてとてもうまい。20席くらいしかない小さいレストランだけど、いつも予約でいっぱいなのも納得できる。</p>
+<p>写真は前菜の牡蠣、Kingfish（ヒラマサ）のマリネ、人参のロースト、ほうれん草とリコッタチーズのラビオリ、ラムのロースト、オリーブオイルのチョコケーキ。人参はあまり味が濃くなくて、それがバジルソースとチーズによく合っていた。</p>
+<p>
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Templo_Oyster.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Templo_Oyster_hu00a1873e1ba4563d5b71ade02337a696_3308042_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Templo_Kingfish.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Templo_Kingfish_hu944c44039b8d8aaec7bae8b2210ef656_3216713_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Templo_Carrot.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Templo_Carrot_hu43e29bc2450d387dacb4499bf814f9d1_2778008_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Templo_Ravioli.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Templo_Ravioli_huee50302db41ad9ad6581a1a82897f216_2771271_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Templo_Lamb.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Templo_Lamb_hu25f5325ce9053e85686febc0d8346f36_2490684_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Templo_Olive_Oil_Cake.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Templo_Olive_Oil_Cake_hud1608554a2d3fbf74afee258cc92e400_2259779_250x0_resize_q75_box.jpg">
+</a></p>
+<h1 id="stillwaterhttpswwwstillwatercomau">
+  <a href="https://www.stillwater.com.au/">Stillwater</a>
+  <a class="heading-link" href="#stillwaterhttpswwwstillwatercomau">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Stillwater.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Stillwater_hu11a3b4e6afcec90216d282146e364a2f_2878158_250x0_resize_q75_box.jpg">
+</a>
+<p>Hobartから車で2時間半ほど北に行ったところにある、Launcestonという都市の有名なレストラン。水車小屋を改造したレストランで、海に面していて雰囲気が良い。</p>
+<p>料理はシーフード、肉、ベジタリアンまで色々ある。前菜のSourdoughとバターは安定のおいしさ（タスマニアはどこに行っても乳製品はうまかった）。ここに来るまでに定番的なおいしいものを食べてきたこともあり、自分はちょっと攻めてOctopus Udonとワラビーのグリルを注文した。</p>
+<p>写真だと分かりづらいが、Octopus Udonは柔らかく茹でたうどんを油そばっぽい味付けでタコと和えてサラダ風にしたもので、予想外においしかった。ワラビーはほのかにナッツのような香りがある硬めの肉で、イノシシに似ている。しかし付け合せのソースとカブが絶妙に濃い味付けになっていて、タンパクな肉でも最後まで飽きずに食べられた。あとはデザートのパンナコッタ。これもうまい。</p>
+<p>
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Stillwater_Beer.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Stillwater_Beer_hudc9b4d4d1332961adffb18e42339a803_3083940_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Stillwater_Bread.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Stillwater_Bread_hub29b0afd568b376d34b800889112f959_2685681_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Stillwater_Octopus_Udon.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Stillwater_Octopus_Udon_hu0ea8e2f6a247d1a9c575b68aca63e56d_2564348_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Stillwater_Warabee.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Stillwater_Warabee_huaee3b9cc15f591d3d19ee2a8293cb750_2909315_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Stillwater_Dessert.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Stillwater_Dessert_hu192e2388553f9b7892deb96633ba9e5b_2518227_250x0_resize_q75_box.jpg">
+</a></p>
+<h1 id="black-cow-bistrohttpsblackcowbistrocomau">
+  <a href="https://blackcowbistro.com.au/">Black Cow Bistro</a>
+  <a class="heading-link" href="#black-cow-bistrohttpsblackcowbistrocomau">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+<p>Launcestonにあるステーキハウス。</p>
+<p>名前の通り肉がうまい。前菜のPork Bellyは皮がカリカリに揚がっていて食感がとてもよいし、甘酸っぱいソースもよく合っている。メインのWagyu Filetは火の通し加減も絶妙で、噛むたびに肉の旨味が感じられる。</p>
+<p>
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Cured_Meats.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Cured_Meats_hu8440f2b74928b0f198438869e1bbb850_2271784_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Pork_Belly.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Pork_Belly_hue45ba2b26a9e9f7c537821e5c7a5f6c1_2213015_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Wagyu.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Wagyu_hu70418368aa10785de6c4f766adcd8c6b_2111549_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Porter.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Porter_hu612f090bcfa6a54006ac75de5112accf_1724950_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Potato.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Potato_hu6c3fbb377a139c517b2015ea00780608_2043204_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Wine.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Black_Cow_Bistro_Wine_hu427bf4d67270c0ba2a83579ae30d22b7_1568165_250x0_resize_q75_box.jpg">
+</a></p>
+<h1 id="bangor-vineyard-shedhttpsbangorshedcomau">
+  <a href="https://bangorshed.com.au/">Bangor Vineyard Shed</a>
+  <a class="heading-link" href="#bangor-vineyard-shedhttpsbangorshedcomau">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Bangor_Vineyard.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Bangor_Vineyard_hu044dde1888888243b286aec10eceb504_3770851_250x0_resize_q75_box.jpg">
+</a>
+<p>Port Arthurがあるタスマン半島の付け根らへんにあるワイナリー。って言ってもどこって感じですね。各自調べてくだしあ。</p>
+<p>ワインとそれに合う食事で優雅にランチができる。写真は牡蠣、チーズ盛り合わせ、ムール貝のワイン蒸し。牡蠣のジェノベーゼソースは塩気とバジルの香りが絶妙にマッチしていてめちゃくちゃうまい。ムール貝は本当にワインとバターで蒸しただけという感じだけど、新鮮なのでそれだけで十分においしいし、何よりダシのふんだんに出ているスープが良い。</p>
+<p>
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Bangor_Vineyard_Oyster.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Bangor_Vineyard_Oyster_hu9659f936ceaae5f257058b909464d125_2522864_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Bangor_Vineyard_Cheese.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Bangor_Vineyard_Cheese_hu8d68949edee51a2fd2f3aa5d8b2e6bdd_2298098_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Bangor_Vineyard_Mussels.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Bangor_Vineyard_Mussels_hu166ab002e48a5b3c3ec23e5199163685_2375744_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Bangor_Vineyard_Wine.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Bangor_Vineyard_Wine_hu71dc0aa5e5b1b3e0dfb3020f42f0c082_2111528_250x0_resize_q75_box.jpg">
+</a></p>
+<h1 id="devils-corner-cellar-doorhttpswwwdevilscornercomau">
+  <a href="https://www.devilscorner.com.au/">Devil’s Corner Cellar Door</a>
+  <a class="heading-link" href="#devils-corner-cellar-doorhttpswwwdevilscornercomau">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Devils_Corner.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Devils_Corner_hu05f3168f2aa5c00a88f42d47cb2d304a_3808797_250x0_resize_q75_box.jpg">
+</a>
+<p>フレシネ半島へ行く途中にあるワイナリー。ここのワインは単品で飲むとちょっと渋く感じるけど、食事と一緒に飲むと一気に飲みやすくておいしいワインになる。併設されているピザ屋のキノコピザがカマンベールチーズを使っていたんだけど、チーズの塩気とキノコと生地の香ばしさが絶妙にマッチしていておいしかった。別の店で注文したFish &amp; Chipsも魚が新鮮なのでおいしい。</p>
+<p>
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Devils_Corner_Pizza.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Devils_Corner_Pizza_hue5653fa5922ad6dc5ca2b8396c66fb29_2128133_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Devils_Corner_Fish_and_Chips.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Devils_Corner_Fish_and_Chips_huce5a5f17ffca810161fad7a83070b270_2148109_250x0_resize_q75_box.jpg">
+</a>
+
+
+
+
+<a href="/posts/ja/tasmania-gourmet/Devils_Corner_Wine.jpg" target="_blank">
+    <img src="/posts/ja/tasmania-gourmet/Devils_Corner_Wine_hud75a480f297c7c7671aa2083028876d5_1636410_250x0_resize_q75_box.jpg">
+</a></p>
+
+      </div>
+
+
+      <footer><section class="hatena-star">
+    <script type="text/javascript">
+        window.Hatena = {
+            Star: {
+                SiteConfig: {
+                    entryNodes: {
+                        'article': {
+                            uri: 'a.title-link',
+                            title: 'h1.title',
+                            container: 'section.hatena-star'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <script async type="text/javascript" src="https://s.hatena.ne.jp/js/HatenaStar.js"></script>
+</section><section class="share-buttons"><a href="https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="vertical-normal" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+        <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "osak-jp" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+          2019 -
+        
+        2022
+         Osamu Koga (osa_k) 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K7GK6FJ729"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-K7GK6FJ729', { 'anonymize_ip': false });
+}
+</script>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+  </body>
+
+</html>
