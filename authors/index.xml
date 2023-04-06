@@ -5,6 +5,10 @@
     <link>https://osak.jp/authors/</link>
     <description>Recent content in Authors on osak.jp</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://osak.jp/authors/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    
+	<atom:link href="https://osak.jp/authors/index.xml" rel="self" type="application/rss+xml" />
+    
+    
   </channel>
 </rss>

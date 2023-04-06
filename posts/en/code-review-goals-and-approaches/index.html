@@ -11,22 +11,21 @@
 
     <meta name="author" content="Osamu Koga (osa_k)">
     <meta name="description" content="This is a translation of my original blog post written in Japanese. Baseline translation was powered by DeepL Translate.
-  Preface The Goal of Code Review  Main Goals Sub goals   Checklist  High priority Medium priority Low priority   How to avoid turning reviews into a burden  Control the size of reviews Who should be the reviewer? How to organize the discussion Criticism and personal offense   Advice for Reviewers Advice for Code Authors References    Preface    The advantages of code reviews have long been emphasized.">
+  Preface The Goal of Code Review  Main Goals Sub goals   Checklist  High priority Medium priority Low priority   How to avoid turning reviews into a burden  Control the size of reviews Who should be the reviewer? How to organize the discussion Criticism and personal offense   Advice for Reviewers Advice for Code Authors References    Preface The advantages of code reviews have long been emphasized.">
     <meta name="keywords" content="blog,developer,personal">
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Code Review: Goals and Approaches"/>
 <meta name="twitter:description" content="This is a translation of my original blog post written in Japanese. Baseline translation was powered by DeepL Translate.
-  Preface The Goal of Code Review  Main Goals Sub goals   Checklist  High priority Medium priority Low priority   How to avoid turning reviews into a burden  Control the size of reviews Who should be the reviewer? How to organize the discussion Criticism and personal offense   Advice for Reviewers Advice for Code Authors References    Preface    The advantages of code reviews have long been emphasized."/>
+  Preface The Goal of Code Review  Main Goals Sub goals   Checklist  High priority Medium priority Low priority   How to avoid turning reviews into a burden  Control the size of reviews Who should be the reviewer? How to organize the discussion Criticism and personal offense   Advice for Reviewers Advice for Code Authors References    Preface The advantages of code reviews have long been emphasized."/>
 
     <meta property="og:title" content="Code Review: Goals and Approaches" />
 <meta property="og:description" content="This is a translation of my original blog post written in Japanese. Baseline translation was powered by DeepL Translate.
-  Preface The Goal of Code Review  Main Goals Sub goals   Checklist  High priority Medium priority Low priority   How to avoid turning reviews into a burden  Control the size of reviews Who should be the reviewer? How to organize the discussion Criticism and personal offense   Advice for Reviewers Advice for Code Authors References    Preface    The advantages of code reviews have long been emphasized." />
+  Preface The Goal of Code Review  Main Goals Sub goals   Checklist  High priority Medium priority Low priority   How to avoid turning reviews into a burden  Control the size of reviews Who should be the reviewer? How to organize the discussion Criticism and personal offense   Advice for Reviewers Advice for Code Authors References    Preface The advantages of code reviews have long been emphasized." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://osak.jp/posts/en/code-review-goals-and-approaches/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-11-08T16:03:26&#43;09:00" />
-<meta property="article:modified_time" content="2020-11-08T16:03:26&#43;09:00" />
-
+<meta property="og:url" content="https://osak.jp/posts/en/code-review-goals-and-approaches/" />
+<meta property="article:published_time" content="2020-11-08T16:03:26+09:00" />
+<meta property="article:modified_time" content="2020-11-08T16:03:26+09:00" />
 
 
     <title>
@@ -74,7 +73,7 @@
         integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
     
 
-    <meta name="generator" content="Hugo 0.82.0-DEV" />
+    <meta name="generator" content="Hugo 0.68.3" />
   </head>
 
   
@@ -201,28 +200,13 @@
 </nav>
 </div>
 
-<h2 id="preface">
-  Preface
-  <a class="heading-link" href="#preface">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="preface">Preface</h2>
 <p>The advantages of code reviews have long been emphasized. However, in many cases, code reviews are done without understanding the purpose and main focus [6]. Reviews without clearly defined purposes will eventually become a boring, valueless, and time-consuming ritual for just getting an approval stamp.</p>
 <p>I even had not really thought about the purpose of code review. I used to simply think that code reviews are needed to point out mistakes and possible improvements because humans are to make mistakes and carelessly overlook nice solutions. Such a naive understanding would work, and actually had worked, as long as there are not many committers in the project. However, as the number of committers increases, the negative side of not having a clearly written purpose of code reviews gradually becomes a pain. For example: is a tiny improvement worth pointing out in review? How to resolve a conflict when multiple reviewers don’t agree with each other&rsquo;s opinions? What if a code author stubbornly refuses to follow advice from reviewers?</p>
 <p>In this article, I will revisit the purpose of code review. Then I will summarize some of the key ideas for achieving that purpose. Some of these insights are based on my own experience, whereas others are borrowed from documents available on the Internet. See appendix for a list of websites and other resources that were particularly helpful in writing this article.</p>
 <p>If you would like to read other references in addition to this article, I recommend you to read <a href="https://medium.com/palantir/code-review-best-practices-19e02780015f">Code Review Best Practices</a> [3] for the first thing. It is a very good summary of the code review process in general and it also covers some details that I omitted in my article. If you have more time, then <a href="https://google.github.io/eng-practices/review/reviewer/">eng-practices | How to do a code review</a> [1] and <a href="https://google.github.io/eng-practices/review/developer/">eng-practices | The CL author&rsquo;s guide to getting through code review</a> [2] are also great articles to read.</p>
-<h2 id="the-goal-of-code-review">
-  The Goal of Code Review
-  <a class="heading-link" href="#the-goal-of-code-review">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="main-goals">
-  Main Goals
-  <a class="heading-link" href="#main-goals">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h2 id="the-goal-of-code-review">The Goal of Code Review</h2>
+<h3 id="main-goals">Main Goals</h3>
 <ul>
 <li>Ensure that at least one person, who is not the commit author, can maintain the merged code.</li>
 <li>Reach a consensus on the implementation. The consensus includes every aspect of code -  parity between a feature specification and implementation, consistency with existing code, ease of maintenance, coding style, and so on.</li>
@@ -234,12 +218,7 @@
 <li>It has been said that bugs make up only 15% of all review comments [5] and that many bugs are missed in reviews [4][5].</li>
 <li>Increasing the coverage of automated tests would be more effective in the medium and long term for capturing bugs.</li>
 </ul>
-<h3 id="sub-goals">
-  Sub goals
-  <a class="heading-link" href="#sub-goals">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="sub-goals">Sub goals</h3>
 <p>The concrete way to achieve the major objective depends on various factors including project, team size, and company culture. I suggest one minor objective here, which is likely a part of the major objective in most situations.</p>
 <ul>
 <li>The code should not (significantly) reduce the overall reliability of the system.
@@ -249,12 +228,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="checklist">
-  Checklist
-  <a class="heading-link" href="#checklist">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="checklist">Checklist</h2>
 <p>When reviewing the code, a checklist is useful to make sure that nothing is overlooked [8]. It should be used with careful attention to the following points:</p>
 <ul>
 <li>Do not consider about lower priority items until you have identified all the high priority issues [1].</li>
@@ -265,12 +239,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="high-priority">
-  High priority
-  <a class="heading-link" href="#high-priority">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="high-priority">High priority</h3>
 <p>This category consists of the checks for problems that cause major damage or are difficult to fix later.</p>
 <ul>
 <li>Make sure that the requirements and the actual functionality match</li>
@@ -283,12 +252,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="medium-priority">
-  Medium priority
-  <a class="heading-link" href="#medium-priority">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="medium-priority">Medium priority</h3>
 <ul>
 <li>Complexity assessment
 <ul>
@@ -303,29 +267,14 @@
 <li>Finding bugs and edge cases</li>
 <li>Check to see if the test is written.</li>
 </ul>
-<h3 id="low-priority">
-  Low priority
-  <a class="heading-link" href="#low-priority">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="low-priority">Low priority</h3>
 <p>This category consists of the checks for problems that don&rsquo;t significantly affect the system and can be easily fixed later.</p>
 <ul>
 <li>Coding style</li>
 <li>External documentation</li>
 </ul>
-<h2 id="how-to-avoid-turning-reviews-into-a-burden">
-  How to avoid turning reviews into a burden
-  <a class="heading-link" href="#how-to-avoid-turning-reviews-into-a-burden">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="control-the-size-of-reviews">
-  Control the size of reviews
-  <a class="heading-link" href="#control-the-size-of-reviews">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h2 id="how-to-avoid-turning-reviews-into-a-burden">How to avoid turning reviews into a burden</h2>
+<h3 id="control-the-size-of-reviews">Control the size of reviews</h3>
 <p>Reviewing large changes is burdensome. The larger the scale, the more code that interacts with each other, and the more oversights it causes. Also, a code review with a large number of comments is simply difficult to read. From the code author&rsquo;s perspective, a slow review resulting in a delayed merge is not desirable.</p>
 <ul>
 <li>Reviewers may ask the code author to split the code review into smaller pieces if they feel it is too large [1]. Taking more than 20 minutes to review is a good threshold [3]. Reviews can be often too large for reasons like the following:</li>
@@ -335,39 +284,19 @@
 </ul>
 <p>The first one is easy to work around; if you can explain that the changes are unrelated to each other, the author will happily split them up. The second one can be resolved by separating refactoring and feature changes into separate reviews, but some commitments from the code author may be needed because refactoring and feature implementation usually overlap with each other. In general, separately committing, reviewing, and deploying &ldquo;large-scale refactoring that doesn&rsquo;t change functionality&rdquo; and &ldquo;small changes that change functionality&rdquo; will efficiently reduce the cognitive load of reviewers.</p>
 <p>As for the last one, it probably needs to be addressed beyond the context of the code review. If the existing code is so complex that you can&rsquo;t avoid making huge changes, you should consider devoting a certain amount of effort to refactoring. If the implementation strategy is poorly chosen, the code author&rsquo;s skills may be insufficient. In this case, you should consider training the author through other means like 1 on 1 meetings or pair programming. You may also merge the large change believing it’s good, but you must be aware of the risk arising from having the code that is not thoroughly discussed.</p>
-<h3 id="who-should-be-the-reviewer">
-  Who should be the reviewer?
-  <a class="heading-link" href="#who-should-be-the-reviewer">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="who-should-be-the-reviewer">Who should be the reviewer?</h3>
 <p>In terms of increasing the number of people who understand the code as much as possible, it seems desirable to have everyone involved in the project reviewing it. However, it&rsquo;s neither realistic nor efficient to ask everyone to make time for every single review. Furthermore, the more people involved in the discussion, the more difficult it is to reach a consensus. For these reasons, the desirable number of reviewers will be just one or two [3]. In this case, one reviewer should be a person who has a bird&rsquo;s-eye view of the entire project, such as a tech lead. The other will be a person who is considered to be familiar with the part being changed (e.g., who appears many times in <code>git blame</code> of the changed files).</p>
 <p>The main reasons for limiting the number of people are, as mentioned earlier, efficiency and ease of discussion. You don’t have to worry about having too many reviewers if you can work around these problems in other ways. For example, reading code as a reviewer can itself serve as an exercise in reading other people&rsquo;s code and is a great opportunity to learn desirable patterns for those unfamiliar with the project and programming itself, so extra reviewers may participate for such purposes. Similarly, having many reviewers won’t particularly complicate the discussion If a formal way to resolve conflicts on reviewers’ opinions is defined and shared across all team members.</p>
-<h3 id="how-to-organize-the-discussion">
-  How to organize the discussion
-  <a class="heading-link" href="#how-to-organize-the-discussion">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="how-to-organize-the-discussion">How to organize the discussion</h3>
 <p>Code only works as you write it. Whether you criticize the code or defend one from criticism, there should be a clear logic and explanation of the advantages and disadvantages. If you can&rsquo;t provide such an explanation to convince the opponent, then you’d better accept what they are saying.</p>
 <p>It is not uncommon that every participant in a discussion evaluates the implementation on a slightly different axis, and the discussion gets confused as to whether this one is better or that one is better. When the two or more implementations look equally good so that it’s hard to make a definitive decision based on their pros and cons, the opinion of the code author should be the winner [1]. It is because it’s the easiest and the time-efficient option - since the implementation is already there. Even if the chosen implementation should start to cause a problem in the future, it should not be as hard as fixing it from scratch because the problem is already thoroughly discussed and shared among reviewers via the code review process.</p>
-<h3 id="criticism-and-personal-offense">
-  Criticism and personal offense
-  <a class="heading-link" href="#criticism-and-personal-offense">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="criticism-and-personal-offense">Criticism and personal offense</h3>
 <p>The message that &ldquo;criticism in code reviews is directed at the code, not at the individual&rdquo; has been emphasized in various places [1][2][3][6]. The purpose is the message is said to improve psychological safety by emphasizing that code review is a logical discussion process that doesn’t have anything to do with the personality of the code author. I wouldn&rsquo;t say this message is a complete deception though, it somewhat sounds like hollow words just designed for public presentation.</p>
 <p>Who wrote the code is actually a big piece of information in code reviews. You would confidently trust the code If it’s written by who has changed the same part of the code many times in the past. On the other hand, extra caution needs to be used if it’s the first time for the author to change that part of the code, or if the author has made arguable changes in other reviews. Similarly, the details of review comments can be affected by at whom it is directed. If you know  that the author has a certain level of proficiency, through previous their conversations and commits, you would write a brief comment just explaining the essential idea. However, if the author is junior or less experienced, you&rsquo;ll take the time to write a detailed comment.</p>
 <p>Consciously or unconsciously, review comments are more or less customized to the code author. This is not just because code authors are human and need to take sentimental considerations into account, but also because it is the most efficient way to run a discussion. Each person would need a different extent of information to understand the context, rationale, and meaning of the review comments. It&rsquo;s not as simple as saying “stop being personal, just use neutral expressions.”</p>
 <p>In addition to these facts from the perspective of reviewers, code authors also have their own reasons for taking comments personally. For programmers, the code they write is tied to their identity to some extent. For example, if the code was written for work, it is directly related to your salary. Also, programs highly reflect the quality of thoughts of the code author. Therefore, as the review comments may be personalized to the code author and the code author may consider their code as a part of their identity, it’s quite natural for code review comments to invoke sentimental feelings (I&rsquo;ve discussed this topic in my past entry (written in Japanese; not translated) [9]).</p>
 <p>In light of the above discussions, I would suggest a more accurate rephrasing of the message: &ldquo;Criticism in code reviews is made because the code is logically questionable&rdquo;. Code author’s personality and way of thinking largely affect whether a comment is taken as an offense. Even though some comments might hurt a lot, reviewers aren’t commenting with the intention of ruining the code author in a mess. They are commenting because they wish to have more conversation on the code so that they can convince themselves. Of course, reviewers also should use care and be gentle when they make comments so the code author won’t take it too badly. In particular, reviewers should not speak ill of the code author&rsquo;s habits or abilities (if you feel you have to, tell your manager if you&rsquo;re in an organization. If it&rsquo;s the Internet, simply ignore the problematic individual). The subtleties in code review comments are no different than regular relationships and regular conversations.</p>
-<h2 id="advice-for-reviewers">
-  Advice for Reviewers
-  <a class="heading-link" href="#advice-for-reviewers">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="advice-for-reviewers">Advice for Reviewers</h2>
 <ul>
 <li>Review the design first. Review the coding style later [1].
 <ul>
@@ -391,7 +320,7 @@
 </li>
 <li>Criticize the code, not the individual.
 <ul>
-<li>Avoid referring to the individual code author as much as possible. Instead of saying &ldquo;You are doing wrongly with writing code,&rdquo; say &ldquo;This code is not preferable because of problems like&hellip;&rdquo;. Instead of saying  &ldquo;You are thinking in a wrong way so ended up in such a bad design”, say &ldquo;This design breaks when… so it needs to be revised.”
+<li>Avoid referring to the individual code author as much as possible. Instead of saying &ldquo;You are doing wrongly with writing code,&rdquo; say &ldquo;This code is not preferable because of problems like&hellip;&quot;. Instead of saying  &ldquo;You are thinking in a wrong way so ended up in such a bad design”, say &ldquo;This design breaks when… so it needs to be revised.”
 <ul>
 <li>Sometimes the ego of an individual is closely attached to the code they wrote so these are inseparable pieces. It’s best to pay attention to your words.</li>
 </ul>
@@ -412,12 +341,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="advice-for-code-authors">
-  Advice for Code Authors
-  <a class="heading-link" href="#advice-for-code-authors">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="advice-for-code-authors">Advice for Code Authors</h2>
 <ul>
 <li>Make reviews as small as possible [2][3]
 <ul>
@@ -460,12 +384,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="references">
-  References
-  <a class="heading-link" href="#references">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="references">References</h2>
 <ul>
 <li>[1] <a href="https://google.github.io/eng-practices/review/reviewer/">eng-practices | How to do a code review</a></li>
 <li>[2] <a href="https://google.github.io/eng-practices/review/developer/">eng-practices | The CL author’s guide to getting through code review</a></li>
@@ -542,20 +461,22 @@
 
     
       
-      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+      <script src="/js/coder.min.f92783b4545b68f3523e5d6ad91d93f76818f9d0db2ffa13bda31b6119cde62b.js" integrity="sha256-&#43;SeDtFRbaPNSPl1q2R2T92gY&#43;dDbL/oTvaMbYRnN5is="></script>
     
 
     
 
     
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-K7GK6FJ729"></script>
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-K7GK6FJ729', { 'anonymize_ip': false });
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'G-K7GK6FJ729', 'auto');
+	
+	ga('send', 'pageview');
 }
 </script>
 
