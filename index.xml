@@ -6,7 +6,17 @@
     <description>Recent content on osak.jp</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 06 Jul 2023 19:00:00 +0900</lastBuildDate><atom:link href="https://osak.jp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Jul 2023 20:00:00 +0900</lastBuildDate><atom:link href="https://osak.jp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>自分であるものリスト</title>
+      <link>https://osak.jp/memo/identity/</link>
+      <pubDate>Thu, 06 Jul 2023 20:00:00 +0900</pubDate>
+      
+      <guid>https://osak.jp/memo/identity/</guid>
+      <description>以下のアカウントは全て自分（osa_k）であることを保証します。
+   サービス名 アカウント名（リンク）     Twitter @osa_k   Mastodon (Mikutter) @osa_k@social.mikutter.hachune.net   Discord osa_k   LinkedIn osamu-koga-918676a9   Gmail osak.63@gmail.com   GitHub osak   Facebook osamu.koga.77   Instagram osak.63    </description>
+    </item>
+    
     <item>
       <title>ゼルダの伝説　ブレスオブザワイルド感想</title>
       <link>https://osak.jp/posts/ja/breath-of-the-wild/</link>

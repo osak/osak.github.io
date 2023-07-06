@@ -2,14 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://osak.jp/memo/</loc>
+    <lastmod>2023-07-06T20:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://osak.jp/</loc>
+    <lastmod>2023-07-06T20:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://osak.jp/memo/identity/</loc>
+    <lastmod>2023-07-06T20:00:00+09:00</lastmod>
+  </url><url>
     <loc>https://osak.jp/posts/</loc>
     <lastmod>2023-07-06T19:00:00+09:00</lastmod>
     <priority>0</priority>
   </url><url>
     <loc>https://osak.jp/posts/ja/</loc>
-    <lastmod>2023-07-06T19:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://osak.jp/</loc>
     <lastmod>2023-07-06T19:00:00+09:00</lastmod>
   </url><url>
     <loc>https://osak.jp/posts/ja/breath-of-the-wild/</loc>
@@ -62,9 +68,6 @@
     <lastmod>2021-03-26T04:03:00-05:00</lastmod>
   </url><url>
     <loc>https://osak.jp/memo/gyakubenile/</loc>
-    <lastmod>2021-01-28T01:30:00-06:00</lastmod>
-  </url><url>
-    <loc>https://osak.jp/memo/</loc>
     <lastmod>2021-01-28T01:30:00-06:00</lastmod>
   </url><url>
     <loc>https://osak.jp/posts/en/code-review-goals-and-approaches/</loc>
