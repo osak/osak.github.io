@@ -10,35 +10,37 @@
     
 
     <meta name="author" content="Osamu Koga (osa_k)">
-    <meta name="description" content="定義 主要な性質（余弦定理との関係） 直交判定 三角形の面積 内積と外積 コサイン類似度    高校数学レベルで理解可能な内積の性質と、その利用法について簡単にまとめる。
-定義    ベクトル $\vec{a} = (x_a, y_a)$ と $\vec{b} = (x_b, y_b)$ について、内積 $\vec{a} \cdot \vec{b} $ は以下の等式で定義される。
+    <meta name="description" content="定義 主要な性質（余弦定理との関係） 直交判定 三角形の面積 内積と外積 コサイン類似度 高校数学レベルで理解可能な内積の性質と、その利用法について簡単にまとめる。
+定義 ベクトル $\vec{a} = (x_a, y_a)$ と $\vec{b} = (x_b, y_b)$ について、内積 $\vec{a} \cdot \vec{b} $ は以下の等式で定義される。
 $$ \begin{equation} \label{inner-product} \vec{a} \cdot \vec{b} = x_a x_b &#43; y_a y_b \end{equation} $$
-主要な性質（余弦定理との関係）    内積の主要な性質として、以下の等式が成立することが知られている。
+主要な性質（余弦定理との関係） 内積の主要な性質として、以下の等式が成立することが知られている。
 $$ \begin{equation} \label{inner-product-cos-thm} \vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos \theta \end{equation} $$
-このことは、ベクトル $\vec{a}$ と $\vec{b}$ によって張られる三角形を考えて、余弦定理 $c^2 = a^2 &#43; b^2 - 2ab \cos \theta_{ab}$ を変形して得られる等式">
+このことは、ベクトル $\vec{a}$ と $\vec{b}$ によって張られる三角形を考えて、余弦定理 $c^2 = a^2 &#43; b^2 - 2ab \cos \theta_{ab}$ を変形して得られる等式
+$$ \begin{equation} \label{inner-product-alt} |\vec{a}||\vec{b}| \cos \theta_{ab} = \frac{|\vec{a}|^2 &#43; |\vec{b}|^2 - |\vec{c}|^2}{2} \end{equation} $$">
     <meta name="keywords" content="blog,developer,personal">
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="内積とはなんなのか"/>
-<meta name="twitter:description" content="定義 主要な性質（余弦定理との関係） 直交判定 三角形の面積 内積と外積 コサイン類似度    高校数学レベルで理解可能な内積の性質と、その利用法について簡単にまとめる。
-定義    ベクトル $\vec{a} = (x_a, y_a)$ と $\vec{b} = (x_b, y_b)$ について、内積 $\vec{a} \cdot \vec{b} $ は以下の等式で定義される。
+<meta name="twitter:description" content="定義 主要な性質（余弦定理との関係） 直交判定 三角形の面積 内積と外積 コサイン類似度 高校数学レベルで理解可能な内積の性質と、その利用法について簡単にまとめる。
+定義 ベクトル $\vec{a} = (x_a, y_a)$ と $\vec{b} = (x_b, y_b)$ について、内積 $\vec{a} \cdot \vec{b} $ は以下の等式で定義される。
 $$ \begin{equation} \label{inner-product} \vec{a} \cdot \vec{b} = x_a x_b &#43; y_a y_b \end{equation} $$
-主要な性質（余弦定理との関係）    内積の主要な性質として、以下の等式が成立することが知られている。
+主要な性質（余弦定理との関係） 内積の主要な性質として、以下の等式が成立することが知られている。
 $$ \begin{equation} \label{inner-product-cos-thm} \vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos \theta \end{equation} $$
-このことは、ベクトル $\vec{a}$ と $\vec{b}$ によって張られる三角形を考えて、余弦定理 $c^2 = a^2 &#43; b^2 - 2ab \cos \theta_{ab}$ を変形して得られる等式"/>
+このことは、ベクトル $\vec{a}$ と $\vec{b}$ によって張られる三角形を考えて、余弦定理 $c^2 = a^2 &#43; b^2 - 2ab \cos \theta_{ab}$ を変形して得られる等式
+$$ \begin{equation} \label{inner-product-alt} |\vec{a}||\vec{b}| \cos \theta_{ab} = \frac{|\vec{a}|^2 &#43; |\vec{b}|^2 - |\vec{c}|^2}{2} \end{equation} $$"/>
 
     <meta property="og:title" content="内積とはなんなのか" />
-<meta property="og:description" content="定義 主要な性質（余弦定理との関係） 直交判定 三角形の面積 内積と外積 コサイン類似度    高校数学レベルで理解可能な内積の性質と、その利用法について簡単にまとめる。
-定義    ベクトル $\vec{a} = (x_a, y_a)$ と $\vec{b} = (x_b, y_b)$ について、内積 $\vec{a} \cdot \vec{b} $ は以下の等式で定義される。
+<meta property="og:description" content="定義 主要な性質（余弦定理との関係） 直交判定 三角形の面積 内積と外積 コサイン類似度 高校数学レベルで理解可能な内積の性質と、その利用法について簡単にまとめる。
+定義 ベクトル $\vec{a} = (x_a, y_a)$ と $\vec{b} = (x_b, y_b)$ について、内積 $\vec{a} \cdot \vec{b} $ は以下の等式で定義される。
 $$ \begin{equation} \label{inner-product} \vec{a} \cdot \vec{b} = x_a x_b &#43; y_a y_b \end{equation} $$
-主要な性質（余弦定理との関係）    内積の主要な性質として、以下の等式が成立することが知られている。
+主要な性質（余弦定理との関係） 内積の主要な性質として、以下の等式が成立することが知られている。
 $$ \begin{equation} \label{inner-product-cos-thm} \vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos \theta \end{equation} $$
-このことは、ベクトル $\vec{a}$ と $\vec{b}$ によって張られる三角形を考えて、余弦定理 $c^2 = a^2 &#43; b^2 - 2ab \cos \theta_{ab}$ を変形して得られる等式" />
+このことは、ベクトル $\vec{a}$ と $\vec{b}$ によって張られる三角形を考えて、余弦定理 $c^2 = a^2 &#43; b^2 - 2ab \cos \theta_{ab}$ を変形して得られる等式
+$$ \begin{equation} \label{inner-product-alt} |\vec{a}||\vec{b}| \cos \theta_{ab} = \frac{|\vec{a}|^2 &#43; |\vec{b}|^2 - |\vec{c}|^2}{2} \end{equation} $$" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://osak.jp/posts/ja/what-is-inner-product/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-04-28T01:28:00-05:00" />
 <meta property="article:modified_time" content="2021-04-28T01:28:00-05:00" />
-
 
 
     <title>
@@ -54,7 +56,7 @@ $$ \begin{equation} \label{inner-product-cos-thm} \vec{a} \cdot \vec{b} = |\vec{
     
       
       
-      <link rel="stylesheet" href="/css/coder.min.eb7743f94930acfd17146aecc1f80e86fe35b3e451f2ec0c98485f9c4d962f34.css" integrity="sha256-63dD&#43;UkwrP0XFGrswfgOhv41s&#43;RR8uwMmEhfnE2WLzQ=" crossorigin="anonymous" media="screen" />
+      <link rel="stylesheet" href="/css/coder.min.7c7534e2cc4078603d0def8dafe1cfc9cafc7d8d6b564db34bbc58779829e312.css" integrity="sha256-fHU04sxAeGA9De&#43;Nr&#43;HPycr8fY1rVk2zS7xYd5gp4xI=" crossorigin="anonymous" media="screen" />
     
 
     
@@ -86,7 +88,7 @@ $$ \begin{equation} \label{inner-product-cos-thm} \vec{a} \cdot \vec{b} = |\vec{
         integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
     
 
-    <meta name="generator" content="Hugo 0.82.0-DEV" />
+    <meta name="generator" content="Hugo 0.115.4">
   </head>
 
   
@@ -327,7 +329,7 @@ $$</p>
 
         <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -397,7 +399,7 @@ $$</p>
 
     
       
-      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+      <script src="/js/coder.min.978ac2219b08e24e68c3f3eada8d99add50d9d997ce3861354b602cc94f75f30.js" integrity="sha256-l4rCIZsI4k5ow/Pq2o2ZrdUNnZl844YTVLYCzJT3XzA="></script>
     
 
     

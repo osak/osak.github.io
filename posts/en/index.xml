@@ -14,7 +14,7 @@
       
       <guid>https://osak.jp/posts/en/icfpc-2021/</guid>
       <description>I participated in ICFP Content 2021 with regular teammates. Our team name was &amp;ldquo;manarimo&amp;rdquo;, which is what we&amp;rsquo;ve been using for years recently.
- Repository： https://github.com/manarimo/ICFPC2021/ Portal website： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html Manual solver： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1  We ranked at the second place as of when the scoreboard was frozen. I&amp;rsquo;m happy with this result as we are #1 among Japanese teams. I was thinking we could get the global #1, however, RGBTeam did a better job then us.</description>
+Repository： https://github.com/manarimo/ICFPC2021/ Portal website： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/best.html Manual solver： http://icfpc2021-manarimo.s3-website-us-east-1.amazonaws.com/kenkoooo/#/problem/1 We ranked at the second place as of when the scoreboard was frozen. I&amp;rsquo;m happy with this result as we are #1 among Japanese teams. I was thinking we could get the global #1, however, RGBTeam did a better job then us.</description>
     </item>
     
     <item>
@@ -24,7 +24,7 @@
       
       <guid>https://osak.jp/posts/en/code-review-goals-and-approaches/</guid>
       <description>This is a translation of my original blog post written in Japanese. Baseline translation was powered by DeepL Translate.
-  Preface The Goal of Code Review  Main Goals Sub goals   Checklist  High priority Medium priority Low priority   How to avoid turning reviews into a burden  Control the size of reviews Who should be the reviewer? How to organize the discussion Criticism and personal offense   Advice for Reviewers Advice for Code Authors References    Preface    The advantages of code reviews have long been emphasized.</description>
+Preface The Goal of Code Review Main Goals Sub goals Checklist High priority Medium priority Low priority How to avoid turning reviews into a burden Control the size of reviews Who should be the reviewer? How to organize the discussion Criticism and personal offense Advice for Reviewers Advice for Code Authors References Preface The advantages of code reviews have long been emphasized.</description>
     </item>
     
   </channel>
